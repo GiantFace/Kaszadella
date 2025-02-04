@@ -36,88 +36,88 @@
     @apply w-full min-h-14 border-none text-base font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-dark-300 !important;
   }
 
-  /* Book Card */
-  .book-title {
+  /* tipp Card */
+  .tipp-title {
     @apply mt-2 line-clamp-1 text-base font-semibold text-white xs:text-xl;
   }
 
-  .book-genre {
+  .tipp-genre {
     @apply mt-1 line-clamp-1 text-sm italic text-light-100 xs:text-base;
   }
 
-  .book-loaned {
+  .tipp-loaned {
     @apply flex flex-row items-center gap-1 max-xs:justify-center;
   }
 
-  .book-btn {
+  .tipp-btn {
     @apply bg-dark-600 mt-3 min-h-14 w-full font-bebas-neue text-base text-primary;
   }
 
-  /* Borrowed Book */
-  .borrowed-book {
+  /* Borrowed tipp */
+  .borrowed-tipp {
     @apply gradient-vertical p-5 rounded-2xl xs:w-min w-full relative;
   }
 
-  .borrowed-book_cover {
+  .borrowed-tipp_cover {
     @apply py-4 lg:px-16 px-10 flex justify-center items-center w-full rounded-lg;
   }
 
-  /* Book Cover */
-  .book-cover_extra_small {
+  /* tipp Cover */
+  .tipp-cover_extra_small {
     @apply w-[28.95px] h-10;
   }
 
-  .book-cover_small {
+  .tipp-cover_small {
     @apply w-[55px] h-[76px];
   }
 
-  .book-cover_medium {
+  .tipp-cover_medium {
     @apply w-[144px] h-[199px];
   }
 
-  .book-cover_regular {
+  .tipp-cover_regular {
     @apply xs:w-[174px] w-[114px] xs:h-[239px] h-[169px];
   }
 
-  .book-cover_wide {
+  .tipp-cover_wide {
     @apply xs:w-[296px] w-[256px] xs:h-[404px] h-[354px];
   }
 
-  /* Book List */
-  .book-list {
+  /* tipp List */
+  .tipp-list {
     @apply mt-10 flex flex-wrap gap-5 max-xs:justify-between xs:gap-10;
   }
 
-  /* Book Overview */
-  .book-overview {
+  /* tipp Overview */
+  .tipp-overview {
     @apply flex flex-col-reverse items-center gap-12 sm:gap-32 xl:flex-row xl:gap-8;
   }
 
-  .book-overview h1 {
+  .tipp-overview h1 {
     @apply text-5xl font-semibold text-white md:text-7xl;
   }
 
-  .book-info {
+  .tipp-info {
     @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-light-100;
   }
 
-  .book-copies {
+  .tipp-copies {
     @apply flex flex-row flex-wrap gap-4 mt-1;
   }
 
-  .book-copies p {
+  .tipp-copies p {
     @apply text-xl text-light-100;
   }
 
-  .book-copies p span {
+  .tipp-copies p span {
     @apply ml-2 font-semibold text-primary;
   }
 
-  .book-description {
+  .tipp-description {
     @apply mt-2 text-justify text-xl text-light-100;
   }
 
-  .book-overview_btn {
+  .tipp-overview_btn {
     @apply mt-4 min-h-14 w-fit bg-primary text-dark-100 hover:bg-primary/90 max-md:w-full !important;
   }
 
@@ -143,37 +143,37 @@
     @apply w-full border-none font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none !important;
   }
 
-  /* Book Receipt */
-  .book-receipt_admin-btn {
+  /* tipp Receipt */
+  .tipp-receipt_admin-btn {
     @apply bg-light-300 rounded-md text-primary-admin font-semibold hover:bg-light-300/80 !important;
   }
 
-  /* Book Ticket */
-  #book-ticket {
+  /* tipp Ticket */
+  #tipp-ticket {
     @apply relative mt-10 hidden w-[544px] overflow-hidden bg-dark-300 py-8;
   }
 
-  #book-ticket #book-details div {
+  #tipp-ticket #tipp-details div {
     @apply space-y-1 rounded-md border border-light-100/10 p-3;
   }
 
-  #book-ticket #book-details div p:first-child {
+  #tipp-ticket #tipp-details div p:first-child {
     @apply text-xs text-light-700;
   }
 
-  #book-ticket #book-details div p:last-child {
+  #tipp-ticket #tipp-details div p:last-child {
     @apply text-sm font-bold text-white;
   }
 
-  #book-ticket #book-divider div:first-child {
+  #tipp-ticket #tipp-divider div:first-child {
     @apply absolute -left-3.5 top-1/2 size-7 -translate-y-1/2 rounded-full bg-black;
   }
 
-  #book-ticket #book-divider div:last-child {
+  #tipp-ticket #tipp-divider div:last-child {
     @apply absolute -right-3.5 top-1/2 size-7 -translate-y-1/2 rounded-full bg-black;
   }
 
-  .book-ticket-circles {
+  .tipp-ticket-circles {
     @apply absolute inset-x-0 -bottom-6 flex flex-row gap-1.5;
   }
 
@@ -260,12 +260,12 @@
     @apply flex min-h-screen flex-1 flex-col bg-pattern bg-cover bg-top bg-dark-100 px-5 xs:px-10 md:px-16;
   }
 
-  /* Book Details */
-  .book-details {
+  /* tipp Details */
+  .tipp-details {
     @apply lg:mt-36 mt-16 mb-20 flex flex-col gap-16 lg:flex-row;
   }
 
-  .book-details h3 {
+  .tipp-details h3 {
     @apply text-xl font-semibold text-primary;
   }
 

@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 import { usePathname } from "next/navigation";
 
@@ -10,17 +11,19 @@ const Header = () => {
 
   return (
     <header className="my-10 flex justify-between gap-5">
-      <Link href="/">TippsterWeb</Link>
+      <Link href="/">
+        <Image src="/icons/logo3.png" alt="logo" width={70} height={70} />
+      </Link>
       <ul className="flex flex-row items-center gap-8">
         <li>
           <Link
-            href="/library"
+            href="/tips"
             className={cn(
               "text-base cursor-pointer capitalize",
-              pathname === "/library" ? "text-light-200" : "text-light-100",
+              pathname === "/tips" ? "text-light-200" : "text-light-100",
             )}
           >
-            Library
+            Tippek
           </Link>
         </li>
       </ul>
