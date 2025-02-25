@@ -14,7 +14,8 @@ export default {
         "bebas-neue": ["var(--bebas-neue)"],
       },
       colors: {
-        background: "hsl(var(--background))",
+        // Alapértelmezett háttérszín: Mesés, varázslatos zöld
+        background: "hsla(120,60%,35%,0.9)",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -24,10 +25,6 @@ export default {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        // primary: {
-        //   DEFAULT: "hsl(var(--primary))",
-        //   foreground: "hsl(var(--primary-foreground))",
-        // },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -55,7 +52,7 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
         primary: {
-          DEFAULT: "#E7C9A5",
+          DEFAULT: "#a10101",
           admin: "#25388C",
         },
         green: {
@@ -106,9 +103,11 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      backgroundImage: {
-        pattern: "url('/images/pattern.webp')",
-      },
+      // A backgroundImage kiterjesztést eltávolítottuk,
+      // így a bg-pattern nem kerül alkalmazásra.
+      // backgroundImage: {
+      //   pattern: "url('/images/pattern.webp')",
+      // },
     },
   },
   plugins: [require("tailwindcss-animate")],

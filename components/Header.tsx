@@ -10,9 +10,9 @@ const Header = () => {
   const pathname = usePathname();
 
   return (
-    <header className="my-10 flex justify-between gap-5">
+    <header className="header-glass my-10 flex justify-between gap-5">
       <Link href="/">
-        <Image src="/icons/logo3.png" alt="logo" width={70} height={70} />
+        <Image src="/icons/logo3.png" alt="logo" height={70} width={70} />
       </Link>
       <ul className="flex flex-row items-center gap-8">
         <li>
@@ -20,10 +20,21 @@ const Header = () => {
             href="/tips"
             className={cn(
               "text-base cursor-pointer capitalize",
-              pathname === "/tips" ? "text-light-200" : "text-light-100",
+              pathname === "/tips" ? "border-l-dark-100" : "text-pink-500",
             )}
           >
             Tippek
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/sign-in"
+            className={cn(
+              "text-base cursor-pointer capitalize",
+              pathname === "/tips" ? "text-pink-500" : "text-dark-100",
+            )}
+          >
+            Belépés
           </Link>
         </li>
       </ul>

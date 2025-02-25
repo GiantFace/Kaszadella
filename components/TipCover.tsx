@@ -1,12 +1,15 @@
+"use client";
 import React from "react";
 import { cn } from "@/lib/utils";
+import Footer from "./Footer";
 import Image from "next/image";
-import config from "@/lib/config";
+//import config from "@/lib/config";
 import coverImage from "next/image";
+import TipChart from "@/components/TipChart";
 
-type TippCoverVariant = "exraSmall" | "small" | "medium" | "regular" | "wide";
+type TipCoverVariant = "exraSmall" | "small" | "medium" | "regular" | "wide";
 
-const variantStyles: Record<TippCoverVariant, string> = {
+const variantStyles: Record<TipCoverVariant, string> = {
   exraSmall: "book-cover_extra-small",
   small: "book-cover_small",
   medium: "book-cover_medium",
@@ -15,11 +18,11 @@ const variantStyles: Record<TippCoverVariant, string> = {
 };
 interface Props {
   className?: string;
-  variant?: TippCoverVariant;
+  variant?: TipCoverVariant;
   coverColor: string;
   coverUrl: string;
 }
-const TippCover = ({
+const TipCover = ({
   className,
   variant = "regular",
   coverColor = "#012B48",
@@ -37,13 +40,7 @@ const TippCover = ({
         className="absolute z-10"
         style={{ left: "12%", width: "87.5%", height: "88%" }}
       ></div>
-      <Image
-        src={coverUrl}
-        alt="Tipp cover"
-        fill
-        className="rounded-sm object-cover"
-      />
     </div>
   );
 };
-export default TippCover;
+export default TipCover;
