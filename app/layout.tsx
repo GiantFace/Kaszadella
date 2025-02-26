@@ -3,6 +3,7 @@ import "./globals.css";
 
 import localFont from "next/font/local";
 import { ReactNode } from "react";
+import Footer from "@/components/Footer";
 
 const ibmPlexSans = localFont({
   src: [

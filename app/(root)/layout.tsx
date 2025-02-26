@@ -1,14 +1,21 @@
 import React, { ReactNode } from "react";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="root-container">
-      <div className={"mx-auto max-w-7xl"}>
+    <div className="root-container flex flex-col min-h-screen">
+      {/* Központi tartalom (header + children) */}
+      <div className="mx-auto w-full max-w-7xl">
         <Header />
-        <div className={"mt-20 pb-20"}>{children}</div>
+        <main className="mt-20 pb-20">{children}</main>
       </div>
-    </main>
+
+      <div className="footer-container">
+        <Footer />
+      </div>
+    </div>
   );
 };
+
 export default Layout;

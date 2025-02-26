@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import TippList from "@/components/TippList";
-import TippOverview from "@/components/TippOverview";
-import { sampleTipps } from "@/constans/Index";
+import TipList from "@/components/TipList";
+import TipOverview from "@/components/TipOverview";
+import { sampleTips } from "@/constans/Index";
 
 const Home = () => (
   <>
-    <TippOverview {...sampleTipps[0]} />
-    <TippList
+    <TipOverview {...sampleTips[0]} />
+    <TipList
       title="Zeus tippek"
-      tipps={sampleTipps}
+      tips={sampleTips}
       contaionerClassName="mt-28"
     />
   </>

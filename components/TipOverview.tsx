@@ -53,7 +53,7 @@ const TipOverview = () => {
       </div>
 
       {/* Jobb oldal: Grafikon */}
-      <div className="relative flex flex-1 justify-center">
+      <div className="relative flex flex-2 justify-center">
         <div className="relative">
           <div className="max-sm:hidden">
             {/* TippChart komponens, amely frissíti a kiválasztott tippet */}

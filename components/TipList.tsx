@@ -16,8 +16,8 @@ interface Props {
 const TipList = ({ title, tips, containerClassName }: Props) => {
   return (
     <section className={containerClassName}>
-      <h2 className="font-bebas-neue text-4xl text-dark-100 mt-1">
-        A legjobb tippmesterektől
+      <h2 className="font-bebas-neue text-4xl text-dark-100 mt-10 justify-center text-center">
+        CSOMAGJAINK
       </h2>
       <ul className="tipp-list">
         {tips.map((tip, index) => (

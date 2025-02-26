@@ -1,57 +1,135 @@
+/* =========================
+   Tailwind Alaprétegek
+   ========================= */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+   BASE layer
+   ========================= */
 @layer base {
   :root {
-    --radius: 0.5rem;
+    --radius: 1rem; /* nagyobb lekerekítés a mesésebb stílushoz */
+
+    /* Alap CSS-változók – tetszés szerint finomíthatod őket is */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
   }
 
+  /* Sötét mód – ha szeretnéd, itt is mesésebbé teheted a színeket */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  /* Scrollbar eltüntetése */
   .hide-scrollbar::-webkit-scrollbar {
     width: 0px;
     height: 0px;
     border-radius: 0px;
   }
-
   .hide-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
-
   .hide-scrollbar::-webkit-scrollbar-thumb {
     background: transparent;
     border-radius: 0px;
   }
-
   .hide-scrollbar::-webkit-scrollbar-thumb:hover {
     background: transparent;
   }
 }
 
+/* =========================
+   COMPONENTS layer
+   ========================= */
 @layer components {
+  /* Alap gomb stílus */
   .form-btn {
     @apply bg-primary text-dark-100 hover:bg-primary inline-flex min-h-14 w-full items-center justify-center rounded-md px-6 py-2 font-bold text-base !important;
   }
 
+  /* Alap input stílus */
   .form-input {
-    @apply w-full min-h-14 border-none text-base font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-dark-300 !important;
+    @apply w-full min-h-14 border-none text-base font-bold placeholder:font-normal text-dark-100 placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-dark-300 !important;
   }
 
-  /* tipp Card */
-  .tipp-title {
-    @apply mt-2 line-clamp-1 text-base font-semibold text-white xs:text-xl;
+  /* Példa: Auth box (bejelentkezési doboz) */
+  .auth-box {
+    /* Világos doboz, enyhe árnyékkal, pasztell átmenettel */
+    @apply mx-auto flex max-w-xl flex-col gap-6 p-10 rounded-lg shadow-xl;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fff0 100%);
   }
 
-  .tipp-genre {
-    @apply mt-1 line-clamp-1 text-sm italic text-light-100 xs:text-base;
+  /* Header */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
-  .tipp-loaned {
-    @apply flex flex-row items-center gap-1 max-xs:justify-center;
+  .header-glass {
+    background: #A3c4f3;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 15px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 25px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    position: relative;
+    animation: slideDown 0.7s ease-out forwards;
   }
 
-  .tipp-btn {
-    @apply bg-dark-600 mt-3 min-h-14 w-full font-bebas-neue text-base text-primary;
-  }
 
   /* Borrowed tipp */
   .borrowed-tipp {
@@ -61,6 +139,92 @@
   .borrowed-tipp_cover {
     @apply py-4 lg:px-16 px-10 flex justify-center items-center w-full rounded-lg;
   }
+  /* Flipbox konténer: alapból vízszintes elrendezés, középre igazítva */
+  /* TippCard.css */
+  .flipbox-item:hover .flipbox-inner {
+    transform: rotateY(180deg);
+  }
+
+  /* Global Flipbox Stílusok */
+  .flipbox-item {
+    width: 100%;
+    max-width: 20rem; /* Desktop: kb. 320px */
+    height: 12rem;    /* Desktop: kb. 192px */
+    cursor: pointer;
+    margin: 0 auto;
+    perspective: 1000px;
+  }
+
+  .flipbox-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 700ms ease-in-out;
+    transform-style: preserve-3d;
+  }
+
+  /* Desktop: Hover vagy "flipped" osztály aktiválja a flip-et */
+  .flipbox-item:hover .flipbox-inner,
+  .flipbox-item.flipped .flipbox-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flipbox-front,
+  .flipbox-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
+    0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-lg */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; /* p-4 */
+    backface-visibility: hidden;
+  }
+
+  .flipbox-front {
+    background-color: #ffffff;
+    color: #1f2937; /* dark-100 */
+  }
+
+  .flipbox-back {
+    background-color: var(--primary); /* a primary szín a Tailwind configból */
+    color: #ffffff;
+    transform: rotateY(180deg);
+  }
+
+  /* Mobil optimalizáció – kisebb képernyőkön */
+  @media (max-width: 650px) {
+    .flipbox-item {
+      max-width: 100%; /* Mobilon szélesebb, de nem teljesen a képernyő */
+      height: auto;   /* Automatikusan alkalmazkodik a tartalomhoz */
+      margin: auto; /* Kis margó a tetején és alján */
+      min-height: 200px;
+
+    }
+    .flipbox-inner {
+      height: 100%;
+      width: 100%;
+      padding: 1rem 10rem ;
+    }
+    .flipbox-front,
+    .flipbox-back {
+      padding: 0.5rem; /* Csökkentett padding mobilon */
+    }
+    .flipbox-front h3 {
+      font-size: 1.25rem; /* Kicsit kisebb cím */
+    }
+    .flipbox-front p,
+    .flipbox-back p {
+      font-size: 0.875rem; /* Kis betűméret */
+    }
+  }
+
+
+
+
 
   /* tipp Cover */
   .tipp-cover_extra_small {
@@ -85,20 +249,21 @@
 
   /* tipp List */
   .tipp-list {
-    @apply mt-10 flex flex-wrap gap-5 max-xs:justify-between xs:gap-10;
+    @apply mt-2 flex flex-wrap justify-center gap-5 max-xs:justify-between xs:gap-10 shadow-lg p-4 rounded-xl bg-white/80 backdrop-blur-md transition-all duration-300;
+
   }
 
   /* tipp Overview */
   .tipp-overview {
-    @apply flex flex-col-reverse items-center gap-12 sm:gap-32 xl:flex-row xl:gap-8;
+    @apply flex flex-col items-center gap-12 sm:gap-10 xl:flex-row xl:gap-8;
   }
 
   .tipp-overview h1 {
-    @apply text-5xl font-semibold text-white md:text-7xl;
+    @apply text-5xl font-semibold text-dark-100 md:text-7xl;
   }
 
   .tipp-info {
-    @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-light-100;
+    @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-dark-100;
   }
 
   .tipp-copies {
@@ -106,7 +271,7 @@
   }
 
   .tipp-copies p {
-    @apply text-xl text-light-100;
+    @apply text-xl text-dark-100;
   }
 
   .tipp-copies p span {
@@ -114,7 +279,7 @@
   }
 
   .tipp-description {
-    @apply mt-2 text-justify text-xl text-light-100;
+    @apply mt-2 text-justify text-xl text-dark-100;
   }
 
   .tipp-overview_btn {
@@ -226,43 +391,46 @@
 }
 
 @layer utilities {
+  /* Mesésebb gradientek */
   .gradient-vertical {
-    background: linear-gradient(180deg, #12141d 0%, #12151f 100%);
+    /* Pasztell lila-kék átmenet, mesés hangulathoz */
+    background: linear-gradient(180deg, #d9efff 0%, #f9e7ff 100%);
   }
-
   .gradient-gray {
-    background: linear-gradient(270deg, #37363a 0%, #353637 100%);
+    /* Pasztell barackos-lila átmenet */
+    background: linear-gradient(270deg, #ffe8e8 0%, #fff6e8 100%);
   }
-
   .gradient-blue {
-    background: linear-gradient(180deg, #232839 0%, #12141d 100%);
+    /* Lágy pasztell kék átmenet */
+    background: linear-gradient(180deg, #b3ecff 0%, #d9fffc 100%);
   }
 
-  /* Auth */
+  /* Auth container – pasztell, mesés háttér */
   .auth-container {
-    @apply relative flex flex-col-reverse text-light-100 sm:flex-row;
+    @apply relative flex flex-col-reverse text-dark-100 sm:flex-row;
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
   }
 
+  /* Auth form – a container adja a fő átmenetet, de ha szeretnél plusz háttérszínt, itt megteheted */
   .auth-form {
-    @apply my-auto flex h-full min-h-screen flex-1 items-center bg-pattern bg-cover bg-top bg-dark-100 px-5 py-10;
+    @apply my-auto flex h-full min-h-screen flex-1 items-center px-5 py-10;
+    /* Alapesetben a .auth-container adja a hátteret. */
   }
 
-  .auth-box {
-    @apply gradient-vertical mx-auto flex max-w-xl flex-col gap-6 rounded-lg p-10;
-  }
-
-  .auth-illustration {
-    @apply sticky h-40 w-full sm:top-0 sm:h-screen sm:flex-1;
-  }
-
-  /* Root */
+  /* Root container – az egész oldal hátterét is mesésebbé teheted */
   .root-container {
-    @apply flex min-h-screen flex-1 flex-col bg-pattern bg-cover bg-top bg-dark-100 px-5 xs:px-10 md:px-16;
+    @apply flex min-h-screen flex-1 flex-col px-5 xs:px-10 md:px-16;
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
   }
+  .footer-container {
+    @apply bg-gradient-to-br from-green-400 via-green-500 to-green-600;
+    width: 100vw !important;
+    margin-left: calc(50% - 50vw);
 
+  }
   /* tipp Details */
   .tipp-details {
-    @apply lg:mt-36 mt-16 mb-20 flex flex-col gap-16 lg:flex-row;
+    @apply lg:mt-36 mt-16 mb-5 flex flex-col gap-16 lg:flex-row;
   }
 
   .tipp-details h3 {
