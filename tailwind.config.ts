@@ -55,6 +55,9 @@ export default {
           DEFAULT: "#a10101",
           admin: "#25388C",
         },
+        yellow: {
+          DEFAULT: "#FAFABE",
+        },
         green: {
           DEFAULT: "#027A48",
           100: "#ECFDF3",
@@ -67,9 +70,10 @@ export default {
           400: "#F46F70",
           500: "#E27233",
           800: "#EF3A4B",
+          900: "#46043f",
         },
         blue: {
-          100: "#0089F1",
+          100: "#A3c4f3",
         },
         light: {
           100: "#D6E0FF",

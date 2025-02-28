@@ -10,4 +10,5 @@ interface Tipp {
   color: string;
   cover: string;
   video: string;
+  price: string;
 }

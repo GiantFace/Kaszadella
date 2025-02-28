@@ -90,9 +90,45 @@
    ========================= */
 @layer components {
   /* Alap gomb stílus */
-  .form-btn {
-    @apply bg-primary text-dark-100 hover:bg-primary inline-flex min-h-14 w-full items-center justify-center rounded-md px-6 py-2 font-bold text-base !important;
+  /* A külső wrapper, amiben az input + label van */
+  .input-container {
+    position: relative;
+    margin: 1rem 0;
   }
+
+  /* Az input stílusa */
+  .input-container input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid #000; /* Keret, ha szükséges */
+    background-color: #eee; /* Egyezzen meg a label háttérszínével */
+  }
+
+  /* A label alaphelyzetben az input "közepén" helyezkedik el */
+  .input-container label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* kattintás az inputra menjen */
+    background-color: #eee; /* megegyező háttér, így "megtöri" a keretet */
+    padding: 0 5px;
+    transition: 0.3s ease;
+    color: #666;
+    font-size: 16px;
+  }
+
+  /* Fókuszkor vagy ha az input nem üres, a label felcsúszik */
+  .input-container input:focus + label,
+  .input-container input:not(:placeholder-shown) + label {
+    top:10px;
+    left: 5px;
+    font-size: 15px;
+  }
+
 
   /* Alap input stílus */
   .form-input {
@@ -102,7 +138,7 @@
   /* Példa: Auth box (bejelentkezési doboz) */
   .auth-box {
     /* Világos doboz, enyhe árnyékkal, pasztell átmenettel */
-    @apply mx-auto flex max-w-xl flex-col gap-6 p-10 rounded-lg shadow-xl;
+    @apply mx-auto flex max-w-5xl flex-col gap-6 p-10 rounded-lg shadow-xl;
     background: linear-gradient(135deg, #ffffff 0%, #f0fff0 100%);
   }
 
@@ -117,7 +153,7 @@
       opacity: 1;
     }
   }
-
+/*Header###########################################################*/
   .header-glass {
     background: #A3c4f3;
     backdrop-filter: blur(30px);
@@ -129,8 +165,53 @@
     position: relative;
     animation: slideDown 0.7s ease-out forwards;
   }
+  @layer components {
+    .header-button {
+      text-align: center;
+      --color: #FFCFD2;
+      font-family: inherit;
+      display: inline-block;
+      width: 6em;
+      height: 2.6em;
+      line-height: 2.5em;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 17px;
+      z-index: 1;
+      color: var(--color);
+      border: 2px solid var(--color);
+      border-radius: 6px;
+      position: relative;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .header-button::before {
+      position: absolute;
+      content: "";
+      background: var(--color);
+      width: 150px;
+      height: 200px;
+      z-index: -1;
+      border-radius: 50%;
+      top: 100%;
+      left: 100%;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .header-button:hover {
+      color: white;
+    }
+
+    .header-button:hover::before {
+      top: -30px;
+      left: -30px;
+    }
+  }
 
 
+
+  /*###########################################################*/
   /* Borrowed tipp */
   .borrowed-tipp {
     @apply gradient-vertical p-5 rounded-2xl xs:w-min w-full relative;

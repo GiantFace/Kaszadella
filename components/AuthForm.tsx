@@ -1,37 +1,35 @@
-"use client";
 import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-
 import {
-  DefaultValues,
-  Path,
-  SubmitHandler,
-  useForm,
-  UseFormReturn,
-} from "react-hook-form";
-import { z, ZodType } from "zod";
-import { FieldValues } from "react-hook-form";
-
-import { Button } from "@/components/ui/button";
-import {
+  Container,
+  SignUpContainer,
+  SignInContainer,
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { FIELD_NAMES } from "@/constans/Index";
+  Title,
+  Input,
+  Button,
+  Anchor,
+  OverlayContainer,
+  Overlay,
+  LeftOverlayPanel,
+  RightOverlayPanel,
+  Paragraph,
+} from "@/components/ui/LoginStyles";
+import {
+  useForm,
+  SubmitHandler,
+  FieldValues,
+  Path,
+  DefaultValues,
+} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface Props<T extends FieldValues> {
-  schema: ZodType<T>;
-  defaultValues: T;
+  schema: any;
+  defaultValues: DefaultValues<T>;
   onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>;
   type: "SIGN_IN" | "SIGN_UP";
 }
+
 const AuthForm = <T extends FieldValues>({
   type,
   schema,
@@ -39,63 +37,61 @@ const AuthForm = <T extends FieldValues>({
   onSubmit,
 }: Props<T>) => {
   const isSignIn = type === "SIGN_IN";
-
-  const form: UseFormReturn<T> = useForm({
+  const form = useForm<T>({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues as DefaultValues<T>,
+    defaultValues,
   });
-  const handleSubmit: SubmitHandler<T> = async (data) => {};
-  return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-semibold text-dark">
-        {isSignIn
-          ? "Üdvözöllek újra a legjobbak között"
-          : "Hozd létre a nyertes fiókod"}
-      </h1>
-      <p className="text-dark-100">
-        {isSignIn
-          ? "Férj hozzá a legjobb tippekhez, hogy tömd a zsebed"
-          : "Itt a lehetőséged, hogy legyen egy wututu autód"}
-      </p>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="space-y-6 w-full"
-        >
-          {Object.keys(defaultValues).map((field) => (
-            <FormField
-              key={field}
-              control={form.control}
-              name={field as Path<T>}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="capitalize">
-                    {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
 
-          <Button type="submit" className="form-btn">
-            {isSignIn ? "Bejelentkezés" : "Regisztráció"}
-          </Button>
-        </form>
-      </Form>
-      <p className="text-center text-base font-medium">
-        {isSignIn ? "Új vagy az oldalon? " : "Már van fiókom "}
-        <Link
-          href={isSignIn ? "/sign-up" : "/sign-in"}
-          className="font-bold text-primary"
-        >
-          {isSignIn ? "Hozz létre új fiókot" : "Bejelentkezés"}
-        </Link>
-      </p>
-    </div>
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    await onSubmit(data);
+  };
+
+  return (
+    <Container>
+      <SignInContainer $signingIn={isSignIn}>
+        <Form onSubmit={form.handleSubmit(handleSubmit)}>
+          <Title>Bejelentkezés</Title>
+          <Input {...form.register("email" as Path<T>)} placeholder="Email" />
+          <Input
+            {...form.register("password" as Path<T>)}
+            type="password"
+            placeholder="Jelszó"
+          />
+          <Anchor href="#">Elfelejtetted a jelszavad?</Anchor>
+          <Button type="submit">Bejelentkezés</Button>
+        </Form>
+      </SignInContainer>
+
+      <SignUpContainer $signingIn={isSignIn}>
+        <Form onSubmit={form.handleSubmit(handleSubmit)}>
+          <Title>Regisztráció</Title>
+          <Input {...form.register("fullName" as Path<T>)} placeholder="Név" />
+          <Input {...form.register("email" as Path<T>)} placeholder="Email" />
+          <Input
+            {...form.register("password" as Path<T>)}
+            type="password"
+            placeholder="Jelszó"
+          />
+          <Button type="submit">Regisztráció</Button>
+        </Form>
+      </SignUpContainer>
+
+      <OverlayContainer $signingIn={isSignIn}>
+        <Overlay $signingIn={isSignIn}>
+          <LeftOverlayPanel $signingIn={isSignIn}>
+            <Title>Üdv újra itt!</Title>
+            <Paragraph>Lépj be fiókodba és folytasd a fogadásokat!</Paragraph>
+            <Button onClick={() => form.reset()}>Bejelentkezés</Button>
+          </LeftOverlayPanel>
+          <RightOverlayPanel $signingIn={isSignIn}>
+            <Title>Helló, Barát!</Title>
+            <Paragraph>Hozz létre egy fiókot és kezdjük el!</Paragraph>
+            <Button onClick={() => form.reset()}>Regisztráció</Button>
+          </RightOverlayPanel>
+        </Overlay>
+      </OverlayContainer>
+    </Container>
   );
 };
+
 export default AuthForm;

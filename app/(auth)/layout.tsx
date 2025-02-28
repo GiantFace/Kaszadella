@@ -1,27 +1,25 @@
 import React, { ReactNode } from "react";
 import Image from "next/image";
+import Header from "@/components/Header";
+import Link from "next/link";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <main className="auth-container">
       <section className="auth-form">
         <div className="auth-box">
-          <div className="flex flex-row gap-3">
-            <Image src="icons/logo2.svg" alt="logo" width={37} height={37} />
-            <h1 className="text-2xl font-semibold text-black">
-              Tippster Website
-            </h1>
+          <div className="flex flex-row w-23">
+            <Header />
           </div>
           <div>{children}</div>
         </div>
       </section>
-      <section className="auth-illustration">
+      <section>
         <Image
-          src="/images/login-pic.png"
+          src="/images/Kaszadella_halal_casa_pack.png"
           alt="illustration"
-          width={1000}
-          height={1000}
-          className="size-full object-cover"
+          width={500}
+          height={500}
         />
       </section>
     </main>

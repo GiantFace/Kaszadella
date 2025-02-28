@@ -5,6 +5,7 @@ interface Tipp {
   title: string;
   description: string;
   details: string;
+  price: string;
 }
 
 interface Props {

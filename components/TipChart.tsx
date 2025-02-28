@@ -40,7 +40,7 @@ const TipChart: React.FC<TippChartProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-xl gap-8">
+    <div className="flex flex-col items-center bg-gradient-to-br from-pink-300 to-pink-500-900 p-8 rounded-xl gap-8">
       {/* Chart konténer: Gradient háttér, nagyobb lekerekítés és árnyék */}
       <div className="w-full max-w-4xl bg-gradient-to-r from-gray-700 to-gray-800 p-8 rounded-2xl shadow-2xl">
         <Bar data={chartData} />

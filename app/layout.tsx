@@ -22,7 +22,7 @@ const bebasNeue = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Tipster Website",
+  title: "Kaszadella",
   description: "A legjobb tippek otthona",
 };
 

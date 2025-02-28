@@ -4,7 +4,8 @@ interface Tipp {
   title: string;
   description: string;
   details: string;
-  imageUrl?: string;
+  cover?: string;
+  price: string;
 }
 
 interface TippCardProps {
@@ -31,16 +32,22 @@ const TippCard: React.FC<TippCardProps> = ({ tip }) => {
         </div>
         {/* Back Side */}
         <div
-          className="flipbox-back absolute inset-0 bg-primary rounded-lg shadow-lg flex flex-col items-center justify-center p-4"
+          className="flipbox-back absolute inset-0 bg-blue-100 rounded-lg shadow-lg flex flex-col items-center p-4 duration-150 gap-3"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
           }}
         >
-          <p className="text-white">{tip.details}</p>
-          <button className="bg-dark-100 text-white px-3 py-1 rounded hover:bg-dark-200 transition-colors">
-            Aktiválom
-          </button>
+          <div className="flex flex-col items-center justify-center">
+            <img src={tip.cover} width={300} height={300} className="mb-2" />
+
+            <p className="text-white text-center">{tip.details}</p>
+
+            {/* Gomb feljebb helyezve */}
+            <button className="bg-dark-100 text-white px-4 py-2 rounded-lg hover:bg-dark-200 transition-transform hover:scale-105">
+              Aktiválom
+            </button>
+          </div>
         </div>
       </div>
     </div>
