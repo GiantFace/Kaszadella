@@ -12,3 +12,10 @@ interface Tipp {
   video: string;
   price: string;
 }
+
+interface AuthCredentials {
+  fullName: string;
+  email: string;
+  password: string;
+  nickname: string;
+}
