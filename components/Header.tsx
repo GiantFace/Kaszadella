@@ -1,12 +1,19 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { cn, getInitials } from "@/lib/utils";
+import { Session } from "next-auth";
 
-const Header = () => {
+interface HeaderProps {
+  session?: Session | null;
+}
+
+const Header = ({ session }: HeaderProps) => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -14,8 +21,35 @@ const Header = () => {
     { name: "Kezdőlap", href: "/" },
     { name: "Tippek", href: "/tips" },
     { name: "Előfizetés", href: "/subscription" },
-    { name: "Belépés", href: "/auth" },
+    { name: "Belépés", href: "/sign-up" },
   ];
+
+  // A "Belépés" helyett, ha be van jelentkezve, profil linket jelenítünk meg
+  const renderLink = (name: string, href: string, extraProps = {}) => {
+    if (name === "Belépés" && session && session.user) {
+      return (
+        <Link href="/my-profile" {...extraProps} className="bg-zinc-950">
+          <Avatar>
+            {session.user.image ? (
+              <AvatarImage
+                src={session.user.image}
+                alt={session.user.name || "User"}
+              />
+            ) : (
+              <AvatarFallback>
+                {getInitials(session.user.name || "User")}
+              </AvatarFallback>
+            )}
+          </Avatar>
+        </Link>
+      );
+    }
+    return (
+      <Link href={href} {...extraProps}>
+        {name}
+      </Link>
+    );
+  };
 
   return (
     <header className="header-glass flex justify-between items-center px-6 py-4 shadow-lg relative">
@@ -29,17 +63,14 @@ const Header = () => {
       <ul className="hidden md:flex flex-row items-center gap-6">
         {navLinks.map(({ name, href }) => (
           <li key={href}>
-            <Link
-              href={href}
-              className={cn(
+            {renderLink(name, href, {
+              className: cn(
                 "header-button",
                 pathname === href
                   ? "border-2 border-yellow text-yellow rounded-lg"
                   : "border-2 border-yellow text-yellow rounded-lg",
-              )}
-            >
-              {name}
-            </Link>
+              ),
+            })}
           </li>
         ))}
       </ul>
@@ -64,13 +95,10 @@ const Header = () => {
           <ul className="flex flex-col gap-4 p-4">
             {navLinks.map(({ name, href }) => (
               <li key={href}>
-                <Link
-                  onClick={() => setMenuOpen(false)}
-                  href={href}
-                  className="header-button block"
-                >
-                  {name}
-                </Link>
+                {renderLink(name, href, {
+                  onClick: () => setMenuOpen(false),
+                  className: "header-button block",
+                })}
               </li>
             ))}
           </ul>

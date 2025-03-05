@@ -50,7 +50,6 @@ export const FIELD_NAMES = {
 export const FIELD_TYPES = {
   fullName: "text",
   email: "email",
-  universityId: "number",
   password: "password",
 };
 

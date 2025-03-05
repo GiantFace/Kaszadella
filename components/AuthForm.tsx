@@ -1,31 +1,35 @@
-import React from "react";
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Container,
-  SignUpContainer,
-  SignInContainer,
-  Form,
-  Title,
-  Input,
-  Button,
-  Anchor,
-  OverlayContainer,
-  Overlay,
-  LeftOverlayPanel,
-  RightOverlayPanel,
-  Paragraph,
-} from "@/components/ui/LoginStyles";
-import {
-  useForm,
-  SubmitHandler,
+  DefaultValues,
   FieldValues,
   Path,
-  DefaultValues,
+  SubmitHandler,
+  useForm,
+  UseFormReturn,
 } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { ZodType } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { FIELD_NAMES } from "@/constans/Index";
 
 interface Props<T extends FieldValues> {
-  schema: any;
-  defaultValues: DefaultValues<T>;
+  schema: ZodType<T>;
+  defaultValues: T;
   onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>;
   type: "SIGN_IN" | "SIGN_UP";
 }
@@ -36,61 +40,90 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+  const router = useRouter();
   const isSignIn = type === "SIGN_IN";
-  const form = useForm<T>({
+
+  const form: UseFormReturn<T> = useForm<T>({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: defaultValues as DefaultValues<T>,
   });
 
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    await onSubmit(data);
+    const result = await onSubmit(data);
+    if (result.success) {
+      toast({
+        title: "Success",
+        description: isSignIn
+          ? "You have successfully signed in."
+          : "You have successfully signed up.",
+      });
+      router.push("/");
+    } else {
+      toast({
+        title: `Error ${isSignIn ? "signing in" : "signing up"}`,
+        description: result.error ?? "An error occurred.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
-    <Container>
-      <SignInContainer $signingIn={isSignIn}>
-        <Form onSubmit={form.handleSubmit(handleSubmit)}>
-          <Title>Bejelentkezés</Title>
-          <Input {...form.register("email" as Path<T>)} placeholder="Email" />
-          <Input
-            {...form.register("password" as Path<T>)}
-            type="password"
-            placeholder="Jelszó"
-          />
-          <Anchor href="#">Elfelejtetted a jelszavad?</Anchor>
-          <Button type="submit">Bejelentkezés</Button>
-        </Form>
-      </SignInContainer>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-2xl font-semibold text-white">
+        {isSignIn ? "Welcome back to BookWise" : "Create your library account"}
+      </h1>
+      <p className="text-light-100">
+        {isSignIn
+          ? "Access the vast collection of resources, and stay updated"
+          : "Please complete all fields and upload a valid university ID to gain access to the library"}
+      </p>
 
-      <SignUpContainer $signingIn={isSignIn}>
-        <Form onSubmit={form.handleSubmit(handleSubmit)}>
-          <Title>Regisztráció</Title>
-          <Input {...form.register("fullName" as Path<T>)} placeholder="Név" />
-          <Input {...form.register("email" as Path<T>)} placeholder="Email" />
-          <Input
-            {...form.register("password" as Path<T>)}
-            type="password"
-            placeholder="Jelszó"
-          />
-          <Button type="submit">Regisztráció</Button>
-        </Form>
-      </SignUpContainer>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="w-full space-y-6"
+        >
+          {Object.keys(defaultValues).map((key) => {
+            // A "key" itt a defaultValues objektum kulcsa (pl. "email" vagy "password")
+            return (
+              <FormField
+                key={key}
+                control={form.control}
+                name={key as Path<T>}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="capitalize">
+                        {/* Példa: emberi név a FIELD_NAMES alapján */}
+                        {FIELD_NAMES[key as keyof typeof FIELD_NAMES] ?? key}
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="Írj be valamit..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            );
+          })}
 
-      <OverlayContainer $signingIn={isSignIn}>
-        <Overlay $signingIn={isSignIn}>
-          <LeftOverlayPanel $signingIn={isSignIn}>
-            <Title>Üdv újra itt!</Title>
-            <Paragraph>Lépj be fiókodba és folytasd a fogadásokat!</Paragraph>
-            <Button onClick={() => form.reset()}>Bejelentkezés</Button>
-          </LeftOverlayPanel>
-          <RightOverlayPanel $signingIn={isSignIn}>
-            <Title>Helló, Barát!</Title>
-            <Paragraph>Hozz létre egy fiókot és kezdjük el!</Paragraph>
-            <Button onClick={() => form.reset()}>Regisztráció</Button>
-          </RightOverlayPanel>
-        </Overlay>
-      </OverlayContainer>
-    </Container>
+          <Button type="submit" className="form-btn">
+            {isSignIn ? "Sign In" : "Sign Up"}
+          </Button>
+        </form>
+      </Form>
+
+      <p className="text-center text-base font-medium">
+        {isSignIn ? "New to BookWise? " : "Already have an account? "}
+        <Link
+          href={isSignIn ? "/sign-up" : "/sign-in"}
+          className="font-bold text-primary"
+        >
+          {isSignIn ? "Create an account" : "Sign in"}
+        </Link>
+      </p>
+    </div>
   );
 };
 
