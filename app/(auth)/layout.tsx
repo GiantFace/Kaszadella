@@ -9,7 +9,15 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   if (session) redirect("/");
 
   return (
-    <main className="auth-container">
+    <main
+      className="auth-container"
+      style={{
+        backgroundImage: "url('/LandingPage.svg')",
+        backgroundSize: "cover",
+        backgroundPosition: "100% 100%",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <section className="auth-form">
         <div className="auth-box">
           <div className="flex flex-row gap-3">
@@ -19,16 +27,15 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 
           <div>{children}</div>
         </div>
-      </section>
-
-      <section className="auth-illustration">
-        <Image
-          src="/images/auth-illustration.png"
-          alt="auth illustration"
-          height={1000}
-          width={1000}
-          className="size-full object-cover"
-        />
+        <section className="">
+          <Image
+            src="/images/Kaszadella_halal_kaszadella_pack.png"
+            alt="Kaszadella"
+            height={1000}
+            width={1000}
+            className="size-full object-cover"
+          />
+        </section>
       </section>
     </main>
   );

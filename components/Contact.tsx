@@ -5,9 +5,17 @@ import Footer from "@/components/Footer"; // a helyes elérési út
 
 const ContactPage: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-dark-100">
+    <div
+      className="flex flex-col min-h-screen bg-primary-turquoise text-dark-100"
+      style={{
+        backgroundImage: "url('/LandingPage.svg')",
+        backgroundSize: "cover",
+        backgroundPosition: "100% 100%",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       {/* Fejléc */}
-      <Header />
+      {/*<Header session={Session} />*/}
 
       {/* Fő tartalom */}
       <main className="flex-grow container mx-auto px-4 py-12">
@@ -73,13 +81,14 @@ const ContactPage: React.FC = () => {
             {/* Gomb */}
             <button
               type="submit"
-              className="form-btn w-full bg-primary text-dark-100 font-bold py-3 rounded-md hover:bg-primary/90 transition-colors"
+              className="form-btn w-full bg-primary-turquoise text-dark-100 font-bold py-3 rounded-md hover:bg-primary/90 transition-colors"
             >
               Küldés
             </button>
           </form>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

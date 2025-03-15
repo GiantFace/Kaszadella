@@ -9,11 +9,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn, getInitials } from "@/lib/utils";
 import { Session } from "next-auth";
 
-interface HeaderProps {
-  session?: Session | null;
-}
-
-const Header = ({ session }: HeaderProps) => {
+const Header = ({ session }: { session: Session }) => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -52,10 +48,10 @@ const Header = ({ session }: HeaderProps) => {
   };
 
   return (
-    <header className="header-glass flex justify-between items-center px-6 py-4 shadow-lg relative">
+    <header className="header-glass relative flex justify-between items-center px-6 py-2 shadow-lg">
       {/* Logo és márkanév */}
       <Link href="/" className="flex items-center gap-3">
-        <Image src="/icons/logo3.png" alt="logo" height={70} width={70} />
+        <Image src="/moneyBag.svg" alt="logo" height={100} width={100} />
         <h1 className="text-lg font-semibold text-white">Kaszadella</h1>
       </Link>
 
@@ -67,8 +63,8 @@ const Header = ({ session }: HeaderProps) => {
               className: cn(
                 "header-button",
                 pathname === href
-                  ? "border-2 border-yellow text-yellow rounded-lg"
-                  : "border-2 border-yellow text-yellow rounded-lg",
+                  ? "text-yellow rounded-lg"
+                  : "text-yellow rounded-lg",
               ),
             })}
           </li>
@@ -76,13 +72,13 @@ const Header = ({ session }: HeaderProps) => {
       </ul>
 
       {/* Mobil hamburger ikon: csak kisebb képernyőkön látszik */}
-      <div className="md:hidden">
+      <div className="md:hidden flex flex-row items-center">
         <button
           onClick={() => setMenuOpen((prev) => !prev)}
           className="p-2 focus:outline-none"
         >
           {menuOpen ? (
-            <XMarkIcon className="h-6 w-6 text-white" />
+            <XMarkIcon className="h-6 w-6 text-primary-turquoise" />
           ) : (
             <Bars3Icon className="h-6 w-6 text-white" />
           )}
@@ -92,7 +88,7 @@ const Header = ({ session }: HeaderProps) => {
       {/* Mobil menü: ha hamburgerre kattintanak */}
       {menuOpen && (
         <nav className="absolute top-full left-0 w-full bg-black/80 text-white md:hidden">
-          <ul className="flex flex-col gap-4 p-4">
+          <ul className="flex flexrow gap-2 p-4">
             {navLinks.map(({ name, href }) => (
               <li key={href}>
                 {renderLink(name, href, {

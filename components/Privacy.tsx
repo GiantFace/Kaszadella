@@ -1,12 +1,20 @@
 "use client";
 import React from "react";
-import Header from "@/components/Header"; // a megfelelő elérési út a Header-hez
+import Header from "@/components/Header";
+import Footer from "@/components/Footer"; // a megfelelő elérési út a Header-hez
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-dark-100">
+    <div
+      className="flex flex-col min-h-screen  text-white"
+      style={{
+        backgroundImage: "url('/LandingPage.svg')",
+        backgroundSize: "cover",
+        backgroundPosition: "100% 100%",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       {/* Fejléc */}
-      <Header />
 
       {/* Fő tartalom */}
       <main className="flex-grow container mx-auto px-4 py-12">

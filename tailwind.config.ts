@@ -54,6 +54,8 @@ export default {
         primary: {
           DEFAULT: "#a10101",
           admin: "#25388C",
+          gold: "#FFD700",
+          turquoise: "#0EA5C4",
         },
         yellow: {
           DEFAULT: "#FAFABE",

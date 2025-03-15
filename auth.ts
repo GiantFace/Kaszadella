@@ -1,6 +1,4 @@
 import NextAuth, { User } from "next-auth";
-import { Apple } from "lucide-react";
-import Google from "@auth/core/providers/google";
 import CredentialsProvider from "@auth/core/providers/credentials";
 import { db } from "@/database/drizzle";
 import { users } from "@/database/schema";

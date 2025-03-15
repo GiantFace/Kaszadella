@@ -74,8 +74,8 @@ const AuthForm = <T extends FieldValues>({
       </h1>
       <p className="text-light-100">
         {isSignIn
-          ? "Access the vast collection of resources, and stay updated"
-          : "Please complete all fields and upload a valid university ID to gain access to the library"}
+          ? "Férj hozzá a legjobb tippekhez"
+          : "Minden mező kitöltése kötelező"}
       </p>
 
       <Form {...form}>
@@ -115,12 +115,12 @@ const AuthForm = <T extends FieldValues>({
       </Form>
 
       <p className="text-center text-base font-medium">
-        {isSignIn ? "New to BookWise? " : "Already have an account? "}
+        {isSignIn ? "Új vagy az oldalon" : "Már van fiókod? "}
         <Link
           href={isSignIn ? "/sign-up" : "/sign-in"}
           className="font-bold text-primary"
         >
-          {isSignIn ? "Create an account" : "Sign in"}
+          {isSignIn ? "Hozz létre egy fiókot" : "Bejelentkezés"}
         </Link>
       </p>
     </div>

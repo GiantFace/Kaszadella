@@ -2,10 +2,10 @@ import React from "react";
 
 interface Tipp {
   title: string;
-  description: string;
-  details: string;
+  description?: string;
+  details?: string;
   cover?: string;
-  price: string;
+  price?: string;
 }
 
 interface TippCardProps {
@@ -15,39 +15,53 @@ interface TippCardProps {
 const TippCard: React.FC<TippCardProps> = ({ tip }) => {
   return (
     <div
-      className="flipbox-item w-full sm:w-80 h-48 cursor-pointer mx-auto"
+      className="
+        flipbox-item
+        sm:w-80
+      "
       style={{ perspective: "1000px" }}
     >
+      {/* A kártya belső, forgó tartalma */}
       <div
-        className="flipbox-inner relative w-full h-full transition-transform duration-700 ease-in-out"
+        className="
+          flipbox-inner
+        "
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* Front Side */}
-        <div
-          className="flipbox-front absolute inset-0 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center p-4"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <h3 className="font-bold text-xl text-dark-100">{tip.title}</h3>
-          <p className="mt-2 text-dark-100">{tip.description}</p>
+        {/* Elülső oldal */}
+        <div className="flipbox-front" style={{ backfaceVisibility: "hidden" }}>
+          <h3 className="font-bold text-2xl text-dark-100 mb-7">{tip.title}</h3>
+          <p className="text-dark-100 text-center">{tip.description}</p>
         </div>
-        {/* Back Side */}
-        <div
-          className="flipbox-back absolute inset-0 bg-blue-100 rounded-lg shadow-lg flex flex-col items-center p-4 duration-150 gap-3"
-          style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-          }}
-        >
-          <div className="flex flex-col items-center justify-center">
-            <img src={tip.cover} width={300} height={300} className="mb-2" />
 
-            <p className="text-white text-center">{tip.details}</p>
+        {/* Hátoldal */}
+        <div className="flipbox-back">
+          {/* Ha van cover kép, megjelenítjük */}
+          {tip.cover && (
+            <img
+              src={tip.cover}
+              alt={tip.title}
+              className="w-500 h-500  mb-2"
+            />
+          )}
 
-            {/* Gomb feljebb helyezve */}
-            <button className="bg-dark-100 text-white px-4 py-2 rounded-lg hover:bg-dark-200 transition-transform hover:scale-105">
-              Aktiválom
-            </button>
-          </div>
+          <p className="text-white text-center">{tip.details}</p>
+
+          <button
+            className="
+            flixbox-button
+              text-white
+              rounded-lg
+              font-semibold
+              w-40
+              h-10
+              hover:bg-dark-200
+              transition-transform
+              hover:scale-105
+            "
+          >
+            Aktiválom
+          </button>
         </div>
       </div>
     </div>

@@ -2,12 +2,20 @@
 import React from "react";
 import Header from "@/components/Header"; // Győződj meg róla, hogy a helyes elérési út
 import Footer from "@/components/Footer"; // Győződj meg róla, hogy a helyes elérési út
+import { Session } from "next-auth";
 
-const TermsPage: React.FC = () => {
+const TermsPage = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-dark-100">
+    <div
+      className="flex flex-col min-h-screen  text-white"
+      style={{
+        backgroundImage: "url('/LandingPage.svg')",
+        backgroundSize: "cover",
+        backgroundPosition: "100% 100%",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       {/* Fejléc */}
-      <Header />
 
       {/* Fő tartalom */}
       <main className="flex-grow container mx-auto px-4 py-12">
