@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import TippChart from "@/components/TipChart";
 import { sampleTips } from "@/constans/Index";
 import { ReactTyped } from "react-typed";
-import { animated, useSpring } from "react-spring";
 import SplitText from "@/components/ui/SplitText";
 
 const TipOverview = () => {
