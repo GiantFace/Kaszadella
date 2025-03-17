@@ -5,6 +5,7 @@ if (!process.env.DATABASE_URL) {
 const config = {
   env: {
     databaseURL: process.env.DATABASE_URL!,
+    prodApiEndpoint: process.env.PROD_API_ENDPOINT!,
     upstash: {
       redisUrl: process.env.UPSTASH_REDIS_URL!,
       redisToken: process.env.UPSTASH_REDIS_TOKEN!,
