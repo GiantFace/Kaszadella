@@ -18,7 +18,7 @@ const OverHeader: React.FC<OverHeaderProps> = ({ children }) => {
   if (!mounted) return null;
 
   return createPortal(
-    <div className=" absolute right-10 top-12">{children}</div>,
+    <div className="hidden absolute right-10 top-12 xl:block">{children}</div>,
     document.body,
   );
 };

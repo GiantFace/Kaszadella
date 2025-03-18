@@ -48,7 +48,7 @@ const Header = ({ session }: { session: Session }) => {
   };
 
   return (
-    <header className="header-glass relative flex justify-between items-center px-6 py-2 shadow-lg">
+    <header className=" header-glass relative flex justify-between items-center px-6 py-2 shadow-lg">
       {/* Logo és márkanév */}
       <Link href="/" className="flex items-center gap-3">
         <Image src="/moneyBag.svg" alt="logo" height={100} width={100} />
@@ -56,7 +56,7 @@ const Header = ({ session }: { session: Session }) => {
       </Link>
 
       {/* Asztali navigáció: csak md és felett látszik */}
-      <ul className="hidden md:flex flex-row items-center gap-6">
+      <ul className="hidden md:flex flex-row items-center gap-3">
         {navLinks.map(({ name, href }) => (
           <li key={href}>
             {renderLink(name, href, {
@@ -75,7 +75,7 @@ const Header = ({ session }: { session: Session }) => {
       <div className="md:hidden flex flex-row items-center">
         <button
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="p-2 focus:outline-none"
+          className="p-4 focus:outline-none"
         >
           {menuOpen ? (
             <XMarkIcon className="h-6 w-6 text-primary-turquoise" />
@@ -87,8 +87,8 @@ const Header = ({ session }: { session: Session }) => {
 
       {/* Mobil menü: ha hamburgerre kattintanak */}
       {menuOpen && (
-        <nav className="absolute top-full left-0 w-full bg-black/80 text-white md:hidden">
-          <ul className="flex flexrow gap-2 p-4">
+        <nav className="absolute top-full left-0 w-full bg-black/80 text-white md:hidden text-1">
+          <ul className="flexrow p-4 x-scroll">
             {navLinks.map(({ name, href }) => (
               <li key={href}>
                 {renderLink(name, href, {

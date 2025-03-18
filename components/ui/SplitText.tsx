@@ -88,7 +88,7 @@ const SplitText: React.FC<SplitTextProps> = ({
       style={{
         textAlign,
         whiteSpace: "normal",
-        wordWrap: "break-word",
+        wordWrap: "normal",
         width: "100%",
       }} // Itt növeltük a szélességet
     >
@@ -113,9 +113,7 @@ const SplitText: React.FC<SplitTextProps> = ({
               </AnimatedSpan>
             );
           })}
-          <span style={{ display: "inline-block", width: "10.3em" }}>
-            &nbsp;
-          </span>
+          {wordIndex !== words.length - 1 && <span>&nbsp;</span>}
         </span>
       ))}
     </p>

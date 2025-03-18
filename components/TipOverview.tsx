@@ -8,9 +8,11 @@ import TipList from "@/components/TipList";
 import { sampleTips } from "@/constans/Index";
 import TipStats from "@/components/TipStats";
 import FeedbackSection from "@/components/FeedbackSection";
+import LoadingPage from "@/components/LoadingPage"; // Importáld az új komponenst
 
 export default function TipOverview() {
   const [scrollY, setScrollY] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     function handleScroll() {
@@ -19,6 +21,23 @@ export default function TipOverview() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleLoad = () => setLoading(false);
+
+    if (document.readyState === "complete") {
+      setLoading(false);
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
+
+  const [loading, setLoading] = useState(true);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   // Parallax stílusok
   const parallaxStyle1 = {
@@ -68,13 +87,13 @@ export default function TipOverview() {
       </div>
 
       {/* Tartalom – szöveg, kép és TipList */}
-      <div className="relative flex flex-col">
+      <div className=" relative flex flex-col">
         {/* Top row: két oszlop */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-full mt-20">
+        <div className="flex flex-col md:flex-row justify-between w-full mt-20">
           {/* Bal oldal: Szöveg */}
-          <div className="flex-1 flex justify-start pl-4">
-            <h1 className="text-7xl font-extrabold leading-tight text-white whitespace-pre-line max-w-2xl">
-              <SplitText text={"Üdvözölünk, Kaszadella\nVilágában!"} />
+          <div className="flex align-center justify-start br-5  ">
+            <h1 className="text-6xl md:text-7xl xl:text-8xl sm:align-middle  sm:justify-items-center text-white whitespace-pre-line max-w-5xl pl-4 ">
+              <SplitText text={"Üdvözlünk, Kaszadella Világában!"} />
             </h1>
           </div>
           {/* Jobb oldal: Kép OverHeader-rel */}
@@ -87,7 +106,7 @@ export default function TipOverview() {
                 <img
                   src="/images/Kaszadella_halal_kaszadella_pack.png"
                   alt="Kaszadella"
-                  className="object-contain "
+                  className="object-contain xl:block"
                 />
               </div>
             </OverHeader>
@@ -97,7 +116,7 @@ export default function TipOverview() {
           <div className=" justify-center">
             <TipList
               tips={sampleTips}
-              containerClassName="mt-30 max-w-full"
+              containerClassName="mt-20 max-w-full"
               title={""}
             />
           </div>
