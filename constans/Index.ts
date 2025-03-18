@@ -122,7 +122,7 @@ export const sampleTips = [
     description:
       "Itt kezdődhet az igazi aratás! A hét folyamán duplázókkal és közepes oddsokkal segítünk, hétvégére pedig jönnek az extra nagy tippek!",
     color: "#ff5733",
-    cover: "/images/kaszadella_halal_casa_pack.png",
+    cover: "/images/Kaszadella_halal_casa_pack.png",
     video: "/videos/kasza-pack.mp4",
     price: "8.990 Ft",
   },
