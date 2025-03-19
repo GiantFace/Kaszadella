@@ -8,6 +8,7 @@ import { signIn } from "@/auth";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
+import { sendMail } from "@/lib/sendMail";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">,
@@ -56,9 +57,11 @@ export const signUp = async (params: AuthCredentials) => {
       email,
       password: hashedPassword,
       fullName,
-      package: "",
+      package: "Default",
     });
 
+    // 🔥 Itt küldjük el az emailt a sikeres regisztráció után
+    await sendMail(email, "Üdv Kaszadella világában", "Sikeres regisztráció");
     //await signInCredentials({ email, password });
     return { success: true };
   } catch (error) {

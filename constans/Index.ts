@@ -104,12 +104,14 @@ export const sampleTips = [
     rating: 4.9,
     winned_tip: 80,
     winned_unity: 150,
-    description:
+    front_description:
       "Az első lépés a siker felé! Egy biztos kezdőcsomag, amellyel stabil alapokat építhetsz sportfogadásodhoz. Duplázók és közepes oddsok a hét minden napján!",
+    back_description:
+      "Hétköznap: 2db duplázó (2-2,5x)\nHétvégén: 3db duplázó, 1db közepes odds (2,5-5x)",
     color: "#1c1f40",
     cover: "/images/Kaszadella_halal_starter_pack.png",
     video: "/videos/start-pack.mp4",
-    price: "5.990 Ft",
+    price: 5990,
   },
   {
     id: 2,
@@ -119,12 +121,14 @@ export const sampleTips = [
     rating: 4.7,
     winned_tip: 78,
     winned_unity: 110,
-    description:
+    front_description:
       "Itt kezdődhet az igazi aratás! A hét folyamán duplázókkal és közepes oddsokkal segítünk, hétvégére pedig jönnek az extra nagy tippek!",
-    color: "#ff5733",
+    back_description:
+      "Hétköznap: 2db duplázó  (2-2,5x)\nHétvégén: 3db duplázó, 3db közepes, 1db nagy tipp valamelyik napra",
+    color: "#1c1f40",
     cover: "/images/Kaszadella_halal_casa_pack.png",
     video: "/videos/kasza-pack.mp4",
-    price: "8.990 Ft",
+    price: 8990,
   },
   {
     id: 3,
@@ -134,12 +138,14 @@ export const sampleTips = [
     rating: 4.5,
     winned_tip: 60,
     winned_unity: 273,
-    description:
+    front_description:
       "A bajnokok csomagja! Kaszadella vezetésével most a legnagyobb nyeremények várnak rád. Duplázók, közepes oddsok és hatalmas tippek minden hétvégén!",
-    color: "#ff5700",
+    back_description:
+      "Hétköznap: 2db duplázó, 2db közepes odds, 3db nagy tipp\nHétvégén: 6db duplázó, 3db közepes, 3db nagy tipp + 1 hétvégi nagy mix",
+    color: "#1c1f40",
     cover: "/images/Kaszadella_halal_kaszadella_pack.png",
     video: "/videos/kaszadella-pack.mp4",
-    price: "9.990 Ft",
+    price: 9990,
   },
 ];
 

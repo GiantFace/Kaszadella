@@ -6,11 +6,12 @@ interface Tipp {
   rating: number;
   winned_tip: number;
   winned_money: string;
-  description: string;
+  front_description: string;
+  back_description: string;
   color: string;
   cover: string;
   video: string;
-  price: string;
+  price: number;
 }
 
 interface AuthCredentials {

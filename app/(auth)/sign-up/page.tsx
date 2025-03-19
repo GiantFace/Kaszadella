@@ -1,4 +1,6 @@
 "use client";
+import { sendMail } from "@/lib/sendMail";
+import { NextRequest, NextResponse } from "next/server";
 
 import AuthForm from "@/components/AuthForm";
 import { signUpSchema } from "@/lib/validations";

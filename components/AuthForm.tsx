@@ -53,7 +53,7 @@ const AuthForm = <T extends FieldValues>({
     if (result.success) {
       toast({
         title: "Success",
-        description: isSignIn
+        front_description: isSignIn
           ? "You have successfully signed in."
           : "You have successfully signed up.",
       });
@@ -61,7 +61,7 @@ const AuthForm = <T extends FieldValues>({
     } else {
       toast({
         title: `Error ${isSignIn ? "signing in" : "signing up"}`,
-        description: result.error ?? "An error occurred.",
+        front_description: result.error ?? "An error occurred.",
         variant: "destructive",
       });
     }

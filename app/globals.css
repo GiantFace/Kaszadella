@@ -389,7 +389,7 @@
   }
 
   .tipp-copies p span {
-    @apply ml-2 font-semibold text-primary;
+    @apply ml-2 font-semibold text-white;
   }
 
   .tipp-description {

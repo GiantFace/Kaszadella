@@ -30,21 +30,21 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
           <div className="tipp-info text-gray-800 mb-4">
             <p>
               A{" "}
-              <span className="font-semibold text-gray-900">
-                {selectedTip.title || "Nincs cím"}
+              <span className="font-semibold text-white">
+                {selectedTip.title + " nyertes" || "Nincs cím"}
               </span>{" "}
-              nyertes szelvényének száma:{" "}
-              <span className="font-semibold">
+              szelvényének száma:{" "}
+              <span className="font-semibold text-white">
                 {selectedTip.sum_tip_number ?? 0}
               </span>
             </p>
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2 ">
               <img src="/icons/star.svg" alt="star" width={22} height={22} />
               <p className="font-semibold">{selectedTip.rating ?? 0}</p>
             </div>
           </div>
-          <div className="tipp-copies text-gray-800 mb-4">
-            <p>
+          <div className="tipp-copies mb-4">
+            <p className="text-white">
               Összes nyeremény:{" "}
               <span className="font-bold">
                 {selectedTip.winned_unity ?? 0} egység
@@ -67,7 +67,7 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
 
         {/* Jobb oszlop: Leírás és a cover kép animációval */}
         <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <h3 className="tipp-description text-white leading-relaxed mb-4">
+          <h3 className="tipp-description text-white text-xl leading-relaxed mb-4">
             Tarts velünk, hogy közösen örülhessünk a kis kaszás hatalmas
             aratásainak. Légy bármilyen típusú vándor, Ő mindig megfogja a kezed
             és segíti utad, hiszen számára nincs is fontosabb, mint a becsületes

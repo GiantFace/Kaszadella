@@ -5,7 +5,7 @@ export interface Tipp {
   title: string;
   description?: string;
   details?: string;
-  price?: string;
+  price?: number;
 }
 
 interface Props {
