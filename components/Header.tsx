@@ -87,7 +87,7 @@ const Header = ({ session }: { session: Session }) => {
 
       {/* Mobil menü: ha hamburgerre kattintanak */}
       {menuOpen && (
-        <nav className="absolute top-full left-0 w-full bg-black/80 text-white md:hidden text-1">
+        <nav className="absolute top-full left-0 w-full bg-black text-white md:hidden text-1">
           <ul className="flexrow p-4 x-scroll">
             {navLinks.map(({ name, href }) => (
               <li key={href}>

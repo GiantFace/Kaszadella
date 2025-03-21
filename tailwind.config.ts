@@ -52,7 +52,7 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
         primary: {
-          DEFAULT: "#a10101",
+          DEFAULT: "#0EA5C4",
           admin: "#25388C",
           gold: "#FFD700",
           turquoise: "#0EA5C4",

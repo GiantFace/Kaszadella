@@ -21,8 +21,8 @@ const Layout = async ({ children }: { children: ReactNode }) => {
       <section className="auth-form">
         <div className="auth-box">
           <div className="flex flex-row gap-3">
-            <Image src="/icons/logo.svg" alt="logo" width={37} height={37} />
-            <h1 className="text-2xl font-semibold text-white">Kaszadella</h1>
+            <Image src="moneyBag.svg" alt="logo" width={50} height={50} />
+            <h1 className="text-2xl font-semibold ">Kaszadella</h1>
           </div>
 
           <div>{children}</div>

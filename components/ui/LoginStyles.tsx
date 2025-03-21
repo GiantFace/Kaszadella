@@ -1,161 +1,250 @@
-import styled from "styled-components";
+"use client";
 
-export const Container = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow:
-    0 14px 28px rgba(0, 0, 0, 0.25),
-    0 10px 10px rgba(0, 0, 0, 0.22);
+import styled, { css } from "styled-components";
+
+const transitionEasing = "0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+
+/* Main container */
+export const Container = styled.div<{ $active: boolean }>`
   position: relative;
+  width: 90%;
+  max-width: 960px;
+  min-height: 480px;
+  margin: 2rem auto;
+  background: #ffffff;
+  border-radius: 20px;
   overflow: hidden;
-  width: 678px;
-  max-width: 100%;
-  min-height: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+  @media (max-width: 768px) {
+    width: 95%;
+    border-radius: 10px;
+  }
 `;
 
-export const SignUpContainer = styled.div<{ $signingIn: boolean }>`
+/* Sign Up container */
+export const SignUpContainer = styled.div<{ $active: boolean }>`
   position: absolute;
   top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
   left: 0;
   width: 50%;
+  height: 100%;
+  transition: transform ${transitionEasing};
   opacity: 0;
   z-index: 1;
-  ${({ $signingIn }) =>
-    $signingIn !== true &&
-    `
+
+  ${({ $active }) =>
+    $active &&
+    css`
       transform: translateX(100%);
       opacity: 1;
       z-index: 5;
     `}
+
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+    transform: none;
+    opacity: 1;
+    z-index: 5;
+    display: ${({ $active }) => ($active ? "block" : "none")};
+  }
 `;
 
-export const SignInContainer = styled.div<{ $signingIn: boolean }>`
+/* Sign In container */
+export const SignInContainer = styled.div<{ $active: boolean }>`
   position: absolute;
   top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
   left: 0;
   width: 50%;
-  z-index: 2;
-  ${({ $signingIn }) => $signingIn !== true && `transform: translateX(100%);`}
-`;
-
-export const Form = styled.form`
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
   height: 100%;
-  text-align: center;
-`;
+  transition: transform ${transitionEasing};
+  z-index: 2;
 
-export const Title = styled.h1`
-  font-weight: bold;
-  margin: 0;
-`;
+  ${({ $active }) =>
+    $active &&
+    css`
+      transform: translateX(100%);
+    `}
 
-export const Input = styled.input`
-  background-color: #eee;
-  border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
-`;
-
-export const Button = styled.button`
-  border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  &:active {
-    transform: scale(0.95);
-  }
-  &:focus {
-    outline: none;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: relative;
+    transform: none;
+    display: ${({ $active }) => ($active ? "none" : "block")};
   }
 `;
 
-export const GhostButton = styled(Button)`
-  background-color: transparent;
-  border-color: #ffffff;
-`;
-
-export const Anchor = styled.a`
-  color: #333;
-  font-size: 14px;
-  text-decoration: none;
-  margin: 15px 0;
-`;
-
-export const OverlayContainer = styled.div<{ $signingIn: boolean }>`
+/* Overlay container */
+export const OverlayContainer = styled.div<{ $active: boolean }>`
   position: absolute;
   top: 0;
   left: 50%;
   width: 50%;
   height: 100%;
   overflow: hidden;
-  transition: transform 0.6s ease-in-out;
+  transition: transform ${transitionEasing};
   z-index: 100;
-  ${({ $signingIn }) => $signingIn !== true && `transform: translateX(-100%);`}
+  transform: ${({ $active }) =>
+    $active ? "translateX(-100%)" : "translateX(0)"};
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-export const Overlay = styled.div<{ $signingIn: boolean }>`
-  background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 0 0;
-  color: #ffffff;
+/* Overlay */
+export const Overlay = styled.div<{ $active: boolean }>`
+  background: linear-gradient(to left, #63aeee, #3893ea);
   position: relative;
   left: -100%;
-  height: 100%;
   width: 200%;
-  transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
-  ${({ $signingIn }) => $signingIn !== true && `transform: translateX(50%);`}
+  height: 100%;
+  transition: transform ${transitionEasing};
+  transform: ${({ $active }) =>
+    $active ? "translateX(50%)" : "translateX(0)"};
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-export const OverlayPanel = styled.div`
+/* Left Overlay Panel */
+export const LeftOverlayPanel = styled.div<{ $active: boolean }>`
   position: absolute;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  padding: 0 40px;
-  text-align: center;
+  align-items: center;
+  padding: 2rem;
+  justify-content: center;
   top: 0;
   height: 100%;
   width: 50%;
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-export const LeftOverlayPanel = styled(OverlayPanel)<{ $signingIn: boolean }>`
-  transform: translateX(-20%);
-  ${({ $signingIn }) => $signingIn !== true && `transform: translateX(0);`}
-`;
-
-export const RightOverlayPanel = styled(OverlayPanel)<{ $signingIn: boolean }>`
+/* Right Overlay Panel */
+export const RightOverlayPanel = styled.div<{ $active: boolean }>`
+  position: absolute;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
   right: 0;
+  height: 100%;
+  width: 50%;
   transform: translateX(0);
-  ${({ $signingIn }) => $signingIn !== true && `transform: translateX(20%);`}
+  transition: transform 0.6s ease-in-out;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-export const Paragraph = styled.p`
-  font-size: 14px;
-  font-weight: 100;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px;
+/* Form */
+export const Form = styled.form`
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px; /* Increased width from 350px to 500px */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 5px;
+  margin: 0 auto; /* Centered horizontally */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+`;
+
+/* Title */
+export const Title = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+
+  @media (max-width: 768px) {
+    font-size: 1.75rem;
+  }
+`;
+
+/* Input */
+export const Input = styled.input`
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid #a5d8ff;
+  color: black;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #ecf0f1;
+  transition: border 0.3s;
+
+  &:focus {
+    outline: none;
+    border-color: #74c0fc;
+    box-shadow: 0 0 8px rgba(116, 192, 252, 0.6);
+  }
+`;
+
+/* Button */
+export const Button = styled.button`
+  border-radius: 25px;
+  border: none;
+  background: #74c0fc;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.2s;
+  margin-top: 1rem;
+
+  &:hover {
+    background: #1c5980;
+    transform: translateY(-2px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+/* Anchor */
+export const Anchor = styled.a`
+  color: #2c3e50;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  margin: 1rem 0;
+  cursor: pointer;
+`;
+
+/* Google Button */
+export const GoogleButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background: #f3f4f6;
+    transform: translateY(-2px);
+  }
 `;

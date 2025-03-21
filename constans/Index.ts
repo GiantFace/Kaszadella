@@ -194,3 +194,61 @@ export const layers = [
     alt: "Extra Coins",
   },
 ];
+
+export const weeklyTipsByPackage: Record<number, Record<string, string[]>> = {
+  // Basic csomag (id=1)
+  1: {
+    Hétfő: [
+      "NB I: Ferencváros vs Újpest, végeredmény: 2-1, szögletek: 7, sárgalapok: 3, odds: 2.10",
+    ],
+    Kedd: [
+      "Serie A: Atalanta vs Lazio, végeredmény: 1-1, szögletek: 5, sárgalapok: 2, odds: 2.50",
+    ],
+    Szerda: [
+      "Premier League: Everton vs West Ham, végeredmény: 1-0, szögletek: 4, sárgalapok: 1, odds: 2.80",
+    ],
+    Csütörtök: [
+      "Bundesliga: Hoffenheim vs Wolfsburg, végeredmény: 2-2, szögletek: 6, sárgalapok: 3, odds: 3.00",
+    ],
+    Péntek: ["Még nem kerültek fel a tippek"],
+    Szombat: ["Még nem kerültek fel a tippek"],
+    Vasárnap: ["Még nem kerültek fel a tippek"],
+  },
+  // Premium csomag (id=2)
+  2: {
+    Hétfő: [
+      "La Liga: FB Barcelona vs Real Madrid, végeredmény: 3-1, szögletek: 8, sárgalapok: 3, odds: 2.50",
+      "Premium tip 2: Nézd meg a korábbi mérkőzések trendjeit.",
+    ],
+    Kedd: [
+      "Premier League: Liverpool vs Manchester United, végeredmény: 2-2, szögletek: 10, sárgalapok: 4, odds: 3.10",
+    ],
+    Szerda: [
+      "Bundesliga: Bayern Munich vs Borussia Dortmund, végeredmény: 1-0, szögletek: 6, sárgalapok: 2, odds: 1.80",
+    ],
+    Csütörtök: [
+      "Serie A: Juventus vs AC Milan, végeredmény: 2-1, szögletek: 7, sárgalapok: 3, odds: 2.20",
+    ],
+    Péntek: ["Még nem kerültek fel a tippek"],
+    Szombat: ["Még nem kerültek fel a tippek"],
+    Vasárnap: ["Még nem kerültek fel a tippek"],
+  },
+  // Ultimate csomag (id=3)
+  3: {
+    Hétfő: [
+      "Champions League: Manchester City vs PSG, végeredmény: 2-0, szögletek: 9, sárgalapok: 2, odds: 1.75",
+    ],
+    Kedd: [
+      "Champions League: Real Madrid vs Bayern Munich, végeredmény: 1-1, szögletek: 7, sárgalapok: 3, odds: 2.80",
+    ],
+    Szerda: [
+      "Champions League: Liverpool vs Chelsea, végeredmény: 2-1, szögletek: 8, sárgalapok: 3, odds: 2.10",
+    ],
+    CSütörtök: [
+      "Champions League: AC Milan vs Inter Milan, végeredmény: 1-0, szögletek: 6, sárgalapok: 2, odds: 2.50",
+    ],
+    Péntek: ["Még nem kerültek fel a tippek"],
+    Szombat: ["Még nem kerültek fel a tippek"],
+    Vasárnap: ["Még nem kerültek fel a tippek"],
+  },
+};
