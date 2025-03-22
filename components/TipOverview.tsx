@@ -100,7 +100,7 @@ export default function TipOverview() {
           <div className="flex-1 flex justify-end pl-4">
             <OverHeader>
               <div
-                className="flex pointer-events-none md:block mt-[-5px]"
+                className="flex pointer-events-none md:block"
                 style={parallaxStyle3}
               >
                 <img

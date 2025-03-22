@@ -28,7 +28,7 @@ const Header = ({ session }: { session: Session }) => {
         <Link
           href="/my-profile"
           {...extraProps}
-          className=" rounded p-1 text-black align-middle flex flex-col items-center gap-3 "
+          className=" rounded p-1 text-black align-middle flex flex-col items-center gap-3 mt-2"
         >
           <Avatar>
             {session.user.image ? (
@@ -42,7 +42,7 @@ const Header = ({ session }: { session: Session }) => {
               </AvatarFallback>
             )}
           </Avatar>
-          <span className="md:hidden text-white ">{session.user.name}</span>
+          <span className="md:hidden text-white">{session.user.name}</span>
         </Link>
       );
     }
@@ -54,9 +54,9 @@ const Header = ({ session }: { session: Session }) => {
   };
 
   return (
-    <header className="relative z-[9999]">
+    <header className="relative z-[0]">
       {/* Felső sor: logó, brand, desktop navigáció, mobil hamburger */}
-      <div className="flex items-center justify-between px-6 py-3 shadow-lg bg-gradient-to-r from-black/80 to-black/50">
+      <div className="flex items-center justify-between px-6 py-3 shadow-lg bg-gradient-to-r from-black/50 to-black/100">
         {/* Bal oldal: logó és "Kaszadella" felirat */}
         <Link href="/" className="flex items-center gap-3">
           <Image src="/moneyBag.svg" alt="logo" height={60} width={60} />
@@ -101,7 +101,7 @@ const Header = ({ session }: { session: Session }) => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 right-0 w-full h-full bg-black/90 backdrop-blur-sm md:hidden z-50"
+            className="fixed top-0 right-0 w-full h-full bg-black/90 backdrop-blur-sm md:hidden"
           >
             <div className="flex flex-col h-full">
               {/* Bezáró gomb a tetején */}
