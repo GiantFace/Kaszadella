@@ -75,7 +75,7 @@ const PaymentInterface: React.FC = () => {
         <h2 className="text-4xl font-extrabold text-center mb-10">
           Válaszd ki a csomagodat
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {sampleTips.map((pkg) => (
             <div
               key={pkg.id}

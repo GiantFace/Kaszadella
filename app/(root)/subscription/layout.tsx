@@ -14,7 +14,7 @@ export default function SubscriptionLayout({
       </header>
 
       {/* Fő tartalom */}
-      <main className="flex-grow p-6">{children}</main>
+      <main className="flex-grow p-7">{children}</main>
 
       {/* Lábléc */}
       <footer className="bg-gray-200 text-center py-4">

@@ -8,6 +8,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn, getInitials } from "@/lib/utils";
 import { Session } from "next-auth";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = ({ session }: { session: Session }) => {
   const pathname = usePathname();
@@ -20,11 +21,15 @@ const Header = ({ session }: { session: Session }) => {
     { name: "Belépés", href: "/sign-up" },
   ];
 
-  // A "Belépés" helyett, ha be van jelentkezve, profil linket jelenítünk meg
+  // Ha a felhasználó be van jelentkezve, a "Belépés" helyett megjelenítjük az avatar ikont
   const renderLink = (name: string, href: string, extraProps = {}) => {
     if (name === "Belépés" && session && session.user) {
       return (
-        <Link href="/my-profile" {...extraProps} className="bg-zinc-950">
+        <Link
+          href="/my-profile"
+          {...extraProps}
+          className=" rounded p-1 text-black align-middle flex flex-col items-center gap-3 "
+        >
           <Avatar>
             {session.user.image ? (
               <AvatarImage
@@ -37,6 +42,7 @@ const Header = ({ session }: { session: Session }) => {
               </AvatarFallback>
             )}
           </Avatar>
+          <span className="md:hidden text-white ">{session.user.name}</span>
         </Link>
       );
     }
@@ -48,58 +54,79 @@ const Header = ({ session }: { session: Session }) => {
   };
 
   return (
-    <header className=" header-glass relative flex justify-between items-center px-6 py-2 shadow-lg">
-      {/* Logo és márkanév */}
-      <Link href="/" className="flex items-center gap-3">
-        <Image src="/moneyBag.svg" alt="logo" height={100} width={100} />
-        <h1 className="text-lg font-semibold text-white">Kaszadella</h1>
-      </Link>
+    <header className="relative z-[9999]">
+      {/* Felső sor: logó, brand, desktop navigáció, mobil hamburger */}
+      <div className="flex items-center justify-between px-6 py-3 shadow-lg bg-gradient-to-r from-black/80 to-black/50">
+        {/* Bal oldal: logó és "Kaszadella" felirat */}
+        <Link href="/" className="flex items-center gap-3">
+          <Image src="/moneyBag.svg" alt="logo" height={60} width={60} />
+          <h1 className="text-2xl font-bold text-white">Kaszadella</h1>
+        </Link>
 
-      {/* Asztali navigáció: csak md és felett látszik */}
-      <ul className="hidden md:flex flex-row items-center gap-3">
-        {navLinks.map(({ name, href }) => (
-          <li key={href}>
-            {renderLink(name, href, {
-              className: cn(
-                "header-button",
-                pathname === href
-                  ? "text-yellow rounded-lg"
-                  : "text-yellow rounded-lg",
-              ),
-            })}
-          </li>
-        ))}
-      </ul>
+        {/* Desktop navigáció: csak md felett */}
+        <ul className="hidden md:flex gap-6">
+          {navLinks.map(({ name, href }) => (
+            <li key={href}>
+              {renderLink(name, href, {
+                className: cn(
+                  "header-button text-white",
+                  pathname === href ? "border-b-2 border-yellow-500" : "",
+                ),
+              })}
+            </li>
+          ))}
+        </ul>
 
-      {/* Mobil hamburger ikon: csak kisebb képernyőkön látszik */}
-      <div className="md:hidden flex flex-row items-center">
-        <button
-          onClick={() => setMenuOpen((prev) => !prev)}
-          className="p-4 focus:outline-none"
-        >
-          {menuOpen ? (
-            <XMarkIcon className="h-6 w-6 text-primary-turquoise" />
-          ) : (
-            <Bars3Icon className="h-6 w-6 text-white" />
-          )}
-        </button>
+        {/* Mobil hamburger ikon: csak kisebb képernyőkön */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="p-3 focus:outline-none"
+          >
+            {menuOpen ? (
+              <XMarkIcon className="h-6 w-6 text-yellow-500" />
+            ) : (
+              <Bars3Icon className="h-6 w-6 text-white" />
+            )}
+          </button>
+        </div>
       </div>
 
-      {/* Mobil menü: ha hamburgerre kattintanak */}
-      {menuOpen && (
-        <nav className="absolute top-full left-0 w-full bg-black text-white md:hidden text-1">
-          <ul className="flexrow p-4 x-scroll">
-            {navLinks.map(({ name, href }) => (
-              <li key={href}>
-                {renderLink(name, href, {
-                  onClick: () => setMenuOpen(false),
-                  className: "header-button block",
-                })}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      {/* Mobil menü: jobb oldalról csúszik be, teljes képernyőt lefedve */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            key="mobile-menu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed top-0 right-0 w-full h-full bg-black/90 backdrop-blur-sm md:hidden z-50"
+          >
+            <div className="flex flex-col h-full">
+              {/* Bezáró gomb a tetején */}
+              <div className="flex justify-end p-4">
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  className="p-3 focus:outline-none"
+                >
+                  <XMarkIcon className="h-6 w-6 text-yellow-500" />
+                </button>
+              </div>
+              {/* Menü elemek, egymás alatt */}
+              <ul className="flex flex-col justify-center align-middle items-center p-4">
+                {navLinks.map(({ name, href }) => (
+                  <li key={href} onClick={() => setMenuOpen(false)}>
+                    {renderLink(name, href, {
+                      className: "header-button text-white text-3xl",
+                    })}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

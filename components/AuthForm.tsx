@@ -68,9 +68,9 @@ const AuthForm = <T extends FieldValues>({
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3 min-w-20">
       <h1 className="text-2xl font-semibold text-black">
-        {isSignIn ? "Üdvözöllek újra a Kaszdellán!" : "Hozd létre a fiókodat"}
+        {isSignIn ? "Üdvözöllek újra a Kaszadellán!" : "Hozd létre a fiókodat"}
       </h1>
       <p className="text-light-500">
         {isSignIn
@@ -81,7 +81,7 @@ const AuthForm = <T extends FieldValues>({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="w-full space-y-6"
+          className="w-full space-y-4"
         >
           {Object.keys(defaultValues).map((key) => {
             // A "key" itt a defaultValues objektum kulcsa (pl. "email" vagy "password")
@@ -108,14 +108,14 @@ const AuthForm = <T extends FieldValues>({
             );
           })}
 
-          <Button type="submit" className="form-btn">
-            {isSignIn ? "Sign In" : "Sign Up"}
+          <Button type="submit" className="form-btn font-bold">
+            {isSignIn ? "Bejelentkezés" : "Regisztráció"}
           </Button>
         </form>
       </Form>
 
       <p className="text-center text-base font-medium">
-        {isSignIn ? "Új vagy az oldalon" : "Már van fiókod? "}
+        {isSignIn ? "Új vagy az oldalon? " : "Már van fiókod? "}
         <Link
           href={isSignIn ? "/sign-up" : "/sign-in"}
           className="font-bold text-primary"
