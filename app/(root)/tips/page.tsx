@@ -57,7 +57,7 @@ export default async function TipsPage() {
     // Ha valamilyen hiba folytán nem szám, akkor is jelezzük
     return (
       <div className="text-center text-xl text-gray-800">
-        Hibás csomag ID. Vedd fel a kapcsolatot az ügyfélszolgálattal!
+        Jelenleg nincsen aktív csomagod!
       </div>
     );
   }

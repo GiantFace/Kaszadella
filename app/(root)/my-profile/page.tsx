@@ -47,10 +47,19 @@ export default async function Page({ params, searchParams }: PageProps) {
   const subscription = await getUserSubscription(session.user.id);
 
   // 5) Ha nincs subscription, vagy inaktív (példa: status !== "Active"), jelezzük
-  if (!subscription || subscription.status !== "Approved") {
+  if (!subscription) {
     return (
       <div className="text-center text-xl text-white">
         Nincs aktív csomagod. Vásárolj egy csomagot, hogy tippeket kapj!
+        <form
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+          className="mb-10"
+        >
+          <Button className="font-bold">Kijelentkezés</Button>
+        </form>
       </div>
     );
   }
@@ -63,14 +72,14 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   return (
     <section className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Profilom</h1>
+      <h1 className="text-3xl font-bold mb-6 text-white">Profilom</h1>
 
       {/* Üdvözlés */}
       <div className="mb-10">
-        <p className="text-lg">
+        <p className="text-lg text-white">
           Üdvözöllek, <strong>{session.user.name}</strong>!
         </p>
-        <p className="text-md text-gray-600">
+        <p className="text-md text-white">
           Email: <strong>{session.user.email}</strong>
         </p>
       </div>
@@ -90,18 +99,6 @@ export default async function Page({ params, searchParams }: PageProps) {
         <p>
           <strong>Státusz:</strong> {subscription.status ?? "N/A"}
         </p>
-        <p>
-          <strong>Utolsó aktivitás:</strong>{" "}
-          {lastActivityString
-            ? new Date(lastActivityString).toLocaleDateString()
-            : "N/A"}
-        </p>
-        <p>
-          <strong>Előfizetés kezdete:</strong>{" "}
-          {createdAtString
-            ? new Date(createdAtString).toLocaleDateString()
-            : "N/A"}
-        </p>
       </div>
 
       {/* Logout gomb */}
@@ -112,7 +109,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         }}
         className="mb-10"
       >
-        <Button>Logout</Button>
+        <Button className="font-bold">Logout</Button>
       </form>
     </section>
   );

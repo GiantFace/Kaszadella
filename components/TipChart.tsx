@@ -67,7 +67,7 @@ const TipChart: React.FC<TippChartProps> = ({
   return (
     <div className="flex flex-col items-center bg-gradient-to-br from-primary-turquoise to-gray-900 p-12 rounded-3xl gap-10">
       {/* Grafikon konténer */}
-      <div className="w-full max-w-4xl p-2 rounded-3xl shadow-2xl">
+      <div className="w-full max-w-4xl p-2 rounded-3xl shadow-2xl ">
         <Bar
           data={chartData}
           options={{

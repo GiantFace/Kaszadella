@@ -33,4 +33,10 @@ export const users = pgTable("users", {
   })
     .notNull()
     .defaultNow(),
+  subscription_start: timestamp("subscription_start", {
+    withTimezone: true,
+  }),
+  subscription_end: timestamp("subscription_end", {
+    withTimezone: true,
+  }),
 });

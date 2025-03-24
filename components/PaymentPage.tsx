@@ -69,7 +69,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount }) => {
         title: "Fizetés sikeres",
         front_description: "Átirányítás folyamatban...",
       });
-      router.push("/payment-succes");
+      router.push("/");
     }
 
     setLoading(false);

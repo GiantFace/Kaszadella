@@ -49,7 +49,7 @@ export default function FeedbackSection() {
       {/* Háttér effektusok */}
       <div className="backdrop-brightness-90 backdrop-blur-sm min-h-20 w-full flex flex-col items-center justify-center">
         <h2 className="text-3xl sm:text-4xl font-extrabold mb-8 text-center">
-          Testidőszak alatti visszajelzések
+          Tesztidőszak alatti visszajelzések
         </h2>
 
         {/* Rácsos elrendezés: mobilon 1, sm-n 2, md-n 3 oszlop */}

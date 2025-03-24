@@ -50,7 +50,7 @@ export default function TipOverview() {
     transform: `translateY(${scrollY * 0.3}px)`,
   };
   const parallaxStyleBox = {
-    transform: `translateY(${scrollY * 0.09}px)`,
+    transform: `translateY(${scrollY * 0.05}px)`,
   };
 
   return (
@@ -122,7 +122,7 @@ export default function TipOverview() {
           </div>
         </div>
       </div>
-      <div className="description-box" style={parallaxStyleBox}>
+      <div className="description-box mt-0 mb-20" style={parallaxStyleBox}>
         <p>
           ...ahol az álmok érintkeznek a valósággal. Kaszadella, a siker harcosa
           nap - mint nap azért harcol, hogy bajtársait segítse az Élet rögös
@@ -131,7 +131,6 @@ export default function TipOverview() {
           igazán.
         </p>
       </div>
-
       <TipStats />
 
       <FeedbackSection />

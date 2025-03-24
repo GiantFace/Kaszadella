@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import SplitText from "@/components/ui/SplitText";
 import TippChart from "@/components/TipChart";
 import { sampleTips } from "@/constans/Index";
+import { FadeInOnScroll } from "@/components/ui/FadeInOnScroll";
 
 interface Tipp {
   id: number;
@@ -14,6 +14,7 @@ interface Tipp {
   winned_unity?: number;
   available_tipps?: number;
 }
+
 interface TippCardProps {
   tip?: Tipp;
 }
@@ -38,7 +39,7 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
                 {selectedTip.sum_tip_number ?? 0}
               </span>
             </p>
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
               <img src="/icons/star.svg" alt="star" width={22} height={22} />
               <p className="font-semibold">{selectedTip.rating ?? 0}</p>
             </div>
@@ -67,19 +68,21 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
 
         {/* Jobb oszlop: Leírás és a cover kép animációval */}
         <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <h3 className="tipp-description text-white text-xl leading-relaxed mb-4">
-            Tarts velünk, hogy közösen örülhessünk a kis kaszás hatalmas
-            aratásainak. Légy bármilyen típusú vándor, Ő mindig megfogja a kezed
-            és segíti utad, hiszen számára nincs is fontosabb, mint a becsületes
-            és testvéries támogatás. Törj a csúcsra a kaszás segítségével.
-          </h3>
-          <div className="relative flex justify-center w-[530px] h-[530px]">
-            {/* A key attribútum miatt, ha a selectedTip.cover megváltozik, az újra renderelődik és az animáció lefut */}
+          <FadeInOnScroll>
+            <h3 className="tipp-description text-white text-xl mb-4">
+              Tarts velünk, hogy közösen örülhessünk a kis kaszás hatalmas
+              aratásainak. Légy bármilyen típusú vándor, Ő mindig megfogja a
+              kezed és segíti utad, hiszen számára nincs is fontosabb, mint a
+              becsületes és testvéries támogatás. Törj a csúcsra a kaszás
+              segítségével.
+            </h3>
+          </FadeInOnScroll>
+          <div className="relative flex justify-center w-[500px] h-[500px]">
             <img
               key={selectedTip.cover}
               src={selectedTip.cover || "/defaultCover.svg"}
               alt="Kaszadella halal starter pack"
-              className="absolute object-contain w-full h-full slide-in"
+              className="absolute object-contain slide-in"
             />
           </div>
         </div>

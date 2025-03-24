@@ -94,9 +94,6 @@ const About: React.FC = () => {
           </div>
         </section>
       </main>
-
-      {/* Lábléc */}
-      <Footer />
     </div>
   );
 };

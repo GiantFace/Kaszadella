@@ -54,7 +54,7 @@ const Header = ({ session }: { session: Session }) => {
   };
 
   return (
-    <header className="relative z-[0]">
+    <header className="relative z-[9999] md:z-[0]">
       {/* Felső sor: logó, brand, desktop navigáció, mobil hamburger */}
       <div className="flex items-center justify-between px-6 py-3 shadow-lg bg-gradient-to-r from-black/50 to-black/100">
         {/* Bal oldal: logó és "Kaszadella" felirat */}

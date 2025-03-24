@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "@/hooks/use-toast"; // Ellenőrizd az import útvonalát
 import { sampleTips } from "@/constans/Index";
+import { useSession } from "next-auth/react";
 
 // Inicializáljuk a Stripe-ot a publishable key-val
 const stripePromise = loadStripe(
@@ -12,11 +13,11 @@ const stripePromise = loadStripe(
 );
 
 /**
- * handlePayment: Ez a függvény elküldi a packageId-t a backend API-nak,
+ * handlePayment: Ez a függvény elküldi a packageId-t és a userId-t a backend API-nak,
  * amely létrehozza a Stripe Checkout Session-t, majd a kapott sessionId alapján
  * a Stripe redirectToCheckout metódusával átirányítja a felhasználót a fizetési felületre.
  */
-const handlePayment = async (packageId: number): Promise<void> => {
+const handlePayment = async (packageId: number, userId: string) => {
   const stripe = await stripePromise;
   if (!stripe) {
     throw new Error("Stripe nem töltődött be.");
@@ -26,7 +27,7 @@ const handlePayment = async (packageId: number): Promise<void> => {
   const response = await fetch("/api/create-checkout-session", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ packageId }),
+    body: JSON.stringify({ packageId, userId }),
   });
   const data = await response.json();
 
@@ -47,10 +48,23 @@ const PaymentInterface: React.FC = () => {
   const router = useRouter();
   const [loadingPackageId, setLoadingPackageId] = useState<number | null>(null);
 
+  // Ha NextAuth-ot használsz, ezzel ki tudod nyerni a user ID-t:
+  const { data: session } = useSession();
+  const userId = session?.user?.id; // Ha be van jelentkezve, itt lesz a user ID
+
   const purchasePackage = async (pkg: (typeof sampleTips)[number]) => {
+    if (!userId) {
+      toast({
+        title: "Hiba",
+        front_description: "Kérlek, jelentkezz be a vásárláshoz.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoadingPackageId(pkg.id);
     try {
-      await handlePayment(pkg.id);
+      await handlePayment(pkg.id, userId);
       // A Stripe.redirectToCheckout() átirányítja a felhasználót,
       // így ez utána nem feltétlenül fut le.
       toast({
@@ -109,7 +123,7 @@ const PaymentInterface: React.FC = () => {
                 className="mt-auto bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded transition-colors"
               >
                 {loadingPackageId === pkg.id
-                  ? "Fizetés folyamatban..."
+                  ? "Átírányítás folyamatban..."
                   : "Vásárlás"}
               </button>
             </div>

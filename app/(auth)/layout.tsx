@@ -29,7 +29,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
         </div>
         <section className="hidden md:block w-1/2">
           <Image
-            src="/images/Kaszadella_halal_kaszadella_pack.png"
+            src="/images/Kaszadella_halal_kaszadella_pack2.png"
             alt="Kaszadella"
             height={1000}
             width={1000}

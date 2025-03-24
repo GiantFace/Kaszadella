@@ -154,25 +154,42 @@
     }
   }
 
-  @layer components{
-    .description-box{
+  @layer components {
+    .description-box {
       justify-content: center;
       align-content: center;
       background: black;
       height: 10rem;
       border-radius: 1rem;
-      margin-top: 5rem;
+      margin-top: 2rem;
       margin-bottom: 10rem;
-      min-height: 30vh;
-
 
     }
-    .description-box p{
+
+    .description-box p {
       margin: 20px;
       font-size: 1.4rem;
       color: white;
     }
+
+    /* Mobil optimalizáció (640px alatti képernyők) */
+    @media (max-width: 640px) {
+      .description-box {
+        height: auto;            /* A tartalomhoz igazodik */
+        margin-bottom: 5rem;      /* Kisebb margó alul *         /* Növelt minimum magasság */
+        padding: 1.5rem;            /* Nagyobb belső margó */
+        overflow-y: auto;         /* Függőleges görgetés, ha a tartalom túl hosszú */
+      }
+
+      .description-box p {
+        margin: 10px;
+        font-size: 1.2rem;       /* Kisebb betűméret mobilon */
+        /* A height eltávolítva, hogy a szöveg szabadon áramolhasson */
+      }
+    }
+
   }
+
 /*Header###########################################################*/
   .header-glass {
     background: #000707;
@@ -249,7 +266,7 @@
   /* Global Flipbox Stílusok */
   .flipbox-item {
     width: 100%;
-    height: 25rem;
+    height: 30rem;
     cursor: pointer;
     margin: auto;
     perspective: 1000px;
@@ -259,7 +276,7 @@
   .flipbox-inner {
     position: relative;
     width: 100%;
-    min-height: 25rem;
+    min-height: 30rem;
     transform-style: preserve-3d;
     transition: transform 700ms cubic-bezier(0.38, -0.55, 0.265, 1.55);
   }

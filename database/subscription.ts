@@ -30,6 +30,6 @@ export async function getUserSubscription(userId: string) {
     expirationDate: expirationDate.toISOString(),
     createdAt: undefined,
     lastActivityDate: undefined,
-    packageName: tipObj ? tipObj.title : "Ismeretlen csomag",
+    packageName: tipObj ? tipObj.title : "Nincs aktív csomagod",
   };
 }

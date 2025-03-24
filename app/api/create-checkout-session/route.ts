@@ -9,9 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(request: Request) {
   try {
-    const { packageId } = await request.json();
-
-    // Keresd meg a csomagot a sampleTips között (vagy adatbázisból)
+    const { packageId, userId } = await request.json();
     const pkg = sampleTips.find((p) => p.id === packageId);
     if (!pkg) {
       return NextResponse.json(
@@ -19,8 +17,6 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
-
-    // Az összeget centben add meg: feltételezzük, hogy az ár Ft-ban van
     const amountInCents = pkg.price * 100;
 
     // Létrehozzuk a Stripe Checkout Session-t
@@ -30,7 +26,7 @@ export async function POST(request: Request) {
       line_items: [
         {
           price_data: {
-            currency: "huf", // vagy "eur", a választott valuta függvényében
+            currency: "huf",
             product_data: {
               name: pkg.title,
               description: pkg.front_description,
@@ -40,10 +36,13 @@ export async function POST(request: Request) {
           quantity: 1,
         },
       ],
-      // Átirányítás siker esetén
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-success`,
-      // Átirányítás sikertelen esetén
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/tips`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment?canceled=true`,
+      // Itt elmentjük a userId és packageId értékeket
+      metadata: {
+        userId,
+        packageId: packageId.toString(),
+      },
     });
 
     return NextResponse.json({ id: session.id });

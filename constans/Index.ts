@@ -111,7 +111,7 @@ export const sampleTips = [
     color: "#1c1f40",
     cover: "/images/Kaszadella_halal_starter_pack.png",
     video: "/videos/start-pack.mp4",
-    price: 5990,
+    price: 6990,
   },
   {
     id: 2,
@@ -143,9 +143,9 @@ export const sampleTips = [
     back_description:
       "Hétköznap: 2db duplázó, 2db közepes odds, 3db nagy tipp\nHétvégén: 6db duplázó, 3db közepes, 3db nagy tipp + 1 hétvégi nagy mix",
     color: "#1c1f40",
-    cover: "/images/Kaszadella_halal_kaszadella_pack.png",
+    cover: "/images/Kaszadella_halal_kaszadella_pack2.png",
     video: "/videos/kaszadella-pack.mp4",
-    price: 9990,
+    price: 0,
   },
 ];
 
