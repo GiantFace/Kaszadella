@@ -21,6 +21,14 @@ const Header = ({ session }: { session: Session }) => {
     { name: "Belépés", href: "/sign-up" },
   ];
 
+  const leftLinks = [{ name: "Kezdőlap", href: "/" }];
+  const centerBrand = "Kaszadella";
+  const rightLinks = [
+    { name: "Tippek", href: "/tips" },
+    { name: "Előfizetés", href: "/subscription" },
+    { name: "Belépés", href: "/sign-up" },
+  ];
+
   // Ha a felhasználó be van jelentkezve, a "Belépés" helyett megjelenítjük az avatar ikont
   const renderLink = (name: string, href: string, extraProps = {}) => {
     if (name === "Belépés" && session && session.user) {
@@ -53,19 +61,61 @@ const Header = ({ session }: { session: Session }) => {
     );
   };
 
+  // Variánsok a bal és jobb ikonok animációjához:
+
   return (
     <header className="relative z-[9999] md:z-[0]">
       {/* Felső sor: logó, brand, desktop navigáció, mobil hamburger */}
       <div className="flex items-center justify-between px-6 py-3 shadow-lg bg-gradient-to-r from-black/50 to-black/100">
         {/* Bal oldal: logó és "Kaszadella" felirat */}
-        <Link href="/" className="flex items-center gap-3">
-          <Image src="/moneyBag.svg" alt="logo" height={60} width={60} />
-          <h1 className="text-2xl font-bold text-white">Kaszadella</h1>
-        </Link>
+        <div className="flex-1 text-left hidden md:flex">
+          {leftLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "header-button text-white",
+                pathname === link.href && "border-b-2 border-yellow-500",
+              )}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+        {/*Középső rész_ Brand középre igazítva */}
+        <div className="flex-1 text-center">
+          <div className="flex items-center justify-center gap-3">
+            <div className="flex">
+              <Image
+                src="/images/kasza.png"
+                alt="Kaszadella kasza"
+                width={50}
+                height={50}
+              />
+            </div>
 
+            {/* Középső brand szöveg – mindig középen */}
+            <div className="z-1">
+              <span className="text-3xl font-bold text-white">
+                {centerBrand}
+              </span>
+            </div>
+
+            {/* Jobb oldali ikon – kezdetben a brand szöveg jobb oldalán */}
+            <motion.div className="flex">
+              <Image
+                src="/images/kasza.png"
+                alt="Kaszadella kasza"
+                width={50}
+                height={50}
+                style={{ transform: "scaleX(-1)" }}
+              />
+            </motion.div>
+          </div>
+        </div>
         {/* Desktop navigáció: csak md felett */}
-        <ul className="hidden md:flex gap-6">
-          {navLinks.map(({ name, href }) => (
+        <ul className="hidden md:flex gap-6 flex-1 justify-end">
+          {rightLinks.map(({ name, href }) => (
             <li key={href}>
               {renderLink(name, href, {
                 className: cn(
@@ -115,7 +165,7 @@ const Header = ({ session }: { session: Session }) => {
               </div>
               {/* Menü elemek, egymás alatt */}
               <ul className="flex flex-col justify-center align-middle items-center p-4">
-                {navLinks.map(({ name, href }) => (
+                {[...leftLinks, ...rightLinks].map(({ name, href }) => (
                   <li key={href} onClick={() => setMenuOpen(false)}>
                     {renderLink(name, href, {
                       className: "header-button text-white text-3xl",

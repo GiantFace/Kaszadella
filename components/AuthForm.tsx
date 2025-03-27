@@ -54,14 +54,14 @@ const AuthForm = <T extends FieldValues>({
       toast({
         title: "Sikeres bejelentkezés",
         front_description: isSignIn
-          ? "Sekeresen bejelentkeztál!"
+          ? "Sekeresen bejelentkeztél!"
           : "Sikeresen regisztráltál!.",
       });
       router.push("/");
     } else {
       toast({
-        title: `Error ${isSignIn ? "signing in" : "signing up"}`,
-        front_description: result.error ?? "An error occurred.",
+        title: `Hibás ${isSignIn ? "bejelentkezés" : "regisztráció"}`,
+        front_description: result.error ?? "Hiba történt.",
         variant: "destructive",
       });
     }

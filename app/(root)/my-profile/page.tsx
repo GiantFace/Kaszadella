@@ -66,9 +66,8 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   // 6) Mivel a subscription mezők is lehetnek undefined (ha a DB logika így hozza vissza),
   // érdemes ellenőrizni őket, mielőtt new Date(...) hívást végzünk.
-  const expirationDateString = subscription.expirationDate ?? "";
-  const lastActivityString = subscription.lastActivityDate ?? "";
   const createdAtString = subscription.createdAt ?? "";
+  const expirationDateString = subscription.expirationDate ?? "";
 
   return (
     <section className="max-w-4xl mx-auto p-6">
@@ -109,7 +108,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         }}
         className="mb-10"
       >
-        <Button className="font-bold">Logout</Button>
+        <Button className="font-bold">Kijelentkezés</Button>
       </form>
     </section>
   );
