@@ -14,8 +14,7 @@ export default {
         "bebas-neue": ["var(--bebas-neue)"],
       },
       colors: {
-        // Alapértelmezett háttérszín: Mesés, varázslatos zöld
-        background: "hsla(120,60%,35%,0.9)",
+        background: "hsl(var(--background) / <alpha-value>)", // ⬅️ így fog működni az /95
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",

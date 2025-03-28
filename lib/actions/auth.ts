@@ -30,8 +30,10 @@ export const signInWithCredentials = async (
     }
     return { success: true };
   } catch (error) {
-    console.log(error, "Signing in error");
-    return { success: false, error: "Signing error" };
+    return {
+      success: false,
+      error: "Nem megfelelő felhasználónév vagy jelszó",
+    };
   }
 };
 
