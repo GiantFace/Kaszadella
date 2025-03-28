@@ -17,7 +17,7 @@ interface TippCardProps {
 const TippCard: React.FC<TippCardProps> = ({ tip }) => {
   return (
     <div
-      className="flex flipbox-item w-full sm:w-80 md:w-96 lg:w-[440px] mx-auto mb-16 md:mb-6 mt-6"
+      className="flex flipbox-item w-full sm:w-80 md:w-80 lg:w-[440px] mx-auto mb-16 md:mb-6 mt-6"
       style={{ perspective: "1000px" }}
     >
       {/* Kártya belső tartalma */}

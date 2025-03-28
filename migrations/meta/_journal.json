@@ -8,6 +8,13 @@
       "when": 1740938906065,
       "tag": "0000_sad_red_ghost",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1743171255281,
+      "tag": "0001_brainy_caretaker",
+      "breakpoints": true
     }
   ]
 }

@@ -98,7 +98,11 @@ const AuthForm = <T extends FieldValues>({
                         {FIELD_NAMES[key as keyof typeof FIELD_NAMES] ?? key}
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="Írj be valamit..." {...field} />
+                        <Input
+                          placeholder="Írj be valamit..."
+                          type={key === "password" ? "password" : "text"}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
