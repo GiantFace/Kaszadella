@@ -123,6 +123,14 @@ const AuthForm = <T extends FieldValues>({
           {isSignIn ? "Hozz létre egy fiókot" : "Bejelentkezés"}
         </Link>
       </p>
+      <p className="text-center text-base font-medium">
+        <Link
+          href={isSignIn ? "/forgot-password" : "/forgot-password"}
+          className="font-bold text-primary"
+        >
+          {isSignIn ? "Elfelejtettem a jelszavamat" : ""}
+        </Link>
+      </p>
     </div>
   );
 };

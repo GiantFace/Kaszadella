@@ -53,17 +53,12 @@ export default function FeedbackSection() {
         </h2>
 
         {/* Rácsos elrendezés: mobilon 1, sm-n 2, md-n 3 oszlop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 max-w-6xl mx-auto ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 max-w-6xl mx-auto items-stretch">
           {feedbacks.map((item, idx) => (
             <FadeInOnScroll key={idx}>
-              <div className="bg-black/70 rounded-lg p-6 flex flex-col justify-between shadow-lg">
+              <div className="bg-black/70 rounded-lg p-6 flex flex-col justify-between shadow-lg h-full">
                 <p className="text-xl italic mb-4">{item.quote}</p>
                 <div className="flex items-center gap-3 mt-auto text-sm ">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
                   <div className="text-left">
                     <p className="font-bold text-sm">{item.name}</p>
                     <p className="text-xs text-gray-300">{item.description}</p>

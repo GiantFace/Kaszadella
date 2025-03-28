@@ -63,7 +63,40 @@ export const signUp = async (params: AuthCredentials) => {
     });
 
     // 🔥 Itt küldjük el az emailt a sikeres regisztráció után
-    await sendMail(email, "Üdv Kaszadella világában", "Sikeres regisztráció");
+    await sendMail(
+      email,
+      "Üdv Kaszadella világában!",
+      `
+  <div style="font-family: Arial, sans-serif; color: #111; line-height: 1.6;">
+    <h2 style="color:#0EA5C4;">Üdvözlünk a Kaszadella világában!</h2>
+    <p>
+      Ahol az álmok találkoznak a valósággal, és a kaszád nem a fűre, hanem a nyereményekre sújt le!<br/>
+      Öröm látni, hogy te is csatlakoztál a <strong>Kaszadella</strong> közösséghez – a <em>bajnokok brigádjához</em>, ahol nap mint nap együtt haladunk a siker felé.
+    </p>
+    
+    <p>
+      <strong>Mit kaphatsz mostantól?</strong><br/>
+      ✅ Duplázó tippek, hogy stabilan építsd az alapokat<br/>
+      ✅ Közepes és nagy oddsok, hogy megéld az izgalmakat<br/>
+      ✅ Hétvégi extra mixek, hogy igazán nagyot kaszálj<br/>
+    </p>
+
+    <p style="margin-top:20px;">
+      Kaszadella története most veled folytatódik! Fogd meg a kaszát, vedd kezedbe a sorsod – és indulhat az aratás!<br/>
+      <strong>“Célozd meg a holdat, és a csillagok közé esel!”</strong>
+    </p>
+
+    <hr style="margin: 30px 0;" />
+
+    <p style="font-size: 14px; color: #555;">
+      Ha bármilyen kérdésed van, írj nekünk bátran: <a href="mailto:info@kaszadella.com">info@kaszadella.com</a><br/>
+      Üdvözlettel,<br/>
+      A Kaszadella csapata 🌾
+    </p>
+  </div>
+  `,
+    );
+
     //await signInCredentials({ email, password });
     return { success: true };
   } catch (error) {

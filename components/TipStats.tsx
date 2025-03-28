@@ -25,7 +25,7 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
 
   return (
     <section className="flex flex-col mt-20 px-4">
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 z-[99]">
         {/* Bal oszlop: Tipp információk és grafikon */}
         <div className="flex-1 flex flex-col items-center justify-center mt-6">
           <div className="tipp-info text-gray-800 mb-4">

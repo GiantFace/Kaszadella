@@ -40,3 +40,13 @@ export const users = pgTable("users", {
     withTimezone: true,
   }),
 });
+
+export const forgotPasswordTokens = pgTable("forgot_password_tokens", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(), // Egyedi azonosító
+  email: text("email").notNull(), // A felhasználó email címe, akinek a token tartozik
+  token: text("token").notNull(), // A visszaállító token (pl. UUID vagy random string)
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(), // Lejárati idő
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(), // Létrehozás dátuma
+});
