@@ -16,10 +16,7 @@ interface TippCardProps {
 
 const TippCard: React.FC<TippCardProps> = ({ tip }) => {
   return (
-    <div
-      className="flex flipbox-item w-full sm:w-80 md:w-80 lg:w-[440px] mx-auto mb-16 md:mb-6 mt-6"
-      style={{ perspective: "1000px" }}
-    >
+    <div className="flipbox-item" style={{ perspective: "1000px" }}>
       {/* Kártya belső tartalma */}
       <div
         className="flipbox-inner mt-8 md:mt-0 absolute"
@@ -39,7 +36,7 @@ const TippCard: React.FC<TippCardProps> = ({ tip }) => {
         {/* Hátoldal */}
         <div className="flipbox-back bg-gray-800 p-4 flex flex-col items-center min-h-[250px] md:min-h-[400px] gap-4">
           {/* Felül: cím */}
-          <h3 className="font-bold text-2xl text-white text-center">
+          <h3 className="font-bold text-2xl text-white text-center max-h-1.5">
             {tip.title}
           </h3>
           {/* Kép */}
@@ -48,25 +45,23 @@ const TippCard: React.FC<TippCardProps> = ({ tip }) => {
               <img
                 src={tip.cover}
                 alt={tip.title}
-                height={300}
-                width={300}
+                height={320}
+                width={320}
                 className="max-w-full"
               />
             </div>
           )}
           {/* Szöveg */}
           <p
-            className="text-white text-l mt-[-20px] text-center"
+            className="text-white mt-[-20px] text-center min-h-20 "
             style={{ whiteSpace: "pre-line" }}
           >
             {tip.back_description}
           </p>
           {/* Gomb */}
-          <div className="w-full flex justify-center max-h-0.5">
-            <button className="flixbox-button text-white rounded-lg font-semibold w-full sm:w-40 h-10 hover:bg-dark-200 transition-transform hover:scale-105">
-              <Link href="/subscription">Aktiválom</Link>
-            </button>
-          </div>
+          <button className="flixbox-button text-white rounded-lg font-semibold w-full  h-10 hover:bg-dark-200 transition-transform hover:scale-105 min-h-9">
+            <Link href="/subscription">Aktiválom</Link>
+          </button>
         </div>
       </div>
     </div>

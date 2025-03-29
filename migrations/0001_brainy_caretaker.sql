@@ -6,7 +6,3 @@ CREATE TABLE "forgot_password_tokens" (
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "forgot_password_tokens_id_unique" UNIQUE("id")
 );
---> statement-breakpoint
-ALTER TABLE "users" ALTER COLUMN "created_at" SET NOT NULL;--> statement-breakpoint
-ALTER TABLE "users" ADD COLUMN "subscription_start" timestamp with time zone;--> statement-breakpoint
-ALTER TABLE "users" ADD COLUMN "subscription_end" timestamp with time zone;
