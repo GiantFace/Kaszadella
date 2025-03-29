@@ -49,7 +49,7 @@ export const signUp = async (params: AuthCredentials) => {
     .where(eq(users.email, email))
     .limit(1);
   if (existingUser.length > 0) {
-    return { success: false, error: "User already exists" };
+    return { success: false, error: "A felhasználó már regisztrált" };
   }
 
   const hashedPassword = await hash(password, 10);

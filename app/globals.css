@@ -358,6 +358,7 @@
 
 
 
+
   /* tipp Cover */
   .tipp-cover_extra_small {
     @apply w-[28.95px] h-10;
@@ -407,15 +408,15 @@
   }
 
   .tipp-copies p {
-    @apply text-xl text-dark-100;
+    @apply text-xl ;
   }
 
   .tipp-copies p span {
-    @apply ml-2 font-semibold text-white;
+    @apply ml-2 font-semibold ;
   }
 
   .tipp-description {
-    @apply mt-2 text-justify text-xl text-dark-100 z-[990];
+    @apply mt-2 text-justify text-xl  z-[990];
   }
 
   .tipp-overview_btn {

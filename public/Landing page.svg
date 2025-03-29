@@ -156,13 +156,13 @@
 <pattern id="pattern15_171_5" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image1_171_5" transform="scale(0.000322997 0.000589623)"/>
 </pattern>
-<radialGradient id="paint0_radial_171_5" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1533 487) rotate(125.497) scale(2237.62 1682.21)">
+<radialGradient id="paint0_radial_171_5" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1605.33 553) rotate(127.579) scale(2226.47 1673.83)">
 <stop stop-color="#0EA5C4"/>
-<stop offset="0.0001" stop-color="#156A7F"/>
-<stop offset="0.345" stop-color="#1D2933"/>
+<stop stop-color="#156A7F"/>
+<stop offset="0.72" stop-color="#1D2933"/>
 <stop offset="1"/>
 </radialGradient>
-<radialGradient id="paint1_radial_171_5" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(550.5 3730.5) rotate(-47.1665) scale(1917.28 1917.28)">
+<radialGradient id="paint1_radial_171_5" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(558.5 4138.5) rotate(-54.4668) scale(2229.11 2229.11)">
 <stop stop-color="#0EA5C4"/>
 <stop offset="1" stop-opacity="0"/>
 </radialGradient>

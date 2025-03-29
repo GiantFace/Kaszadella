@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function LoadingPage() {
@@ -15,9 +16,14 @@ export default function LoadingPage() {
         <motion.span
           className="text-3xl md:text-5xl select-none"
           animate={{ rotate: [0, 360] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: "linear" }}
+          transition={{ repeat: Infinity, duration: 0.6, ease: "linear" }}
         >
-          ✨
+          <Image
+            src="/images/kasza.png"
+            alt="Kasdzadella kasza"
+            height={70}
+            width={70}
+          />
         </motion.span>
       </motion.div>
 

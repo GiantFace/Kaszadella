@@ -24,18 +24,20 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
   const [selectedTip, setSelectedTip] = useState<Tipp>(tip || defaultTip);
 
   return (
-    <section className="flex flex-col mt-20 px-4">
-      <div className="flex flex-col md:flex-row gap-8 z-[99]">
+    <section className="relative mt-20 px-4  bg-gradient-to-t from-white/10 to-black/10 ">
+      <div className="absolute inset-0 backdrop-blur-xl mask-gradient pointer-events-none" />
+
+      <div className="relative z-10 flex flex-col md:flex-row gap-8">
         {/* Bal oszlop: Tipp információk és grafikon */}
         <div className="flex-1 flex flex-col items-center justify-center mt-6">
-          <div className="tipp-info text-gray-800 mb-4">
+          <div className="tipp-info text-white mb-4">
             <p>
               A{" "}
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-primary-turquoise">
                 {selectedTip.title + " nyertes" || "Nincs cím"}
               </span>{" "}
               szelvényének száma:{" "}
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-primary-turquoise">
                 {selectedTip.sum_tip_number ?? 0}
               </span>
             </p>
@@ -44,16 +46,16 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
               <p className="font-semibold">{selectedTip.rating ?? 0}</p>
             </div>
           </div>
-          <div className="tipp-copies mb-4">
+          <div className="tipp-copies mb-4 t">
             <p className="text-white">
               Összes nyeremény:{" "}
-              <span className="font-bold">
+              <span className="font-bold text-primary-turquoise">
                 {selectedTip.winned_unity ?? 0} egység
               </span>
             </p>
-            <p>
+            <p className="text-white">
               Elérhető tippek:{" "}
-              <span className="font-bold">
+              <span className="font-bold text-primary-turquoise">
                 {selectedTip.available_tipps ?? 0} db
               </span>
             </p>
@@ -66,7 +68,7 @@ const TipStats: React.FC<TippCardProps> = ({ tip }) => {
           </div>
         </div>
 
-        {/* Jobb oszlop: Leírás és a cover kép animációval */}
+        {/* Jobb oszlop: Leírás és kép */}
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           <FadeInOnScroll>
             <h3 className="tipp-description text-white text-xl mb-4">

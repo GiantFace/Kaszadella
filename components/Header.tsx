@@ -10,7 +10,7 @@ import { cn, getInitials } from "@/lib/utils";
 import { Session } from "next-auth";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Header = ({ session }: { session: Session }) => {
+const Header = ({ session }: { session?: Session | null }) => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const Header = ({ session }: { session: Session }) => {
   ];
 
   const leftLinks = [{ name: "Kezdőlap", href: "/" }];
-  const centerBrand = "Kaszadella";
+  const centerBrandLink = [{ name: "Kaszadella", href: "/" }];
   const rightLinks = [
     { name: "Tippek", href: "/tips" },
     { name: "Előfizetés", href: "/subscription" },
@@ -84,34 +84,36 @@ const Header = ({ session }: { session: Session }) => {
         </div>
         {/*Középső rész_ Brand középre igazítva */}
         <div className="flex-1 text-center">
-          <div className="flex items-center justify-center gap-3">
-            <div className="flex">
-              <Image
-                src="/images/kasza.png"
-                alt="Kaszadella kasza"
-                width={50}
-                height={50}
-              />
-            </div>
+          <Link href="/">
+            <div className="flex items-center justify-center gap-3">
+              <div className="flex">
+                <Image
+                  src="/images/kasza.png"
+                  alt="Kaszadella kasza"
+                  width={50}
+                  height={50}
+                />
+              </div>
 
-            {/* Középső brand szöveg – mindig középen */}
-            <div className="z-1">
-              <span className="text-3xl font-bold text-white">
-                {centerBrand}
-              </span>
-            </div>
+              {/* Középső brand szöveg – mindig középen */}
+              <div className="z-1">
+                <button className="text-3xl font-bold text-white">
+                  Kaszadella
+                </button>
+              </div>
 
-            {/* Jobb oldali ikon – kezdetben a brand szöveg jobb oldalán */}
-            <motion.div className="flex">
-              <Image
-                src="/images/kasza.png"
-                alt="Kaszadella kasza"
-                width={50}
-                height={50}
-                style={{ transform: "scaleX(-1)" }}
-              />
-            </motion.div>
-          </div>
+              {/* Jobb oldali ikon – kezdetben a brand szöveg jobb oldalán */}
+              <motion.div className="flex">
+                <Image
+                  src="/images/kasza.png"
+                  alt="Kaszadella kasza"
+                  width={50}
+                  height={50}
+                  style={{ transform: "scaleX(-1)" }}
+                />
+              </motion.div>
+            </div>
+          </Link>
         </div>
         {/* Desktop navigáció: csak md felett */}
         <ul className="hidden md:flex gap-6 flex-1 justify-end">

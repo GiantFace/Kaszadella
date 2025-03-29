@@ -88,6 +88,7 @@ export const FIELD_NAMES = {
   fullName: "Teljes név",
   email: "Email cím",
   password: "Jelszó",
+  nickname: "Becenév",
 };
 export const FIELD_TYPES = {
   fullName: "text",
