@@ -37,12 +37,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <body
           className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
         >
-          <div
-            className="transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateY(0%)` }}
-          >
-            {children}
-          </div>
+          {children}
           <Toaster />
         </body>
       </SessionProvider>
