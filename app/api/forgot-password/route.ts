@@ -31,7 +31,6 @@ export async function POST(request: Request) {
     await sendMail(email, "Jelszó visszaállítás", htmlContent);
     return NextResponse.json({ message: "Email sent" }, { status: 200 });
   } catch (error: any) {
-    console.error("Error sending mail:", error);
     return NextResponse.json(
       { error: "Email sending failed" },
       { status: 500 },

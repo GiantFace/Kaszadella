@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
-import Header from "@/components/Header";
 
 const ibmPlexSans = localFont({
   src: [
@@ -38,7 +37,12 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <body
           className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
         >
-          {children}
+          <div
+            className="transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateY(0%)` }}
+          >
+            {children}
+          </div>
           <Toaster />
         </body>
       </SessionProvider>

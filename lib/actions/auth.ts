@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/database/drizzle";
-import { users } from "@/database/schema";
+import { users, forgotPasswordTokens } from "@/database/schema";
 import { eq } from "drizzle-orm";
 import { hash } from "bcryptjs";
 import { signIn } from "@/auth";
@@ -9,6 +9,8 @@ import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
 import { sendMail } from "@/lib/sendMail";
+import { randomUUID } from "crypto";
+import { date, timestamp } from "drizzle-orm/pg-core";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">,
@@ -41,6 +43,8 @@ export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, password, nickname } = params;
   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
   const { success } = await ratelimit.limit(ip);
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 48);
 
   if (!success) return redirect("/too-fast");
   const existingUser = await db
@@ -53,6 +57,7 @@ export const signUp = async (params: AuthCredentials) => {
   }
 
   const hashedPassword = await hash(password, 10);
+  const verificationToken = randomUUID();
 
   try {
     await db.insert(users).values({
@@ -62,13 +67,27 @@ export const signUp = async (params: AuthCredentials) => {
       package: "Default",
     });
 
+    await db.insert(forgotPasswordTokens).values({
+      email,
+      token: verificationToken,
+      expiresAt: expiration,
+      createdAt: new Date(),
+    });
+
     // 🔥 Itt küldjük el az emailt a sikeres regisztráció után
+    const verifyUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`;
+
     await sendMail(
       email,
       "Üdv Kaszadella világában!",
       `
   <div style="font-family: Arial, sans-serif; color: #111; line-height: 1.6;">
     <h2 style="color:#0EA5C4;">Üdvözlünk a Kaszadella világában!</h2>
+    <h2>Kérjük, erősítsd meg az email címed!</h2>
+  <p>Kattints az alábbi linkre, hogy aktiváld a fiókodat:</p>
+  <a href="${verifyUrl}" style="padding: 10px 15px; background: #0EA5C4; color: white; text-decoration: none;">Email megerősítése</a>
+  <p>Ha nem te regisztráltál, kérjük hagyd figyelmen kívül ezt az üzenetet.</p>
+  \`,
     <p>
       Ahol az álmok találkoznak a valósággal, és a kaszád nem a fűre, hanem a nyereményekre sújt le!<br/>
       Öröm látni, hogy te is csatlakoztál a <strong>Kaszadella</strong> közösséghez – a <em>bajnokok brigádjához</em>, ahol nap mint nap együtt haladunk a siker felé.
@@ -100,7 +119,6 @@ export const signUp = async (params: AuthCredentials) => {
     //await signInCredentials({ email, password });
     return { success: true };
   } catch (error) {
-    console.log(error, "Signup error");
-    return { success: false, error: "Signup error" };
+    return { success: false, error: "Regisztrációs hiba" };
   }
 };

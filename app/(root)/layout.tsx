@@ -43,7 +43,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
         max-w-70
       "
       style={{
-        backgroundImage: "url('LandingPage.svg')",
+        backgroundImage: "url('/LandingPage.svg')",
         backgroundSize: "cover",
       }}
     >
