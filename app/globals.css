@@ -1,26 +1,597 @@
-@import "tailwindcss";
+/* =========================
+   Tailwind Alaprétegek
+   ========================= */
+@tailwind;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* =========================
+   BASE layer
+   ========================= */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --radius: 1rem; /* nagyobb lekerekítés a mesésebb stílushoz */
+
+    /* Alap CSS-változók – tetszés szerint finomíthatod őket is */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  /* Sötét mód – ha szeretnéd, itt is mesésebbé teheted a színeket */
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  /* Scrollbar eltüntetése */
+  .hide-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    border-radius: 0px;
+  }
+  .hide-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .hide-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 0px;
+  }
+  .hide-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: transparent;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   COMPONENTS layer
+   ========================= */
+@layer components {
+  /* Alap gomb stílus */
+  /* A külső wrapper, amiben az input + label van */
+  .input-container {
+    position: relative;
+    margin: 1rem 0;
+  }
+
+  /* Az input stílusa */
+  .input-container input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid #000; /* Keret, ha szükséges */
+    background-color: #eee; /* Egyezzen meg a label háttérszínével */
+  }
+
+  /* A label alaphelyzetben az input "közepén" helyezkedik el */
+  .input-container label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* kattintás az inputra menjen */
+    background-color: #eee; /* megegyező háttér, így "megtöri" a keretet */
+    padding: 0 5px;
+    transition: 0.3s ease;
+    color: #666;
+    font-size: 16px;
+  }
+
+  /* Fókuszkor vagy ha az input nem üres, a label felcsúszik */
+  .input-container input:focus + label,
+  .input-container input:not(:placeholder-shown) + label {
+    top:10px;
+    left: 5px;
+    font-size: 15px;
+  }
+
+
+  /* Alap input stílus */
+  .form-input {
+    @apply w-full min-h-14 border-none text-base font-bold placeholder:font-normal text-dark-100 placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-dark-300;
+  }
+
+  /* Példa: Auth box (bejelentkezési doboz) */
+  .auth-box {
+    /* Világos doboz, enyhe árnyékkal, pasztell átmenettel */
+    @apply mx-auto flex max-w-5xl flex-col gap-6 p-10 rounded-lg shadow-xl;
+    background: linear-gradient(135deg, #ffffff 0%, #f0fff0 100%);
+  }
+
+  /* Header */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+/*Header###########################################################*/
+  .header-glass {
+    background: #000707;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 15px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0 0 25px 25px;
+    position: fixed;
+    animation: slideDown 0.7s ease-out forwards;
+  }
+  @layer components {
+    .header-button {
+      text-align: center;
+      --color: #FFCFD2;
+      font-family: inherit;
+      display: inline-block;
+      width: 6em;
+      height: 2.6em;
+      line-height: 2.5em;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 17px;
+      z-index: 1;
+      border-radius: 6px;
+      position: relative;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .header-button::before {
+      position: absolute;
+      content: "";
+      background: turquoise;
+      width: 150px;
+      height: 200px;
+      z-index: -1;
+      border-radius: 50%;
+      border: 10px solid  #ffffff;
+      top: 100%;
+      left: 100%;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .header-button:hover {
+      color: black;
+    }
+
+    .header-button:hover::before {
+      top: -30px;
+      left: -30px;
+    }
+  }
+
+/*########################################xx*/
+  /*Hero title*/
+  .hero-title{
+
+  }
+
+  /*###########################################################*/
+  /* Borrowed tipp */
+  .borrowed-tipp {
+    @apply gradient-vertical p-5 rounded-2xl xs:w-min w-full relative;
+  }
+
+  .borrowed-tipp_cover {
+    @apply py-4 lg:px-16 px-10 flex justify-center items-center w-full rounded-lg;
+  }
+  /* Flipbox konténer: alapból vízszintes elrendezés, középre igazítva */
+  /* TippCard.css */
+  .flipbox-item:hover .flipbox-inner {
+    transform: rotateY(180deg);
+  }
+
+  /* Global Flipbox Stílusok */
+  .flipbox-item {
+    width: 100%;
+    height: 24rem;
+    cursor: pointer;
+    margin: auto;
+    perspective: 1000px;
+    position: relative;
+  }
+
+  .flipbox-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 700ms cubic-bezier(0.38, -0.55, 0.265, 1.55);
+  }
+
+  /* Desktop: Hover vagy "flipped" osztály aktiválja a flip-et */
+  .flipbox-item:hover .flipbox-inner,
+  .flipbox-item.flipped .flipbox-inner {
+    transform: perspective(1000px) rotateY(180deg);
+  }
+
+  .flipbox-front,
+  .flipbox-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
+    0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-lg */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; /* p-4 */
+    backface-visibility: hidden;
+  }
+
+  .flipbox-front {
+    background-color: #EEC7A5;
+    color: #1f2937; /* dark-100 */
+  }
+
+  .flipbox-back {
+    background-color: var(--primary); /* a primary szín a Tailwind configból */
+    color: #1f2937;
+    transform: rotateY(180deg);
+  }
+
+  .flipbox-button{
+    background-color: black;
+    text-color: white;
+    padding: 1rem 0.5rem;
+  }
+
+  /* Mobil optimalizáció – kisebb képernyőkön */
+  @media (max-width: 650px) {
+    .flipbox-item {
+      max-width: 100%; /* Mobilon szélesebb, de nem teljesen a képernyő */
+      height: auto;   /* Automatikusan alkalmazkodik a tartalomhoz */
+      margin: auto; /* Kis margó a tetején és alján */
+      min-height: 200px;
+
+    }
+    .flipbox-inner {
+      height: 100%;
+      width: 100%;
+      padding: 1rem 10rem ;
+    }
+    .flipbox-front,
+    .flipbox-back {
+      padding: 0.5rem; /* Csökkentett padding mobilon */
+    }
+    .flipbox-front h3 {
+      font-size: 1.25rem; /* Kicsit kisebb cím */
+    }
+    .flipbox-front p,
+    .flipbox-back p {
+      font-size: 0.875rem; /* Kis betűméret */
+    }
+  }
+
+
+
+
+  /* tipp Cover */
+  .tipp-cover_extra_small {
+    @apply w-[28.95px] h-10;
+  }
+
+  .tipp-cover_small {
+    @apply w-[55px] h-[76px];
+  }
+
+  .tipp-cover_medium {
+    @apply w-[144px] h-[199px];
+  }
+
+  .tipp-cover_regular {
+    @apply xs:w-[174px] w-[114px] xs:h-[239px] h-[169px];
+  }
+
+  .tipp-cover_wide {
+    @apply xs:w-[296px] w-[256px] xs:h-[404px] h-[354px];
+  }
+
+  /* tipp List */
+  .tipp-list {
+    @apply mt-2 flex flex-wrap justify-center gap-5 max-xs:justify-between xs:gap-10 shadow-lg p-4 rounded-xl bg-white/80 backdrop-blur-md transition-all duration-300;
+
+  }
+
+  /* tipp Overview */
+  .tipp-overview {
+    @apply flex flex-col items-center gap-12 sm:gap-10 xl:flex-row;
+
+  }
+
+  .home-casa{
+  }
+
+  .tipp-overview h1 {
+    @apply text-5xl font-semibold text-dark-100 md:text-7xl;
+  }
+
+  .tipp-info {
+    @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-dark-100;
+  }
+
+  .tipp-copies {
+    @apply flex flex-row flex-wrap gap-4 mt-1;
+  }
+
+  .tipp-copies p {
+    @apply text-xl text-dark-100;
+  }
+
+  .tipp-copies p span {
+    @apply ml-2 font-semibold text-primary;
+  }
+
+  .tipp-description {
+    @apply mt-2 text-justify text-xl text-dark-100;
+  }
+
+  .tipp-overview_btn {
+    @apply mt-4 min-h-14 w-fit bg-primary text-dark-100 hover:bg-primary/90 max-md:w-full;
+  }
+
+  /* File Upload */
+  .upload-btn {
+    @apply flex min-h-14 w-full items-center justify-center gap-1.5 rounded-md;
+  }
+
+  .upload-filename {
+    @apply mt-1 text-center text-xs;
+  }
+
+  .progress {
+    @apply rounded-full bg-green-800 p-0.5 text-center font-bebas-neue text-[8px] font-bold leading-none text-light-100;
+  }
+
+  /* Search */
+  .search {
+    @apply relative mt-10 flex min-h-14 w-full items-center rounded-xl bg-dark-300 px-4;
+  }
+
+  .search-input {
+    @apply w-full border-none font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none;
+  }
+
+  /* tipp Receipt */
+  .tipp-receipt_admin-btn {
+    @apply bg-light-300 rounded-md text-primary-admin font-semibold hover:bg-light-300/80;
+  }
+
+  /* tipp Ticket */
+  #tipp-ticket {
+    @apply relative mt-10 hidden w-[544px] overflow-hidden bg-dark-300 py-8;
+  }
+
+  #tipp-ticket #tipp-details div {
+    @apply space-y-1 rounded-md border border-light-100/10 p-3;
+  }
+
+  #tipp-ticket #tipp-details div p:first-child {
+    @apply text-xs text-light-700;
+  }
+
+  #tipp-ticket #tipp-details div p:last-child {
+    @apply text-sm font-bold text-white;
+  }
+
+  #tipp-ticket #tipp-divider div:first-child {
+    @apply absolute -left-3.5 top-1/2 size-7 -translate-y-1/2 rounded-full bg-black;
+  }
+
+  #tipp-ticket #tipp-divider div:last-child {
+    @apply absolute -right-3.5 top-1/2 size-7 -translate-y-1/2 rounded-full bg-black;
+  }
+
+  .tipp-ticket-circles {
+    @apply absolute inset-x-0 -bottom-6 flex flex-row gap-1.5;
+  }
+
+  /* Not Found */
+  #not-found {
+    @apply flex justify-center items-center flex-col text-center w-full;
+  }
+
+  #not-found h4 {
+    @apply text-white mt-6 font-semibold text-2xl;
+  }
+
+  #not-found p {
+    @apply text-light-100 w-[360px] mt-1;
+  }
+
+  .not-found-btn {
+    @apply bg-primary font-bebas-neue min-w-[360px] mt-6 text-dark-100 text-xl hover:bg-primary/90 min-h-12;
+  }
+
+  /* Pagination */
+  #pagination {
+    @apply flex flex-row justify-end gap-3;
+  }
+
+  .pagination-btn_light {
+    @apply bg-light-300 text-dark-300 hover:bg-light-300/70;
+  }
+
+  .pagination-btn_dark {
+    @apply bg-dark-300 hover:bg-dark-100;
+  }
+
+  #pagination p {
+    @apply text-sm inline-flex items-center font-semibold px-4 py-1.5 rounded-md text-center;
+  }
+
+  /* Sort */
+  .select-trigger {
+    @apply w-40 h-10 px-4 bg-dark-300 text-light-100 border-dark-100;
+  }
+
+  .select-content {
+    @apply bg-dark-300 text-light-100 border-dark-100 ;
+  }
+
+  .select-item {
+    @apply focus:bg-dark-600 focus:text-light-100 ;
+  }
+}
+
+@layer utilities {
+  /* Mesésebb gradientek */
+  .gradient-vertical {
+    /* Pasztell lila-kék átmenet, mesés hangulathoz */
+    background: linear-gradient(180deg, #d9efff 0%, #f9e7ff 100%);
+  }
+  .gradient-gray {
+    /* Pasztell barackos-lila átmenet */
+    background: linear-gradient(270deg, #ffe8e8 0%, #fff6e8 100%);
+  }
+  .gradient-blue {
+    /* Lágy pasztell kék átmenet */
+    background: linear-gradient(180deg, #b3ecff 0%, #d9fffc 100%);
+  }
+
+  /* Auth container – pasztell, mesés háttér */
+  .auth-container {
+    @apply relative flex flex-col-reverse text-dark-100 sm:flex-row;
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+  }
+
+  /* Auth form – a container adja a fő átmenetet, de ha szeretnél plusz háttérszínt, itt megteheted */
+  .auth-form {
+    @apply my-auto flex h-full min-h-screen flex-1 items-center px-5 py-10;
+    /* Alapesetben a .auth-container adja a hátteret. */
+  }
+
+  /* Root container – az egész oldal hátterét is mesésebbé teheted */
+  .root-container {
+    @apply flex min-h-screen flex-1 flex-col xs:px-10 md:px-16;
+    background-image: url('/public/LandingPage.svg');
+  }
+  .footer-container {
+    @apply bg-gradient-to-br from-green-400 via-green-500 to-green-600;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+  }
+  /* tipp Details */
+  .tipp-details {
+    @apply lg:mt-36 mt-16 mb-5 flex flex-col gap-16 lg:flex-row;
+  }
+
+  .tipp-details h3 {
+    @apply text-xl font-semibold text-primary;
+  }
+
+  /* Library */
+  .library {
+    @apply mx-auto flex max-w-xl w-full flex-col text-center;
+  }
+
+  .library-subtitle {
+    @apply text-lg font-semibold uppercase text-light-100;
+  }
+
+  .library-title {
+    @apply mt-2 text-3xl font-semibold text-white xs:text-5xl;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
