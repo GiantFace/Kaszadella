@@ -242,6 +242,8 @@
     }
   }
 
+
+
 /*########################################xx*/
   /*Hero title*/
   .hero-title{
@@ -355,6 +357,20 @@
   }
 
 
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out both;
+  }
 
 
 
@@ -658,4 +674,60 @@
 
 .slide-in {
   animation: slideIn 500ms ease-in-out;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
+
+.typewriter {
+
+  display: inline-block;
+}
+
+.typewriter-inner {
+  display: inline-block;
+}
+@keyframes fadeInChar {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-char {
+  animation: fadeInChar 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+.typewriter-inner span {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(20px);
+  animation: fadeInUp 0.4s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

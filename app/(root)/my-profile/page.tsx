@@ -21,42 +21,35 @@ type SegmentParams<T extends Object = any> =
     : T;
 
 export default async function Page({ params, searchParams }: PageProps) {
-  // 1) Lekérjük a session-t
   const session = await auth();
 
-  // 2) Ha nincs session vagy nincs user objektum, jeleníts meg egy üzenetet
   if (!session || !session.user) {
     return (
-      <div className="text-center text-xl text-gray-800">
+      <div className="min-h-screen flex items-center justify-center bg-black/50 backdrop-blur text-white text-center text-xl">
         Kérlek jelentkezz be a profil megtekintéséhez!
       </div>
     );
   }
 
-  // 3) Ellenőrizzük, hogy a usernek van-e ID-je
   if (!session.user.id) {
     return (
-      <div className="text-center text-xl text-gray-800">
+      <div className="min-h-screen flex items-center justify-center bg-black/50 backdrop-blur text-white text-center text-xl">
         Hiányzik a felhasználói azonosító. Kérlek, jelentkezz be újra!
       </div>
     );
   }
 
-  // 4) Lekérjük az előfizetés adatait
-  // (Feltételezzük, hogy a subscription-ben lehet null is, ha nincs előfizetés)
   const subscription = await getUserSubscription(session.user.id);
 
-  // 5) Ha nincs subscription, vagy inaktív (példa: status !== "Active"), jelezzük
   if (!subscription) {
     return (
-      <div className="text-center text-xl text-white">
-        Nincs aktív csomagod. Vásárolj egy csomagot, hogy tippeket kapj!
+      <div className="min-h-screen flex flex-col items-center justify-center bg-black/50 backdrop-blur text-white text-center text-xl space-y-6">
+        <p>Nincs aktív csomagod. Vásárolj egy csomagot, hogy tippeket kapj!</p>
         <form
           action={async () => {
             "use server";
             await signOut();
           }}
-          className="mb-10"
         >
           <Button className="font-bold">Kijelentkezés</Button>
         </form>
@@ -64,52 +57,48 @@ export default async function Page({ params, searchParams }: PageProps) {
     );
   }
 
-  // 6) Mivel a subscription mezők is lehetnek undefined (ha a DB logika így hozza vissza),
-  // érdemes ellenőrizni őket, mielőtt new Date(...) hívást végzünk.
   const createdAtString = subscription.createdAt ?? "";
   const expirationDateString = subscription.expirationDate ?? "";
 
   return (
-    <section className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-white">Profilom</h1>
+    <section className="min-h-screen flex items-center justify-center  px-4">
+      <div className="max-w-xl w-full bg-white p-8 rounded-2xl shadow-xl text-center animate-fade-in-up">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900">Profilom</h1>
 
-      {/* Üdvözlés */}
-      <div className="mb-10">
-        <p className="text-lg text-white">
-          Üdvözöllek, <strong>{session.user.name}</strong>!
-        </p>
-        <p className="text-md text-white">
-          Email: <strong>{session.user.email}</strong>
-        </p>
+        <div className="mb-6 space-y-1">
+          <p className="text-lg text-gray-800">
+            Üdvözöllek, <strong>{session.user.name}</strong>!
+          </p>
+          <p className="text-md text-gray-700">
+            Email: <strong>{session.user.email}</strong>
+          </p>
+        </div>
+
+        <div className="bg-gray-100 p-6 rounded-lg shadow mb-6 text-left">
+          <h2 className="text-2xl font-bold mb-4">Előfizetés adatai</h2>
+          <p>
+            <strong>Csomag neve:</strong> {subscription.packageName ?? "N/A"}
+          </p>
+          <p>
+            <strong>Lejárati dátum:</strong>{" "}
+            {expirationDateString
+              ? new Date(expirationDateString).toLocaleDateString()
+              : "N/A"}
+          </p>
+          <p>
+            <strong>Státusz:</strong> {subscription.status ?? "N/A"}
+          </p>
+        </div>
+
+        <form
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+        >
+          <Button className="font-bold w-full">Kijelentkezés</Button>
+        </form>
       </div>
-
-      {/* Előfizetés adatai */}
-      <div className="bg-white p-6 rounded-lg shadow mb-10">
-        <h2 className="text-2xl font-bold mb-4">Előfizetés adatai</h2>
-        <p>
-          <strong>Csomag neve:</strong> {subscription.packageName ?? "N/A"}
-        </p>
-        <p>
-          <strong>Lejárati dátum:</strong>{" "}
-          {expirationDateString
-            ? new Date(expirationDateString).toLocaleDateString()
-            : "N/A"}
-        </p>
-        <p>
-          <strong>Státusz:</strong> {subscription.status ?? "N/A"}
-        </p>
-      </div>
-
-      {/* Logout gomb */}
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-        className="mb-10"
-      >
-        <Button className="font-bold">Kijelentkezés</Button>
-      </form>
     </section>
   );
 }
