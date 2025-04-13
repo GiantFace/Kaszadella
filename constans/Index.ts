@@ -196,60 +196,186 @@ export const layers = [
   },
 ];
 
-export const weeklyTipsByPackage: Record<number, Record<string, string[]>> = {
+export interface TipItemData {
+  title: string;
+  tip: string;
+  odds?: string; // decimális számként értelmezendő (pl. "1.56")
+}
+
+// constants/Index.ts
+
+export interface TipItemData {
+  title: string;
+  tip: string;
+  odds?: string; // decimális számstring (például "1.56") vagy üres, ha nem vesszük figyelembe az odds-szorzáshoz
+}
+
+export const weeklyTipsByPackage: Record<
+  number,
+  Record<string, TipItemData[]>
+> = {
   // Basic csomag (id=1)
   1: {
     Hétfő: [
-      "NB I: Ferencváros vs Újpest, végeredmény: 2-1, szögletek: 7, sárgalapok: 3, odds: 2.10",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Kedd: [
-      "Serie A: Atalanta vs Lazio, végeredmény: 1-1, szögletek: 5, sárgalapok: 2, odds: 2.50",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Szerda: [
-      "Premier League: Everton vs West Ham, végeredmény: 1-0, szögletek: 4, sárgalapok: 1, odds: 2.80",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Csütörtök: [
-      "Bundesliga: Hoffenheim vs Wolfsburg, végeredmény: 2-2, szögletek: 6, sárgalapok: 3, odds: 3.00",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
-    Péntek: ["Még nem kerültek fel a tippek"],
-    Szombat: ["Még nem kerültek fel a tippek"],
-    Vasárnap: ["Még nem kerültek fel a tippek"],
+    Péntek: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
+    Szombat: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
+    Vasárnap: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
   },
   // Premium csomag (id=2)
   2: {
     Hétfő: [
-      "La Liga: FB Barcelona vs Real Madrid, végeredmény: 3-1, szögletek: 8, sárgalapok: 3, odds: 2.50",
-      "Premium tip 2: Nézd meg a korábbi mérkőzések trendjeit.",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Kedd: [
-      "Premier League: Liverpool vs Manchester United, végeredmény: 2-2, szögletek: 10, sárgalapok: 4, odds: 3.10",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Szerda: [
-      "Bundesliga: Bayern Munich vs Borussia Dortmund, végeredmény: 1-0, szögletek: 6, sárgalapok: 2, odds: 1.80",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Csütörtök: [
-      "Serie A: Juventus vs AC Milan, végeredmény: 2-1, szögletek: 7, sárgalapok: 3, odds: 2.20",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
-    Péntek: ["Még nem kerültek fel a tippek"],
-    Szombat: ["Még nem kerültek fel a tippek"],
-    Vasárnap: ["Még nem kerültek fel a tippek"],
+    Péntek: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
+    Szombat: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
+    Vasárnap: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
   },
   // Ultimate csomag (id=3)
   3: {
     Hétfő: [
-      "Champions League: Manchester City vs PSG, végeredmény: 2-0, szögletek: 9, sárgalapok: 2, odds: 1.75",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Kedd: [
-      "Champions League: Real Madrid vs Bayern Munich, végeredmény: 1-1, szögletek: 7, sárgalapok: 3, odds: 2.80",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
     Szerda: [
-      "Champions League: Liverpool vs Chelsea, végeredmény: 2-1, szögletek: 8, sárgalapok: 3, odds: 2.10",
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
-    CSütörtök: [
-      "Champions League: AC Milan vs Inter Milan, végeredmény: 1-0, szögletek: 6, sárgalapok: 2, odds: 2.50",
+    Csütörtök: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
     ],
-    Péntek: ["Még nem kerültek fel a tippek"],
-    Szombat: ["Még nem kerültek fel a tippek"],
-    Vasárnap: ["Még nem kerültek fel a tippek"],
+    Péntek: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
+    Szombat: [
+      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+    ],
+    Vasárnap: [
+      {
+        title: "",
+        tip: "9-es kötés",
+        odds: "", // Ezt nem vesszük figyelembe az odds-szorzáshoz, ha nincs numerikus érték
+      },
+      {
+        title: "Utrecht - Groningen",
+        tip: "Utrecht (1x2)",
+        odds: "1.56",
+      },
+      {
+        title: "Atlanta - Bologna",
+        tip: "Igen (Mind két csapat szerez gólt)",
+        odds: "1.73",
+      },
+      {
+        title: "Aberdenn - Rangers",
+        tip: "Igen (Mind két csapat szerez gólt)",
+        odds: "1.51",
+      },
+      {
+        title: "Arda Kardzsali - Lokomotív szófia",
+        tip: "Arda Kardzsali (1x2)",
+        odds: "1.58",
+      },
+      {
+        title: "RFC Liege - Genk 2",
+        tip: "RFC Liege (1x2)",
+        odds: "1.59",
+      },
+      {
+        title: "Newcastle - Manchester Utd.",
+        tip: "Newcastle (1x2)",
+        odds: "1.51",
+      },
+      {
+        title: "Celje - Mura",
+        tip: "Celje (1x2)",
+        odds: "1.32",
+      },
+      {
+        title: "Sivasspor - Fenerbache",
+        tip: "Fenerbache (1x2)",
+        odds: "1.27",
+      },
+      {
+        title: "Bohemians 1905 - Plzen",
+        tip: "Plzen (1x2)",
+        odds: "1.65",
+      },
+      // Elválasztó vonal
+      { title: "------------------------", tip: "", odds: "" },
+      {
+        title: "",
+        tip: "3-as kötés",
+        odds: "",
+      },
+      {
+        title: "Olympiakosz - AEK Athén",
+        tip: "Olympiakosz (1x2)",
+        odds: "1.75",
+      },
+      {
+        title: "Audace Ceringnola - Benevento",
+        tip: "Audice Ceringola (1x2)",
+        odds: "1.97",
+      },
+      {
+        title: "Bohemians 1905 - Plzen",
+        tip: "Plzen (1x)",
+        odds: "1.65",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      {
+        title: "",
+        tip: "3-as kötés",
+        odds: "",
+      },
+      {
+        title: "Münster - Karlsruhe",
+        tip: "Igen és több mint 2,5 (Mindkét csapat szerez gólt + Gólszám 2,5)",
+        odds: "2.01",
+      },
+      {
+        title: "Lugano - St. Gallen",
+        tip: "2-3 (Gólszám)",
+        odds: "2.02",
+      },
+      {
+        title: "Cesena - Frosinone",
+        tip: "Nem (Vendégcsapat kapott gól nélkül játsza le a mérkőzést)",
+        odds: "1.29",
+      },
+    ],
   },
 };
