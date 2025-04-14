@@ -265,7 +265,65 @@ export const weeklyTipsByPackage: Record<
   // Ultimate csomag (id=3)
   3: {
     Hétfő: [
-      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+      { title: "", tip: "3-as kötés", odds: "" },
+      {
+        title: "Bournemouth - Fulllham",
+        tip: "Igen és több mint 2,5 (Mindkét csapat szerez gólt)",
+        odds: "1.91",
+      },
+      {
+        title: "AIK Stockholm - FF Malmö",
+        tip: "Igen (Mindkét csapat szerez gólt)",
+        odds: "1.86",
+      },
+      { title: "Honvéd - Gyirmót", tip: "Honvéd (1x2)", odds: "1.95" },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      {
+        title: "Bournemouth - Fullham",
+        tip: "Több mint 0,5 (1. félidő - Büntetőlap-szám 0,5)",
+        odds: "1.20",
+      },
+      {
+        title: "Hull City - Coventry",
+        tip: "Igen (Mindkét csapat szerez gólt)",
+        odds: "1.72",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "1-es kötés - Fogadáskészítő", odds: "" },
+      {
+        title: "Atl. Madrid -  Valladolid",
+        tip: "Atl Madrid 1. félidő - 1x2 + Atl. Madrid Szöglet hendikep -3,5",
+        odds: "2.25",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      {
+        title: "Honvéd - Gyirmót",
+        tip: "Igen (Mindkét csapat szerez gólt)",
+        odds: "1.61",
+      },
+      {
+        title: "Bournemouth - Fullham",
+        tip: "Igen (Mindkét csapat szerez gólt)",
+        odds: "1.55",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      { title: "Crotone - Foggia", tip: "Crotone (1x2)", odds: "1.34" },
+      {
+        title: "AC Capri - Legnago",
+        tip: "AC Capri (Döntetlennél a tét visszajár)",
+        odds: "1.42",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      {
+        title: "Maccabi TA - Maccabi Haifa",
+        tip: "Maccabi TA (1x2)",
+        odds: "1.61",
+      },
+      { title: "AZ Alkmaar 2 - Volendam", tip: "Volendam (1x2)", odds: "1.70" },
     ],
     Kedd: [
       { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
@@ -352,7 +410,7 @@ export const weeklyTipsByPackage: Record<
       },
       {
         title: "Bohemians 1905 - Plzen",
-        tip: "Plzen (1x)",
+        tip: "Plzen (1x2)",
         odds: "1.65",
       },
       { title: "------------------------", tip: "", odds: "" },

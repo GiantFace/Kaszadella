@@ -78,7 +78,7 @@ function TicketSlip({ slip }: TicketSlipProps) {
           <td className="border px-2 py-1 w-1/3">
             {labelTip.tip}
             <div className="text-sm text-gray-600">
-              {labelTip.title} kötésben kell megtenni
+              {labelTip.title} Kötésben kell megtenni
             </div>
           </td>
           <td className="border px-2 py-1 w-1/3">
