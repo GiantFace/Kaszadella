@@ -326,7 +326,85 @@ export const weeklyTipsByPackage: Record<
       { title: "AZ Alkmaar 2 - Volendam", tip: "Volendam (1x2)", odds: "1.70" },
     ],
     Kedd: [
-      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+      { title: "", tip: "2-es kötés fogadáskészítő", odds: "" },
+      {
+        title: "Dortumund - Barcelona",
+        tip: "Igen, mind két csapat szerez gólt + 1 - 3 Vendégcsaat gólszámok",
+        odds: "1.67",
+      },
+      {
+        title: "Dortumund - Barcelona",
+        tip: "Igen (Mindkét csapat kap büntetőlapot)",
+        odds: "1.20",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "4-es kötés", odds: "" },
+      {
+        title: "Dortumnd - Barcelona",
+        tip: "Igen (Mindkét csapat kap büntetőlapot)",
+        odds: "1.20",
+      },
+      {
+        title: "Dortumnd - Barcelona",
+        tip: "1 - 3 (Vendégcsapat gólszámok)",
+        odds: "1.26",
+      },
+      {
+        title: "Aston Villa - Paris SG",
+        tip: "Igen mindkét csapat szerez gólt + 1-3 vendégcsapat gólszámok",
+        odds: "1.67",
+      },
+      {
+        title: "Aston Villa - Paris SG",
+        tip: "Igen, mindkét csapat kap büntető lapot",
+        odds: "1.15",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      {
+        title: "Wuhan Tree Towns - Beijing Guoan",
+        tip: "Beijing Guoan (1. félidő - 1x2)",
+        odds: "2.11",
+      },
+      {
+        title: "Shenzhen Peng City - Changchun Yatai",
+        tip: "2-3 (Gólszám)",
+        odds: "1.96",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      {
+        title: "Dortmund - Barcelona",
+        tip: "Barcelona Hendikep 1:0 + Vendégcsapat szögletszám több mint 4,5 + Büntetőlap-szám több mint 1,5",
+        odds: "5.80",
+      },
+      {
+        title: "DAston Villa - Paris SG",
+        tip: "Döntetlen vagy Paris SG + 1. félidő szögletszám több mint 3,5",
+        odds: "1.79",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "4-es kötés", odds: "" },
+      {
+        title: "Bayern München - Crvena zvedzda",
+        tip: "Bayern München (A mérkőzés győztese)",
+        odds: "1.58",
+      },
+      {
+        title: "Real Madrid - Paris BC",
+        tip: "Real Madrid (A mérkődés győztese)",
+        odds: "1.26",
+      },
+      {
+        title: "Benidorm - Bidasoa Irun",
+        tip: "Bidasoa Irun (1x2)",
+        odds: "1.31",
+      },
+      {
+        title: "Olympique Akbou - MC Alger",
+        tip: "MC Alger (1x2)",
+        odds: "1.78",
+      },
     ],
     Szerda: [
       { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
