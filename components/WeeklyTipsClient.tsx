@@ -63,9 +63,9 @@ function TicketSlip({ slip }: TicketSlipProps) {
   }, 1);
 
   return (
-    <table className="min-w-full table-fixed border-collapse mb-6">
+    <table className="min-w-full table-fixed border-collapse mb-6 text-sm md:text-lg ">
       <thead>
-        <tr className="bg-gray-100">
+        <tr className="bg-gray-100 ">
           <th className="border px-2 py-1 w-1/3">Tipp neve</th>
           <th className="border px-2 py-1 w-1/3">Leírás</th>
           <th className="border px-2 py-1 w-1/3">Odds</th>
@@ -150,7 +150,7 @@ export default function WeeklyTipsClient({
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold text-center mb-8">
-        Heti tippek a {packageNames[activePackageId]} csomaghoz
+        Heti tippek a {packageNames[activePackageId]}hoz
       </h2>
       {/* Legördülő lista a napok kiválasztásához */}
       <div className="mb-6">
