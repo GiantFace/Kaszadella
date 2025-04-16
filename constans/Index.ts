@@ -428,8 +428,9 @@ export const weeklyTipsByPackage: Record<
         tip: "Hazai és több (1x2 + Gólszám 2,5",
         odds: "2.29",
       },
-      { title: "", tip: "4-es kötés", odds: "" },
       { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "4-es kötés", odds: "" },
+
       {
         title: "Newcastle - Crystal Palace",
         tip: "Newcastle szöglet hendikep -0,5 + Crystal Palace kap több büntetőlapot",
