@@ -407,7 +407,89 @@ export const weeklyTipsByPackage: Record<
       },
     ],
     Szerda: [
-      { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+      { title: "Nafta - Maribor", tip: "Karibor (1x2)", odds: "1.43" },
+      {
+        title: "Real Madrid - Arsenal",
+        tip: "Hazai csapat gólszám több mint 1,5",
+        odds: "1.43",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+
+      {
+        title: "Internazionale - Bayern München",
+        tip: "Igen, mindkét csapat szerez gólt",
+        odds: "1.57",
+      },
+      {
+        title: "Real Madrid - Arsenal",
+        tip: "Hazai és több (1x2 + Gólszám 2,5",
+        odds: "2.29",
+      },
+      { title: "", tip: "4-es kötés", odds: "" },
+      { title: "------------------------", tip: "", odds: "" },
+      {
+        title: "Newcastle - Crystal Palace",
+        tip: "Newcastle szöglet hendikep -0,5 + Crystal Palace kap több büntetőlapot",
+        odds: "2.55",
+      },
+      {
+        title: "Shanghai Shenhua - Hainiu",
+        tip: "Shanghai Shenhua (1. félidő - 1x2)",
+        odds: "1.42",
+      },
+      {
+        title: "Jihlava - Zlín",
+        tip: "Döntetlen vagy Zlín (Kétesély)",
+        odds: "1.21",
+      },
+      {
+        title: "Lyn - Stabek",
+        tip: "Döntetlen vagy Stabek (Kétesély)",
+        odds: "1.35",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "3-es kötés", odds: "" },
+
+      {
+        title: "Real Madrid - Arsenal",
+        tip: "Arsenal szöglet hendikep -6,5",
+        odds: "1.48",
+      },
+      {
+        title: "Internaczionale - Bayern München",
+        tip: "Hazai csapat szögletszám több mint 3,5",
+        odds: "1.57",
+      },
+      {
+        title: "Internaczionale - Bayern München",
+        tip: "1-3 (Vendégcsapat - Gólszámok)",
+        odds: "1.27",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+
+      {
+        title: "Newcastle - Crystal Palace",
+        tip: "Newcastle -0,5 szöglet hendikep",
+        odds: "1.51",
+      },
+      {
+        title: "Internazionale - Bayern München",
+        tip: "Hazai csapat szögletszám több mint 3,5",
+        odds: "1.57",
+      },
+      { title: "------------------------", tip: "", odds: "" },
+      { title: "", tip: "2-es kötés", odds: "" },
+
+      {
+        title: "Once Caldas - Dep. La Equidad",
+        tip: "Ince Caldas (1x2)",
+        odds: "1.57",
+      },
+      { title: "Silkeborg - Aalborg", tip: "Sikelborg (1x2)", odds: "1.62" },
     ],
     Csütörtök: [
       { title: "Nincs tipp", tip: "Még nem kerültek fel a tippek", odds: "" },
