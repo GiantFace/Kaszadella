@@ -1,4 +1,4 @@
-// app/api/activate-subscription/route.ts
+// app/api/activate-subscription/action.ts
 import { NextResponse } from "next/server";
 import { updateUserSubscription } from "@/database/updateUserSubscription";
 

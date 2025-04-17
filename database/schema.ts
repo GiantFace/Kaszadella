@@ -70,3 +70,19 @@ export const users = pgTable("users", {
     withTimezone: true,
   }),
 });
+
+// lib/db/schema.ts
+
+export const ticket_tips = pgTable("ticket_tips", {
+  id: uuid("id").primaryKey(),
+  date: date("date").notNull(), // YYYY-MM-DD
+  day_name: varchar("day_name", { length: 20 }).notNull(), // pl. "Hétfő"
+  subscription: varchar("subscription", { length: 50 }).notNull(), // pl. "Start csomag"
+  package: varchar("package", { length: 50 }).notNull(), // pl. "Kicsi tipp"
+  combination: varchar("combination", { length: 20 }).notNull(), // pl. "3-as kötés"
+  slip_name: varchar("slip_name", { length: 100 }).notNull(), // pl. "20250416_St_Kic_3_1"
+  tip_name: varchar("tip_name", { length: 100 }).notNull(),
+  tip_description: varchar("tip_description", { length: 255 }).notNull(),
+  odds_value: varchar("odds_value", { length: 10 }).notNull(), // X.XX
+  sum_odds: varchar("sum_odds", { length: 10 }).notNull(), // X.XX
+});

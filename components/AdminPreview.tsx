@@ -1,41 +1,49 @@
-// components/AdminPreview.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export interface TipListItem {
-  date: string; // például "2023-10-12"
-  dayName: string; // például "Kedd"
-  subscriptionName: string; // például "Prémium Előfizetés"
-  packageName: string; // például "Kicsi tipp", "Közepes tipp", stb.
+  date: string; // "2023-10-12"
+  dayName: string; // "Kedd"
+  subscription: string; // "Start csomag"
+  packageName: string; // "Kicsi tipp"
   tipName: string; // Tipp neve
   tipDescription: string; // Tipp leírása
-  oddsValue: string; // például "1.50"
+  oddsValue: string; // "1.50"
 }
 
 export default function AdminPreview() {
-  // Dummy adatok; az adatbázisból származó adatok esetén ezek dinamikusan jönnének.
-  const [tips] = useState<TipListItem[]>([
-    {
-      date: "2023-10-12",
-      dayName: "Kedd",
-      subscriptionName: "Prémium Előfizetés",
-      packageName: "Kicsi tipp",
-      tipName: "Tipp 1",
-      tipDescription: "Ez az első tipp leírása",
-      oddsValue: "1.50",
-    },
-    {
-      date: "2023-10-12",
-      dayName: "Kedd",
-      subscriptionName: "Prémium Előfizetés",
-      packageName: "Nagy tipp",
-      tipName: "Tipp 2",
-      tipDescription: "Ez a második tipp részletes leírása",
-      oddsValue: "1.75",
-    },
-    // További tippek...
-  ]);
+  const [tips, setTips] = useState<TipListItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/ticket-tips")
+      .then(async (res) => {
+        if (!res.ok) throw new Error(await res.text());
+        return res.json();
+      })
+      .then((data: TipListItem[]) => {
+        setTips(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Preview fetch error:", err);
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div className="text-center py-8">Betöltés...</div>;
+  }
+  if (error) {
+    return (
+      <div className="text-red-600 text-center py-8">
+        Hiba a betöltés során: {error}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -43,59 +51,32 @@ export default function AdminPreview() {
       <table className="min-w-full table-fixed border-collapse mb-4">
         <thead>
           <tr className="bg-black text-white">
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Dátum
-              <br />
-              (Év,hónap,nap)
-            </th>
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Nap neve
-            </th>
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Előfizetés neve
-            </th>
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Csomag neve
-            </th>
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Tipp neve
-            </th>
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Tipp leírása
-            </th>
-            <th
-              className="border px-2 py-1 text-center"
-              style={{ width: "14.28%" }}
-            >
-              Odds értéke
-            </th>
+            {[
+              "Dátum",
+              "Nap neve",
+              "Előfizetés neve",
+              "Csomag neve",
+              "Tipp neve",
+              "Tipp leírása",
+              "Odds értéke",
+            ].map((hdr) => (
+              <th
+                key={hdr}
+                className="border px-2 py-1 text-center"
+                style={{ width: `${100 / 7}%` }}
+              >
+                {hdr}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {tips.map((tip, index) => (
-            <tr key={index} className="border-t text-center">
+          {tips.map((tip, idx) => (
+            <tr key={idx} className="border-t text-center">
               <td className="border px-2 py-1 text-black">{tip.date}</td>
               <td className="border px-2 py-1 text-black">{tip.dayName}</td>
               <td className="border px-2 py-1 text-black">
-                {tip.subscriptionName}
+                {tip.subscription}
               </td>
               <td className="border px-2 py-1 text-black">{tip.packageName}</td>
               <td className="border px-2 py-1 text-black">{tip.tipName}</td>
@@ -105,6 +86,16 @@ export default function AdminPreview() {
               <td className="border px-2 py-1 text-black">{tip.oddsValue}</td>
             </tr>
           ))}
+          {tips.length === 0 && (
+            <tr>
+              <td
+                colSpan={7}
+                className="border px-2 py-4 text-center text-gray-500"
+              >
+                Nincsenek tippek az adatbázisban.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

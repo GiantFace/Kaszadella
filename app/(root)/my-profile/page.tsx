@@ -45,6 +45,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-black/50 backdrop-blur text-white text-center text-xl space-y-6">
         <p>Nincs aktív csomagod. Vásárolj egy csomagot, hogy tippeket kapj!</p>
+
         <form
           action={async () => {
             "use server";
@@ -64,7 +65,6 @@ export default async function Page({ params, searchParams }: PageProps) {
     <section className="min-h-screen flex items-center justify-center  px-4">
       <div className="max-w-xl w-full bg-white p-8 rounded-2xl shadow-xl text-center animate-fade-in-up">
         <h1 className="text-3xl font-bold mb-6 text-gray-900">Profilom</h1>
-
         <div className="mb-6 space-y-1">
           <p className="text-lg text-gray-800">
             Üdvözöllek, <strong>{session.user.name}</strong>!
@@ -73,7 +73,6 @@ export default async function Page({ params, searchParams }: PageProps) {
             Email: <strong>{session.user.email}</strong>
           </p>
         </div>
-
         <div className="bg-gray-100 p-6 rounded-lg shadow mb-6 text-left">
           <h2 className="text-2xl font-bold mb-4">Előfizetés adatai</h2>
           <p>
@@ -88,8 +87,11 @@ export default async function Page({ params, searchParams }: PageProps) {
           <p>
             <strong>Státusz:</strong> {subscription.status ?? "N/A"}
           </p>
+          <p>
+            <strong>Jogosultáság: </strong>
+            {session.user.role}
+          </p>
         </div>
-
         <form
           action={async () => {
             "use server";

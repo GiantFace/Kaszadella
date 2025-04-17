@@ -1,4 +1,4 @@
-// app/api/create-checkout-session/route.ts
+// app/api/create-checkout-session/action.ts
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { sampleTips } from "@/constans/Index";

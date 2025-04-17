@@ -1,4 +1,4 @@
-// app/api/contact/route.ts
+// app/api/contact/action.ts
 import { sendMail } from "@/lib/sendMail"; // a helyes elérési út
 import { NextRequest, NextResponse } from "next/server";
 

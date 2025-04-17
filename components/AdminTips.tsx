@@ -126,42 +126,7 @@ function calculateSumOdds(tips: TicketSlipTip[]): string {
 
 export default function AdminTipsList() {
   // Kezdeti dummy adatok
-  const [ticketSlips, setTicketSlips] = useState<TicketSlip[]>([
-    {
-      id: "1",
-      ticketName: "20231016_St_Kic_3_1",
-      date: "2023-10-16",
-      dayName: "Hétfő",
-      subscriptionName: "Start csomag",
-      packageName: "Kicsi tipp",
-      combinationType: "3-as kötés",
-      sumOdds: "1.50",
-      tips: [
-        {
-          tipName: "Első Tipp",
-          tipDescription: "Első tét leírása",
-          oddsValue: "1.50",
-        },
-      ],
-    },
-    {
-      id: "2",
-      ticketName: "20231017_Kas_Nag_9_1",
-      date: "2023-10-17",
-      dayName: "Kedd",
-      subscriptionName: "Kasza csomag",
-      packageName: "Nagy tipp",
-      combinationType: "9-es kötés",
-      sumOdds: "1.75",
-      tips: [
-        {
-          tipName: "Második Tipp",
-          tipDescription: "Második tét leírása",
-          oddsValue: "1.75",
-        },
-      ],
-    },
-  ]);
+  const [ticketSlips, setTicketSlips] = useState<TicketSlip[]>([]);
 
   const weekDates = getCurrentWeekDates();
   const today = new Date();
@@ -218,19 +183,33 @@ export default function AdminTipsList() {
       return;
     }
     setNewTicket((prev) => {
-      const updatedTips = [
-        ...(prev.tips || []),
+      // 1) Biztosítsuk, hogy oddsValue mindig string legyen:
+      const trimmedOdds = (newTicketTip.oddsValue ?? "").trim();
+
+      // 2) Ha üres maradt, ne vegyük fel a tippek közé:
+      if (!trimmedOdds) {
+        alert("Az odds értéke nem lehet üres!");
+        return prev;
+      }
+
+      // 3) Építsük újra a tips tömböt
+      const updatedTips: TicketSlipTip[] = [
+        ...(prev.tips ?? []),
         {
-          ...newTicketTip,
-          oddsValue: newTicketTip.oddsValue.trim(),
-        } as TicketSlipTip,
+          tipName: newTicketTip.tipName!.trim(),
+          tipDescription: newTicketTip.tipDescription!.trim(),
+          oddsValue: trimmedOdds,
+        },
       ];
+
+      // 4) Számoljuk újra a sumOdds‑ot és frissítsük a state‑et
       return {
         ...prev,
         tips: updatedTips,
         sumOdds: calculateSumOdds(updatedTips),
       };
     });
+
     setNewTicketTip({ tipName: "", tipDescription: "", oddsValue: "" });
   };
 
@@ -307,6 +286,34 @@ export default function AdminTipsList() {
     setCustomCombinationActive(false);
     setCustomCombinationType("");
     setIsEditingSumOdds(false);
+  };
+  const handleBulkUpload = async () => {
+    // 1. Confirm:
+    if (
+      !window.confirm(
+        "Biztos, hogy fel akarod tölteni az összes tippet az adatbázisba?",
+      )
+    ) {
+      return;
+    }
+
+    // 2. Kis payload: egy objektum slips tömbbel
+    const payload = { slips: ticketSlips };
+
+    // 3. Küldés a bulk route-ra
+    try {
+      const res = await fetch("/api/admin/ticket-tips/bulk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(await res.text());
+
+      alert("Sikeresen feltöltöttük az adatokat!");
+      setTicketSlips([]); // opcionális: ürítsd ki a frontendet
+    } catch (err: any) {
+      alert("Hiba a feltöltés során: " + err.message);
+    }
   };
 
   // Egy tét törlése egy adott ticketből
@@ -717,6 +724,16 @@ export default function AdminTipsList() {
           {editingTicketId ? "Ticket módosítása" : "Ticket szelvény mentése"}
         </button>
       </div>
+      {ticketSlips.length > 0 && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={handleBulkUpload}
+            className="px-6 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+          >
+            Feltöltés az adatbázisba
+          </button>
+        </div>
+      )}
     </div>
   );
 }

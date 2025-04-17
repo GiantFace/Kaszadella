@@ -1,4 +1,4 @@
-// /app/api/reset-password/route.ts
+// /app/api/reset-password/action.ts
 import { NextResponse } from "next/server";
 import { db } from "@/database/drizzle";
 import { forgotPasswordTokens, users } from "@/database/schema";

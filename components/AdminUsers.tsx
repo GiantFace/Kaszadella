@@ -1,27 +1,39 @@
 // components/AdminUsers.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface UserData {
+  id: string;
   name: string;
   email: string;
-  lastActivity: string;
+  lastActivityDate: string;
 }
 
 export default function AdminUsers() {
-  const [users] = useState<UserData[]>([
-    {
-      name: "John Doe",
-      email: "john@example.com",
-      lastActivity: "2023-10-12 14:30",
-    },
-    {
-      name: "Jane Smith",
-      email: "jane@example.com",
-      lastActivity: "2023-10-12 13:15",
-    },
-  ]);
+  const [users, setUsers] = useState<UserData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/users")
+      .then((res) => {
+        if (!res.ok) throw new Error(res.statusText);
+        return res.json() as Promise<UserData[]>;
+      })
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Adatok betöltése sikertelen");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Betöltés…</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div>
@@ -35,11 +47,11 @@ export default function AdminUsers() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
+          {users.map((user) => (
+            <tr key={user.id}>
               <td className="border px-2 py-1">{user.name}</td>
               <td className="border px-2 py-1">{user.email}</td>
-              <td className="border px-2 py-1">{user.lastActivity}</td>
+              <td className="border px-2 py-1">{user.lastActivityDate}</td>
             </tr>
           ))}
         </tbody>

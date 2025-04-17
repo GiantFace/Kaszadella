@@ -1,4 +1,4 @@
-// app/api/forgot-password/route.ts
+// app/api/forgot-password/action.ts
 import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/sendMail";
 import { createForgotPasswordToken } from "@/database/tokents";

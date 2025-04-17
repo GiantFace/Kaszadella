@@ -1,4 +1,4 @@
-// @/app/api/resend-verification/route.ts
+// @/app/api/resend-verification/action.ts
 import { NextResponse } from "next/server";
 import { db } from "@/database/drizzle";
 import { users, forgotPasswordTokens } from "@/database/schema";
