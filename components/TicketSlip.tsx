@@ -50,7 +50,7 @@ export default function TicketSlip({
             <td className="border px-2 py-3 text-center font-semibold">
               {combination}
               <div className="text-sm text-gray-600 mt-1">
-                Kötésben kell megtenni
+                Kötésben ajánlott megtenni
               </div>
             </td>
             <td className="border px-2 py-3 text-center font-semibold">
