@@ -57,7 +57,12 @@ const subscriptionOptions = [
   "Kasza csomag",
   "Kaszadella csomag",
 ];
-const packageOptions = ["Kicsi tipp", "Közepes tipp", "Nagy tipp", "duplázó"];
+const packageOptions = [
+  "Közepes tipp",
+  "Nagy tipp",
+  "Duplázó",
+  "Extra hétvégi",
+];
 const combinationOptions = [
   "2-es kötés",
   "3-as kötés",
@@ -91,10 +96,10 @@ function generateTicketName(
         ? ticket.subscriptionName.substring(0, 3)
         : "";
   const packageAbbrMap: Record<string, string> = {
-    "Kicsi tipp": "Kic",
+    Extás: "Ext",
     "Közepes tipp": "Köz",
     "Nagy tipp": "Nag",
-    duplázó: "Dup",
+    Duplázó: "Dup",
   };
   const pkgAbbr =
     ticket.packageName && packageAbbrMap[ticket.packageName]

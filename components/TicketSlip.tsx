@@ -1,4 +1,6 @@
+// components/TicketSlip.tsx
 "use client";
+
 import React from "react";
 
 interface Tip {
@@ -19,8 +21,8 @@ export default function TicketSlip({
   slip_name,
   combination,
   sum_odds,
-  tips,
   packageType,
+  tips,
 }: TicketSlipProps) {
   if (!tips || tips.length === 0) {
     return (
@@ -32,41 +34,50 @@ export default function TicketSlip({
 
   return (
     <div className="mb-10">
-      <h3 className="text-lg font-bold mb-2 text-left text-black">
+      <h3 className="text-lg font-bold mb-2 text-left text-white">
         {packageType}
       </h3>
-      <table className="min-w-full table-fixed border-collapse mb-8">
-        <thead>
-          <tr className="bg-blue-100 text-gray-800">
-            <th className="border px-2 py-2 text-center">Tipp neve</th>
-            <th className="border px-2 py-2 text-center">Leírás</th>
-            <th className="border px-2 py-2 text-center">Odds</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Összegző sor */}
-          <tr className="border-b">
-            <td className="border px-2 py-3"></td>
-            <td className="border px-2 py-3 text-center font-semibold">
-              {combination}
-              <div className="text-sm text-gray-600 mt-1">
-                Kötésben ajánlott megtenni
-              </div>
-            </td>
-            <td className="border px-2 py-3 text-center font-semibold">
-              {sum_odds}
-            </td>
-          </tr>
-          {/* Egyedi tippek */}
-          {tips.map((t, i) => (
-            <tr key={i} className="border-t text-center text-black">
-              <td className="border px-2 py-2 font-bold">{t.tip_name}</td>
-              <td className="border px-2 py-2">{t.tip_description}</td>
-              <td className="border px-2 py-2">{t.odds_value || "-"}</td>
+      <div className="overflow-x-auto">
+        <table className="min-w-full w-full table-fixed border-collapse mb-8">
+          <thead>
+            <tr className="bg-blue-100 text-gray-800">
+              {/* First column: 2/6 of full width => w-2/6 */}
+              <th className="border px-2 py-2 text-center w-2/6">Tipp neve</th>
+              {/* Second column: 3/6 of full width => w-3/6 */}
+              <th className="border px-2 py-2 text-center w-3/6">Leírás</th>
+              {/* Third column: 1/6 of full width => w-1/6 */}
+              <th className="border px-2 py-2 text-center w-1/6">Odds</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {/* Összegző sor */}
+            <tr className="border-b">
+              <td className="border px-2 py-3 w-2/6"></td>
+              <td className="border px-2 py-3 text-center font-semibold w-3/6 text-gray-200">
+                {combination}
+                <div className="text-sm text-gray-600 mt-1">
+                  Kötésben ajánlott megtenni
+                </div>
+              </td>
+              <td className="border px-2 py-3 text-center font-semibold w-1/6">
+                {sum_odds}
+              </td>
+            </tr>
+            {/* Egyedi tippek */}
+            {tips.map((t, i) => (
+              <tr key={i} className="border-t text-center text-white">
+                <td className="border px-2 py-2 font-bold w-2/6">
+                  {t.tip_name}
+                </td>
+                <td className="border px-2 py-2 w-3/6">{t.tip_description}</td>
+                <td className="border px-2 py-2 w-1/6">
+                  {t.odds_value || "-"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

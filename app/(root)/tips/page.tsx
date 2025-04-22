@@ -73,7 +73,6 @@ export default async function TipsPage() {
     <WeeklyTipsClient
       activePackageId={activePackageId}
       packageNames={packageNames}
-      weeklyTips={weeklyTips}
     />
   );
 }

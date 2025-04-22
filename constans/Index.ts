@@ -112,7 +112,7 @@ export const sampleTips = [
     color: "#1c1f40",
     cover: "/images/Kaszadella_halal_starter_pack.png",
     video: "/videos/start-pack.mp4",
-    price: 6990,
+    price: 0,
   },
   {
     id: 2,
@@ -129,7 +129,7 @@ export const sampleTips = [
     color: "#1c1f40",
     cover: "/images/Kaszadella_halal_casa_pack.png",
     video: "/videos/kasza-pack.mp4",
-    price: 8990,
+    price: 0,
   },
   {
     id: 3,

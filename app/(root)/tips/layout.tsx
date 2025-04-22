@@ -14,7 +14,7 @@ export default function TipsLayout({
         <h2 className="text-2xl font-bold">Előfizetésedhez tartozó tippek</h2>
       </header>
       {/* Fő tartalom */}
-      <main className="p-6">{children}</main>
+      <main className="p-6 bg-black ">{children}</main>
       {/* Lábléc */}
       <footer className="bg-gray-200 text-center py-4">
         © {new Date().getFullYear()} Kaszadella

@@ -1,6 +1,7 @@
+// components/WeeklyTipsClient.tsx
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import TicketSlip from "@/components/TicketSlip";
 
 interface Tip {
@@ -11,23 +12,24 @@ interface Tip {
 
 interface Slip {
   packageType: string;
-  package: string;
   slip_name: string;
   combination: string;
   sum_odds: string;
+  date: string;
   tips: Tip[];
 }
 
 type GroupedByDay = Record<string, Slip[]>;
 
 interface RawTip {
-  tip_description: string; // <-- EZT HASZNÁLD!
+  date: string;
+  day_name: string;
   slip_name: string;
   combination: string;
   sum_odds: string;
   tip_name: string;
   odds_value: string;
-  day_name: string;
+  tip_description: string;
   package: string;
 }
 
@@ -42,119 +44,173 @@ export default function WeeklyTipsClient({
 }: WeeklyTipsClientProps) {
   const [weeklyTips, setWeeklyTips] = useState<GroupedByDay>({});
   const [selectedDay, setSelectedDay] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const ddRef = useRef<HTMLDivElement>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // csak egyszer fusson le a slideDown animáció sessionStorage alapján
+  const [animateHeader, setAnimateHeader] = useState(false);
 
   useEffect(() => {
-    async function fetchTips() {
+    if (!sessionStorage.getItem("headerAnimated")) {
+      setAnimateHeader(true);
+      sessionStorage.setItem("headerAnimated", "1");
+    }
+  }, []);
+
+  // close dropdown when clicking outside
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ddRef.current && !ddRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    window.addEventListener("mousedown", handler);
+    return () => window.removeEventListener("mousedown", handler);
+  }, []);
+
+  // fetch data
+  useEffect(() => {
+    (async () => {
       try {
         const res = await fetch("/api/admin/ticket-tips");
         if (!res.ok) throw new Error("Nem sikerült lekérni az adatokat");
         const data: RawTip[] = await res.json();
 
-        const groupedByDay: Record<string, Record<string, RawTip[]>> = {};
+        const grouped: Record<string, Record<string, RawTip[]>> = {};
+        data.forEach((row) => {
+          grouped[row.day_name] ??= {};
+          (grouped[row.day_name][row.slip_name] ??= []).push(row);
+        });
 
-        // Csoportosítás nap és szelvény szerint
-        for (const item of data) {
-          const day = item.day_name;
-          const slip = item.slip_name;
-
-          if (!groupedByDay[day]) groupedByDay[day] = {};
-          if (!groupedByDay[day][slip]) groupedByDay[day][slip] = [];
-
-          groupedByDay[day][slip].push(item);
+        const transformed: GroupedByDay = {};
+        for (const [day, slipsMap] of Object.entries(grouped)) {
+          transformed[day] = Object.values(slipsMap).map((rows) => {
+            const first = rows[0];
+            return {
+              packageType: first.package,
+              slip_name: first.slip_name,
+              combination: first.combination,
+              sum_odds: first.sum_odds,
+              date: first.date,
+              tips: rows.map((r) => ({
+                tip_name: r.tip_name,
+                odds_value: r.odds_value,
+                tip_description: r.tip_description,
+              })),
+            };
+          });
         }
 
-        // Transzformálás a TicketSlip formátumra
-        const finalStructure: GroupedByDay = {};
-        for (const day of Object.keys(groupedByDay)) {
-          finalStructure[day] = Object.values(groupedByDay[day]).map(
-            (slipRows) => {
-              const first = slipRows[0];
-              return {
-                slip_name: first.slip_name,
-                combination: first.combination,
-                sum_odds: first.sum_odds,
-                packageType: first.package,
-
-                tips: slipRows.map((row) => ({
-                  tip_name: row.tip_name,
-                  odds_value: row.odds_value,
-                  tip_description: row.tip_description,
-                })),
-              };
-            },
-          );
-        }
-
-        setWeeklyTips(finalStructure);
-
-        const todayName = new Date().toLocaleDateString("hu-HU", {
+        setWeeklyTips(transformed);
+        const today = new Date().toLocaleDateString("hu-HU", {
           weekday: "long",
         });
         setSelectedDay(
-          finalStructure[todayName]
-            ? todayName
-            : Object.keys(finalStructure)[0] || "",
+          transformed[today] ? today : Object.keys(transformed)[0] || "",
         );
-      } catch (err: any) {
-        console.error("Hiba:", err);
-        setError(err.message || "Ismeretlen hiba");
+      } catch (e: any) {
+        console.error(e);
+        setError(e.message);
       } finally {
         setLoading(false);
       }
-    }
-
-    fetchTips();
+    })();
   }, []);
 
-  if (loading) return <p className="text-center mt-10">Adatok betöltése...</p>;
+  if (loading)
+    return <p className="text-center mt-10 text-gray-700">Adatok betöltése…</p>;
   if (error)
-    return <p className="text-center mt-10 text-red-500">Hiba: {error}</p>;
+    return <p className="text-center mt-10 text-red-600">Hiba: {error}</p>;
 
   const days = Object.keys(weeklyTips);
   const slips = weeklyTips[selectedDay] || [];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-center mb-8">
-        Heti tippek a {packageNames[activePackageId]}hoz
-      </h2>
-
-      <div className="mb-6">
-        <label htmlFor="daySelect" className="mr-2 font-bold">
-          Válassz napot:
-        </label>
-        <select
-          id="daySelect"
-          value={selectedDay}
-          onChange={(e) => setSelectedDay(e.target.value)}
-          className="border border-gray-300 rounded p-2"
-        >
-          {days.map((day) => (
-            <option key={day} value={day}>
-              {day}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {slips.length === 0 ? (
-        <p className="text-center text-gray-600">
-          Nincs elérhető tipp erre a napra.
-        </p>
-      ) : (
-        slips.map((slip, index) => (
-          <TicketSlip
-            key={index}
-            slip_name={slip.slip_name}
-            combination={slip.combination}
-            sum_odds={slip.sum_odds}
-            tips={slip.tips}
-            packageType={slip.packageType}
-          />
-        ))
+    <div className="relative">
+      {/* blur overlay when dropdown open */}
+      {dropdownOpen && (
+        <div
+          className="fixed inset-0 backdrop-blur-md z-10"
+          onClick={() => setDropdownOpen(false)}
+        />
       )}
+
+      {/* header-glass + animate */}
+      <div
+        className={`header-glass max-w-7xl mx-auto px-6 py-10 relative z-20
+                    ${animateHeader ? "animate" : ""}`}
+      >
+        <h2 className="text-4xl font-extrabold text-center mb-8 text-white">
+          Heti tippek a{" "}
+          <span className="text-yellow-400">
+            {packageNames[activePackageId]}
+          </span>{" "}
+          kaszásainak
+        </h2>
+
+        {/* dropdown */}
+        <div ref={ddRef} className="relative inline-block mb-6 w-56 text-white">
+          <p className="ml-2">Válassz napot</p>
+          <button
+            onClick={() => setDropdownOpen((o) => !o)}
+            className="header-button bg-white text-black"
+          >
+            {selectedDay}
+          </button>
+          {dropdownOpen && (
+            <ul className="absolute z-20 mt-2 w-full bg-primary-turquoise rounded-lg shadow-lg max-h-60 overflow-auto">
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: `ul::-webkit-scrollbar { display: none; }`,
+                }}
+              />
+              {days.map((day) => {
+                const date = weeklyTips[day]?.[0]?.date;
+                return (
+                  <li
+                    key={day}
+                    onClick={() => {
+                      setSelectedDay(day);
+                      setDropdownOpen(false);
+                    }}
+                    className="group relative cursor-pointer px-4 py-2 text-center text-white hover:text-black hover:bg-white"
+                  >
+                    {day}
+                    {date && (
+                      <div
+                        className="absolute left-full top-1/2 ml-3 -translate-y-1/2
+                bg-white bg-opacity-90 backdrop-blur-sm text-white text-sm
+                 px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100
+                 transition-opacity duration-200 whitespace-nowrap
+                 z-30"
+                      >
+                        {date}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+
+        {/* alatta dátum */}
+        <div className="text-left text-gray-600 mb-10">
+          Dátum:{" "}
+          <span className="font-semibold text-yellow-400">
+            {slips[0]?.date}
+          </span>
+        </div>
+
+        {/* tippek */}
+        {slips.map((slip, idx) => (
+          <div key={idx} className="mb-10 overflow-x-auto">
+            <TicketSlip {...slip} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
