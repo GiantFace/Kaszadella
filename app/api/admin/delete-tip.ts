@@ -1,4 +1,4 @@
-// /app/api/admin/delete-tip.ts
+// /app/api/admin/[id]-tip.ts
 import { db } from "@/database/drizzle";
 import { weeklyTips } from "@/database/schema";
 import { eq } from "drizzle-orm";

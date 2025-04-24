@@ -62,17 +62,15 @@ export default async function TipsPage() {
       </div>
     );
   }
-  // Csomag nevek definiálása
-  const packageNames: Record<number, string> = {
-    1: "Start csomag",
-    2: "Kasza csomag",
-    3: "Kaszadella csomag",
-  };
 
   return (
     <WeeklyTipsClient
       activePackageId={activePackageId}
-      packageNames={packageNames}
+      packageNames={{
+        1: "Start csomag",
+        2: "Kasza csomag",
+        3: "Kaszadella csomag",
+      }}
     />
   );
 }

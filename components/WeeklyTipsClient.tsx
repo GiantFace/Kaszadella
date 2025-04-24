@@ -1,4 +1,3 @@
-// components/WeeklyTipsClient.tsx
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
@@ -31,6 +30,7 @@ interface RawTip {
   odds_value: string;
   tip_description: string;
   package: string;
+  subscription: string;
 }
 
 interface WeeklyTipsClientProps {
@@ -49,17 +49,6 @@ export default function WeeklyTipsClient({
   const ddRef = useRef<HTMLDivElement>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // csak egyszer fusson le a slideDown animáció sessionStorage alapján
-  const [animateHeader, setAnimateHeader] = useState(false);
-
-  useEffect(() => {
-    if (!sessionStorage.getItem("headerAnimated")) {
-      setAnimateHeader(true);
-      sessionStorage.setItem("headerAnimated", "1");
-    }
-  }, []);
-
-  // close dropdown when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ddRef.current && !ddRef.current.contains(e.target as Node)) {
@@ -70,7 +59,6 @@ export default function WeeklyTipsClient({
     return () => window.removeEventListener("mousedown", handler);
   }, []);
 
-  // fetch data
   useEffect(() => {
     (async () => {
       try {
@@ -78,15 +66,29 @@ export default function WeeklyTipsClient({
         if (!res.ok) throw new Error("Nem sikerült lekérni az adatokat");
         const data: RawTip[] = await res.json();
 
+        const normalize = (str: string) =>
+          str
+            .normalize("NFD")
+            .replace(/\s+/g, "")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+
+        const currentPackageName = normalize(packageNames[activePackageId]);
+
+        const filtered = data.filter(
+          (r) => normalize(r.subscription) === currentPackageName,
+        );
+
         const grouped: Record<string, Record<string, RawTip[]>> = {};
-        data.forEach((row) => {
-          grouped[row.day_name] ??= {};
-          (grouped[row.day_name][row.slip_name] ??= []).push(row);
+        filtered.forEach((r) => {
+          grouped[r.day_name] ??= {};
+          grouped[r.day_name][r.slip_name] ??= [];
+          grouped[r.day_name][r.slip_name].push(r);
         });
 
         const transformed: GroupedByDay = {};
-        for (const [day, slipsMap] of Object.entries(grouped)) {
-          transformed[day] = Object.values(slipsMap).map((rows) => {
+        for (const [day, slips] of Object.entries(grouped)) {
+          transformed[day] = Object.values(slips).map((rows) => {
             const first = rows[0];
             return {
               packageType: first.package,
@@ -104,12 +106,16 @@ export default function WeeklyTipsClient({
         }
 
         setWeeklyTips(transformed);
-        const today = new Date().toLocaleDateString("hu-HU", {
+
+        const today = new Date();
+        const todayHu = today.toLocaleDateString("hu-HU", {
           weekday: "long",
         });
-        setSelectedDay(
-          transformed[today] ? today : Object.keys(transformed)[0] || "",
+        const normalizedToday = normalize(todayHu);
+        const defaultDay = Object.keys(transformed).find(
+          (day) => normalize(day) === normalizedToday,
         );
+        setSelectedDay(defaultDay || Object.keys(transformed)[0] || "");
       } catch (e: any) {
         console.error(e);
         setError(e.message);
@@ -117,7 +123,7 @@ export default function WeeklyTipsClient({
         setLoading(false);
       }
     })();
-  }, []);
+  }, [activePackageId, packageNames]);
 
   if (loading)
     return <p className="text-center mt-10 text-gray-700">Adatok betöltése…</p>;
@@ -129,7 +135,6 @@ export default function WeeklyTipsClient({
 
   return (
     <div className="relative">
-      {/* blur overlay when dropdown open */}
       {dropdownOpen && (
         <div
           className="fixed inset-0 backdrop-blur-md z-10"
@@ -137,27 +142,22 @@ export default function WeeklyTipsClient({
         />
       )}
 
-      {/* header-glass + animate */}
-      <div
-        className={`header-glass max-w-7xl mx-auto px-6 py-10 relative z-20
-                    ${animateHeader ? "animate" : ""}`}
-      >
+      <div className="header-glass max-w-7xl mx-auto px-6 py-10 relative z-20">
         <h2 className="text-4xl font-extrabold text-center mb-8 text-white">
           Heti tippek a{" "}
           <span className="text-yellow-400">
             {packageNames[activePackageId]}
           </span>{" "}
-          kaszásainak
+          csomaghoz
         </h2>
 
-        {/* dropdown */}
         <div ref={ddRef} className="relative inline-block mb-6 w-56 text-white">
           <p className="ml-2">Válassz napot</p>
           <button
             onClick={() => setDropdownOpen((o) => !o)}
             className="header-button bg-white text-black"
           >
-            {selectedDay}
+            {selectedDay || "–"}
           </button>
           {dropdownOpen && (
             <ul className="absolute z-20 mt-2 w-full bg-primary-turquoise rounded-lg shadow-lg max-h-60 overflow-auto">
@@ -179,14 +179,8 @@ export default function WeeklyTipsClient({
                   >
                     {day}
                     {date && (
-                      <div
-                        className="absolute left-full top-1/2 ml-3 -translate-y-1/2
-                bg-white bg-opacity-90 backdrop-blur-sm text-white text-sm
-                 px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100
-                 transition-opacity duration-200 whitespace-nowrap
-                 z-30"
-                      >
-                        {date}
+                      <div className="absolute left-full top-1/2 ml-3 -translate-y-1/2 bg-white bg-opacity-90 backdrop-blur-sm text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-30">
+                        {date} – {weeklyTips[day]?.length || 0} szelvény
                       </div>
                     )}
                   </li>
@@ -196,15 +190,13 @@ export default function WeeklyTipsClient({
           )}
         </div>
 
-        {/* alatta dátum */}
         <div className="text-left text-gray-600 mb-10">
           Dátum:{" "}
           <span className="font-semibold text-yellow-400">
-            {slips[0]?.date}
+            {slips[0]?.date || "–"}
           </span>
         </div>
 
-        {/* tippek */}
         {slips.map((slip, idx) => (
           <div key={idx} className="mb-10 overflow-x-auto">
             <TicketSlip {...slip} />

@@ -7,7 +7,7 @@ interface UserData {
   id: string;
   name: string;
   email: string;
-  lastActivityDate: string;
+  last_activity_date: string;
 }
 
 export default function AdminUsers() {
@@ -51,7 +51,7 @@ export default function AdminUsers() {
             <tr key={user.id}>
               <td className="border px-2 py-1">{user.name}</td>
               <td className="border px-2 py-1">{user.email}</td>
-              <td className="border px-2 py-1">{user.lastActivityDate}</td>
+              <td className="border px-2 py-1">{user.last_activity_date}</td>
             </tr>
           ))}
         </tbody>

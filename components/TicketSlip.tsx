@@ -34,9 +34,10 @@ export default function TicketSlip({
 
   return (
     <div className="mb-10">
-      <h3 className="text-lg font-bold mb-2 text-left text-white">
+      <h3 className="text-lg font-bold mb-2 text-left glass-shine">
         {packageType}
       </h3>
+
       <div className="overflow-x-auto">
         <table className="min-w-full w-full table-fixed border-collapse mb-8">
           <thead>
@@ -59,7 +60,7 @@ export default function TicketSlip({
                   Kötésben ajánlott megtenni
                 </div>
               </td>
-              <td className="border px-2 py-3 text-center font-semibold w-1/6">
+              <td className="border px-2 py-3 text-center font-semibold w-1/6 text-white">
                 {sum_odds}
               </td>
             </tr>

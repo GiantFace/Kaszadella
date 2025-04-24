@@ -250,6 +250,33 @@
 
   }
 
+  .glass-shine {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    background: linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-size: 200% auto;
+    animation: shineText 3s ease-in-out infinite;
+  }
+
+  @keyframes shineText {
+    0% {
+      background-position: -100% center;
+    }
+    100% {
+      background-position: 100% center;
+    }
+  }
+
+
+
   /*###########################################################*/
   /* Borrowed tipp */
   .borrowed-tipp {
