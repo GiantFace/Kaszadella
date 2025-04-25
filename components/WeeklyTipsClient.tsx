@@ -150,6 +150,9 @@ export default function WeeklyTipsClient({
           </span>{" "}
           csomaghoz
         </h2>
+        <div className="text-sm text-gray-600 mt-1 text-center">
+          Az oddsok a feltöltés pillanatában értendőek
+        </div>
 
         <div ref={ddRef} className="relative inline-block mb-6 w-56 text-white">
           <p className="ml-2">Válassz napot</p>
