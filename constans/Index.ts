@@ -100,10 +100,10 @@ export const sampleTips = [
   {
     id: 1,
     title: "START Csomag",
-    available_tipps: 42,
+    available_tipps: 76,
     sum_tip_number: 239,
     rating: 4.9,
-    winned_tip: 80,
+    winned_tip: 50,
     winned_unity: 150,
     front_description:
       "Az első lépés a siker felé! Egy biztos kezdőcsomag, amellyel stabil alapokat építhetsz sportfogadásodhoz. Duplázók és közepes oddsok a hét minden napján!",
@@ -142,7 +142,7 @@ export const sampleTips = [
     front_description:
       "A bajnokok csomagja! Kaszadella vezetésével most a legnagyobb nyeremények várnak rád. Duplázók, közepes oddsok és hatalmas tippek minden hétvégén!",
     back_description:
-      "Hétköznap: 2db duplázó, 2db közepes odds, 3db nagy tipp\nHétvégén: 6db duplázó, 3db közepes, 3db nagy tipp + 1 hétvégi nagy mix",
+      "Hétköznap: 2db duplázó, 2db közepes odds, 3db nagy tipp / hét\nHétvégén: 6db duplázó, 3db közepes, 3db nagy tipp + 1 hétvégi nagy mix",
     color: "#1c1f40",
     cover: "/images/Kaszadella_halal_kaszadella_pack2.png",
     video: "/videos/kaszadella-pack.mp4",

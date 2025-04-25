@@ -107,6 +107,7 @@ function generateTicketName(
       : ticket.packageName
         ? ticket.packageName.substring(0, 3)
         : "";
+
   let betTypeNumber = "";
   if (ticket.combinationType) {
     const match = ticket.combinationType.match(/(\d+)/);
@@ -132,6 +133,7 @@ function calculateSumOdds(tips: TicketSlipTip[]): string {
 export default function AdminTipsList() {
   // Kezdeti dummy adatok
   const [ticketSlips, setTicketSlips] = useState<TicketSlip[]>([]);
+  const [ticketCounter, setTicketCounter] = useState(1);
 
   const weekDates = getCurrentWeekDates();
   const today = new Date();
@@ -266,7 +268,9 @@ export default function AdminTipsList() {
       setEditingTicketId(null);
     } else {
       // Új ticket hozzáadása
-      const ticketName = generateTicketName(newTicket, ticketSlips);
+
+      const ticketName =
+        generateTicketName(newTicket, ticketSlips) + `_${ticketCounter}`;
       const ticketToAdd: TicketSlip = {
         id: `${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
         ticketName,
@@ -279,6 +283,7 @@ export default function AdminTipsList() {
         tips: newTicket.tips!,
       };
       setTicketSlips([...ticketSlips, ticketToAdd]);
+      setTicketCounter((prev) => prev + 1); // minden mentés után nő
     }
     // Reseteljük az űrlapot
     setNewTicket({
