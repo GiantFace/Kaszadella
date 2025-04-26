@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import AgeVerification from "@/components/AgeVerification";
 
 const ibmPlexSans = localFont({
   src: [
@@ -37,6 +38,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <body
           className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
         >
+          <AgeVerification /> {/* EZT IDE! */}
           {children}
           <Toaster />
         </body>

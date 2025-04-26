@@ -13,7 +13,7 @@ const About: React.FC = () => {
     <div
       className="flex flex-col min-h-screen  text-white"
       style={{
-        backgroundImage: "url('/LandingPage.svg')",
+        backgroundImage: "url('/rolunk.svg')",
         backgroundSize: "cover",
         backgroundPosition: "100% 100%",
         backgroundRepeat: "no-repeat",
