@@ -66,18 +66,31 @@ export default function WeeklyTipsClient({
         if (!res.ok) throw new Error("Nem sikerült lekérni az adatokat");
         const data: RawTip[] = await res.json();
 
+        // a mai dátum és a hétfő-vasárnap határok
+        const today = new Date();
+        const dayIdx = today.getDay(); // 0=vasárnap,1=hétfő...
+        const diffToMon = (dayIdx + 6) % 7; // hétfő legyen 0
+        const monday = new Date(today);
+        monday.setDate(today.getDate() - diffToMon);
+        monday.setHours(0, 0, 0, 0);
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+        sunday.setHours(23, 59, 59, 999);
+
         const normalize = (str: string) =>
           str
             .normalize("NFD")
             .replace(/\s+/g, "")
             .replace(/[\u0300-\u036f]/g, "")
             .toLowerCase();
+        const currentPackage = normalize(packageNames[activePackageId]);
 
-        const currentPackageName = normalize(packageNames[activePackageId]);
-
-        const filtered = data.filter(
-          (r) => normalize(r.subscription) === currentPackageName,
-        );
+        // először csomag szerint, aztán dátum szerint szűrés a héten belül
+        const filtered = data.filter((r) => {
+          if (normalize(r.subscription) !== currentPackage) return false;
+          const d = new Date(r.date);
+          return d >= monday && d <= sunday;
+        });
 
         const grouped: Record<string, Record<string, RawTip[]>> = {};
         filtered.forEach((r) => {
@@ -87,7 +100,7 @@ export default function WeeklyTipsClient({
         });
 
         const transformed: GroupedByDay = {};
-        for (const [day, slips] of Object.entries(grouped)) {
+        Object.entries(grouped).forEach(([day, slips]) => {
           transformed[day] = Object.values(slips).map((rows) => {
             const first = rows[0];
             return {
@@ -103,19 +116,17 @@ export default function WeeklyTipsClient({
               })),
             };
           });
-        }
+        });
 
         setWeeklyTips(transformed);
 
-        const today = new Date();
-        const todayHu = today.toLocaleDateString("hu-HU", {
+        const todayName = today.toLocaleDateString("hu-HU", {
           weekday: "long",
         });
-        const normalizedToday = normalize(todayHu);
-        const defaultDay = Object.keys(transformed).find(
-          (day) => normalize(day) === normalizedToday,
+        const matched = Object.keys(transformed).find(
+          (d) => normalize(d) === normalize(todayName),
         );
-        setSelectedDay(defaultDay || Object.keys(transformed)[0] || "");
+        setSelectedDay(matched || Object.keys(transformed)[0] || "");
       } catch (e: any) {
         console.error(e);
         setError(e.message);
@@ -130,14 +141,27 @@ export default function WeeklyTipsClient({
   if (error)
     return <p className="text-center mt-10 text-red-600">Hiba: {error}</p>;
 
-  const days = Object.keys(weeklyTips);
+  const order = [
+    "hétfő",
+    "kedd",
+    "szerda",
+    "csütörtök",
+    "péntek",
+    "szombat",
+    "vasárnap",
+  ];
+  const daysUnsorted = Object.keys(weeklyTips);
+  const days = order
+    .map((w) => daysUnsorted.find((d) => d.toLowerCase() === w))
+    .filter((d): d is string => Boolean(d));
+
   const slips = weeklyTips[selectedDay] || [];
 
   return (
     <div className="relative">
       {dropdownOpen && (
         <div
-          className="fixed inset-0 backdrop-blur-md z-10"
+          className="fixed inset-0 backdrop-blur-md z-10 flex flxe-col md:flex-row list-none"
           onClick={() => setDropdownOpen(false)}
         />
       )}
@@ -154,16 +178,16 @@ export default function WeeklyTipsClient({
           Az oddsok a feltöltés pillanatában értendőek
         </div>
 
-        <div ref={ddRef} className="relative inline-block mb-6 w-56 text-white">
+        <div ref={ddRef} className="relative inline-block mb-6 text-white">
           <p className="ml-2">Válassz napot</p>
           <button
             onClick={() => setDropdownOpen((o) => !o)}
-            className="header-button bg-white text-black"
+            className="header-button bg-white text-black w-30 text-left px-2  text-center"
           >
-            {selectedDay || "–"}
+            {selectedDay || "Hamarosan"}
           </button>
           {dropdownOpen && (
-            <ul className="absolute z-20 mt-2 w-full bg-primary-turquoise rounded-lg shadow-lg max-h-60 overflow-auto">
+            <ul className="absolute z-20 mt-2 w-full bg-primary-turquoise rounded-lg shadow-lg w-50 overflow-auto">
               <style
                 dangerouslySetInnerHTML={{
                   __html: `ul::-webkit-scrollbar { display: none; }`,
@@ -182,8 +206,8 @@ export default function WeeklyTipsClient({
                   >
                     {day}
                     {date && (
-                      <div className="absolute left-full top-1/2 ml-3 -translate-y-1/2 bg-white bg-opacity-90 backdrop-blur-sm text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-30">
-                        {date} – {weeklyTips[day]?.length || 0} szelvény
+                      <div className="absolute left-full top-1/2 ml-3 -translate-y-1/2 bg-white bg-opacity-90 backdrop-blur-sm text-black text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-30">
+                        {date}
                       </div>
                     )}
                   </li>
@@ -196,7 +220,8 @@ export default function WeeklyTipsClient({
         <div className="text-left text-gray-600 mb-10">
           Dátum:{" "}
           <span className="font-semibold text-yellow-400">
-            {slips[0]?.date || "–"}
+            {slips[0]?.date ||
+              "Nincs aktuális tipp még erre a napra. Hamarosan fent leszek a nyerő szelvények ;)"}
           </span>
         </div>
 
