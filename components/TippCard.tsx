@@ -38,7 +38,7 @@ const TippCard: React.FC<TippCardProps> = ({ tip }) => {
         <div className="flipbox-back bg-gray-800 p-4 flex flex-col items-center min-h-[250px] md:min-h-[400px] gap-4">
           {/* Felül: cím */}
           {tip.accuracy !== undefined && (
-            <div className="justify-center absolute top-[-28] transform  bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold text-sm px-6 py-2 rounded-full shadow-lg z-[-20] fadeUp-accuracy trapezoid-shape">
+            <div className="justify-center absolute top-[-29] transform  bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold text-sm px-6 py-2 rounded-full shadow-lg z-[-20] fadeUp-accuracy trapezoid-shape">
               🎯 Találati arány: {tip.accuracy}%
             </div>
           )}
