@@ -18,6 +18,7 @@ const Header = ({ session }: { session?: Session | null }) => {
     { name: "Kezdőlap", href: "/" },
     { name: "Tippek", href: "/tips" },
     { name: "Előfizetés", href: "/subscription" },
+    { name: "Útmutató", href: "/tutorial" },
     { name: "Belépés", href: "/sign-up" },
   ];
 
@@ -26,6 +27,7 @@ const Header = ({ session }: { session?: Session | null }) => {
   const rightLinks = [
     { name: "Tippek", href: "/tips" },
     { name: "Előfizetés", href: "/subscription" },
+    { name: "Útmutató", href: "/tutorial" },
     { name: "Belépés", href: "/sign-up" },
   ];
 
