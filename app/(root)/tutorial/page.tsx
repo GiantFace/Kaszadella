@@ -31,7 +31,7 @@ export default function Tutorial() {
         <p className="mb-6">
           Ha még mindig kérdésed lenne, csatlakozz hozzánk a{" "}
           <Link
-            href="https://facebook.com"
+            href="https://www.facebook.com/groups/671403415665322"
             target="_blank"
             className="underline text-primary-turquoise hover:text-white"
           >
