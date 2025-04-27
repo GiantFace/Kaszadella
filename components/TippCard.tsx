@@ -8,6 +8,7 @@ interface Tipp {
   details?: string;
   cover?: string;
   price?: number;
+  accuracy?: number;
 }
 
 interface TippCardProps {
@@ -36,6 +37,12 @@ const TippCard: React.FC<TippCardProps> = ({ tip }) => {
         {/* Hátoldal */}
         <div className="flipbox-back bg-gray-800 p-4 flex flex-col items-center min-h-[250px] md:min-h-[400px] gap-4">
           {/* Felül: cím */}
+          {tip.accuracy !== undefined && (
+            <div className="justify-center absolute top-[-28] transform  bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold text-sm px-6 py-2 rounded-full shadow-lg z-[-20] fadeUp-accuracy trapezoid-shape">
+              🎯 Találati arány: {tip.accuracy}%
+            </div>
+          )}
+
           <h3 className="font-bold text-2xl text-white text-center max-h-1.5">
             {tip.title}
           </h3>
@@ -59,7 +66,7 @@ const TippCard: React.FC<TippCardProps> = ({ tip }) => {
             {tip.back_description}
           </p>
           {/* Gomb */}
-          <button className="flixbox-button text-white rounded-lg font-semibold w-full  h-10 hover:bg-dark-200 transition-transform hover:scale-105 min-h-9">
+          <button className="flixbox-button text-white rounded-lg font-semibold w-full  h-10 hover:bg-primary-turquoise hover:text-black transition-transform hover:scale-105 min-h-9">
             <Link href="/subscription">Aktiválom</Link>
           </button>
         </div>

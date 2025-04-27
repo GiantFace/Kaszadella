@@ -17,7 +17,7 @@ interface Props {
 const TipList = ({ tips, containerClassName }: Props) => {
   return (
     <section className={containerClassName}>
-      <h2 className="font-bebas-neue text-4xl text-white mt-20 md:mt-0 justify-center text-center">
+      <h2 className="font-bebas-neue text-5xl text-white mt-20 mb-10 md:mt-0 justify-center text-center">
         CSOMAGJAINK
       </h2>
       <ul className="tipp-list min-h-6 grid grid-cols-1 text-black sm:grid-cols-1 md:grid-cols-3 gap-1">

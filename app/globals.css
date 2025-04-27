@@ -420,6 +420,28 @@
   }
 
 
+
+/*Accuarncy */
+  @keyframes fadeUp-accuracy {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, 20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  .animate-fadeUp-accuracy {
+    animation: fadeUp 0.7s ease-out forwards;
+  }
+
+  .trapezoid-shape {
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  }
+
+
   /* tipp Cover */
   .tipp-cover_extra_small {
     @apply w-[28.95px] h-10;

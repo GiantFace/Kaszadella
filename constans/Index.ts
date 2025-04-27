@@ -113,6 +113,7 @@ export const sampleTips = [
     cover: "/images/Kaszadella_halal_starter_pack.png",
     video: "/videos/start-pack.mp4",
     price: 0,
+    accuracy: 68,
   },
   {
     id: 2,
@@ -130,6 +131,7 @@ export const sampleTips = [
     cover: "/images/Kaszadella_halal_casa_pack.png",
     video: "/videos/kasza-pack.mp4",
     price: 0,
+    accuracy: 59,
   },
   {
     id: 3,
@@ -147,6 +149,7 @@ export const sampleTips = [
     cover: "/images/Kaszadella_halal_kaszadella_pack2.png",
     video: "/videos/kaszadella-pack.mp4",
     price: 0,
+    accuracy: 73,
   },
 ];
 
